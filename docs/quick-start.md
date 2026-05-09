@@ -90,7 +90,7 @@ A typical first edit: change `Dear {client_name}, your invoice is ready.` to you
 Open <span class="screen-path">Easy Invoice → Add New</span>.
 
 <ol class="step-list">
-  <li>Pick or create a <strong>Client</strong> (clients are WordPress users — see <a href="/clients">Clients & portal</a>).</li>
+  <li>Pick or create a <strong>Client</strong> (clients are WordPress users — see <a href="/docs/clients">Clients & portal</a>).</li>
   <li>Set the <strong>Invoice date</strong> and <strong>Due date</strong>.</li>
   <li>Add line items — name, quantity, unit price, optional tax / discount per line.</li>
   <li>Pick a <strong>Currency</strong> (override the default if needed).</li>

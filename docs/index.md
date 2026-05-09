@@ -17,10 +17,10 @@ next:
       <span class="doc-pro-pill" title="Adds Stripe, Square, Mollie, recurring, partials, deposits, item library, custom permalinks">Pro</span>
     </div>
     <h1 class="ei-hero__title">Bill clients on your own WordPress site — invoices, quotes, payments, recurring billing.</h1>
-    <p class="ei-hero__lede">Run a real billing office from WordPress: build invoices, send quotes, take card payments, and let clients self-serve a portal. The <strong>free plugin</strong> ships PayPal &amp; Manual gateways. <strong>Easy Invoice Pro</strong> unlocks Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, recurring &amp; subscription billing, partial payments, deposits, the Item Library, and the Template Builder.<br /><span style="margin-top:.6rem;display:inline-block;color:var(--vp-c-text-2);font-size:0.95rem;">New here? Jump to <a href="/installation">Install</a>, then read <a href="/admin-dashboard">Your WordPress admin</a> — it mirrors the Easy Invoice sidebar one-to-one.</span></p>
+    <p class="ei-hero__lede">Run a real billing office from WordPress: build invoices, send quotes, take card payments, and let clients self-serve a portal. The <strong>free plugin</strong> ships PayPal &amp; Manual gateways. <strong>Easy Invoice Pro</strong> unlocks Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, recurring &amp; subscription billing, partial payments, deposits, the Item Library, and the Template Builder.<br /><span style="margin-top:.6rem;display:inline-block;color:var(--vp-c-text-2);font-size:0.95rem;">New here? Jump to <a href="/docs/installation">Install</a>, then read <a href="/docs/admin-dashboard">Your WordPress admin</a> — it mirrors the Easy Invoice sidebar one-to-one.</span></p>
     <div class="ei-hero__actions">
-      <a class="ei-btn ei-btn--primary" href="/installation">Install Easy Invoice (free)</a>
-      <a class="ei-btn ei-btn--ghost" href="/quick-start">Setup walkthrough</a>
+      <a class="ei-btn ei-btn--primary" href="/docs/installation">Install Easy Invoice (free)</a>
+      <a class="ei-btn ei-btn--ghost" href="/docs/quick-start">Setup walkthrough</a>
       <a class="doc-btn-pro" href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Get Easy Invoice Pro</a>
     </div>
     <p class="ei-hero__chip-label">What you need to run Easy Invoice:</p>
@@ -37,7 +37,7 @@ next:
   <p class="doc-pro-banner__copy"><strong><span class="doc-pro-pill">Pro</span> Need Stripe, recurring billing, partial payments, deposits, or the Template Builder?</strong> Activate Easy Invoice Pro and turn features on under <strong>Easy Invoice → Settings</strong> &amp; <strong>License</strong>. The license unlocks every Pro module on your active plan tier (Personal / Professional / Agency).</p>
   <div class="doc-pro-banner__actions">
     <a class="doc-btn-pro" href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">View pricing &amp; buy</a>
-    <a class="doc-btn-pro-ghost" href="/features">Browse Pro features →</a>
+    <a class="doc-btn-pro-ghost" href="/docs/features">Browse Pro features →</a>
   </div>
 </div>
 
@@ -45,42 +45,42 @@ next:
 
 <div class="ei-cards">
 
-<a class="ei-card" href="/installation">
+<a class="ei-card" href="/docs/installation">
   <span class="ei-card__icon">📦</span>
   <h3>Install &amp; setup</h3>
   <p>Free + Pro ZIP, license, default pages, permalinks, and the first send.</p>
   <span class="ei-card__cta">Get started →</span>
 </a>
 
-<a class="ei-card ei-card--flagged" href="/admin-dashboard">
+<a class="ei-card ei-card--flagged" href="/docs/admin-dashboard">
   <span class="ei-card__icon">🧭</span>
   <h3>Your WordPress admin</h3>
   <p>Plain map of <strong>Dashboard</strong>, <strong>Invoices</strong>, <strong>Quotes</strong>, <strong>Payments</strong>, <strong>Clients</strong>, <strong>Reports</strong>, <strong>Settings</strong>, <strong>License</strong> — exactly how the Easy Invoice menu labels them.</p>
   <span class="ei-card__cta">Match the sidebar →</span>
 </a>
 
-<a class="ei-card" href="/invoices">
+<a class="ei-card" href="/docs/invoices">
   <span class="ei-card__icon">🧾</span>
   <h3>Invoices</h3>
   <p>Builder, line items, taxes, discounts, currency, numbering, statuses (paid / unpaid / pending bank / pending cheque), and PDF export.</p>
   <span class="ei-card__cta">Build invoices →</span>
 </a>
 
-<a class="ei-card" href="/quotes">
+<a class="ei-card" href="/docs/quotes">
   <span class="ei-card__icon">📝</span>
   <h3>Quotes / estimates</h3>
   <p>Send a quote first, accept / decline online, and one-click convert to an invoice. Free in core.</p>
   <span class="ei-card__cta">Send quotes →</span>
 </a>
 
-<a class="ei-card" href="/clients">
+<a class="ei-card" href="/docs/clients">
   <span class="ei-card__icon">👥</span>
   <h3>Clients &amp; portal</h3>
   <p>Clients are mapped to WordPress users. Pro adds a hosted client portal — login, profile, invoice list, payment history.</p>
   <span class="ei-card__cta">Run a portal →</span>
 </a>
 
-<a class="ei-card ei-card--flagged" href="/payment-settings">
+<a class="ei-card ei-card--flagged" href="/docs/payment-settings">
   <span class="doc-card-badge-pro"><span class="doc-pro-pill">Pro extra</span></span>
   <span class="ei-card__icon">💳</span>
   <h3>Payments</h3>
@@ -88,7 +88,7 @@ next:
   <span class="ei-card__cta">Configure gateways →</span>
 </a>
 
-<a class="ei-card ei-card--flagged" href="/recurring-invoices">
+<a class="ei-card ei-card--flagged" href="/docs/recurring-invoices">
   <span class="doc-card-badge-pro"><span class="doc-pro-pill">Pro</span></span>
   <span class="ei-card__icon">🔁</span>
   <h3>Recurring &amp; subscriptions</h3>
@@ -96,7 +96,7 @@ next:
   <span class="ei-card__cta">Schedule billing →</span>
 </a>
 
-<a class="ei-card ei-card--flagged" href="/email-settings">
+<a class="ei-card ei-card--flagged" href="/docs/email-settings">
   <span class="doc-card-badge-pro"><span class="doc-pro-pill">Pro extra</span></span>
   <span class="ei-card__icon">✉️</span>
   <h3>Email &amp; notifications</h3>
@@ -104,7 +104,7 @@ next:
   <span class="ei-card__cta">Send emails →</span>
 </a>
 
-<a class="ei-card ei-card--flagged" href="/third-party-integrations">
+<a class="ei-card ei-card--flagged" href="/docs/third-party-integrations">
   <span class="doc-card-badge-pro"><span class="doc-pro-pill">Pro</span></span>
   <span class="ei-card__icon">💎</span>
   <h3>Pro features overview</h3>
@@ -112,49 +112,49 @@ next:
   <span class="ei-card__cta">Explore Pro →</span>
 </a>
 
-<a class="ei-card" href="/features">
+<a class="ei-card" href="/docs/features">
   <span class="ei-card__icon">📋</span>
   <h3>All Pro features</h3>
   <p>Flat catalog. One card per Pro feature, plus the plan tier matrix for Personal / Professional / Agency.</p>
   <span class="ei-card__cta">See the matrix →</span>
 </a>
 
-<a class="ei-card" href="/shortcodes">
+<a class="ei-card" href="/docs/shortcodes">
   <span class="ei-card__icon">⚙️</span>
   <h3>Shortcodes</h3>
   <p><code>[easy_invoice_url]</code>, <code>[easy_quote_url]</code>, <code>[easy_invoice_login]</code>, <code>[easy_invoice_profile]</code>, <code>[easy_invoice_client_login]</code>.</p>
   <span class="ei-card__cta">View reference →</span>
 </a>
 
-<a class="ei-card" href="/hooks-filters">
+<a class="ei-card" href="/docs/hooks-filters">
   <span class="ei-card__icon">🪝</span>
   <h3>Hooks &amp; filters</h3>
   <p>Actions and filters that let you extend invoices, quotes, payments, emails, gateways, and the public single template.</p>
   <span class="ei-card__cta">Extend Easy Invoice →</span>
 </a>
 
-<a class="ei-card" href="/api-reference">
+<a class="ei-card" href="/docs/api-reference">
   <span class="ei-card__icon">🔌</span>
   <h3>AJAX &amp; webhooks</h3>
   <p>Easy Invoice doesn't register custom REST routes. It uses <code>admin-ajax.php</code> actions and gateway webhooks (Stripe, Mollie, Square, Authorize.Net).</p>
   <span class="ei-card__cta">Read API docs →</span>
 </a>
 
-<a class="ei-card" href="/faqs">
+<a class="ei-card" href="/docs/faqs">
   <span class="ei-card__icon">❓</span>
   <h3>FAQs</h3>
   <p>Free vs Pro, PDF on the client, currencies, taxes, GDPR, multisite, and the most-asked billing questions.</p>
   <span class="ei-card__cta">Find answers →</span>
 </a>
 
-<a class="ei-card" href="/troubleshooting">
+<a class="ei-card" href="/docs/troubleshooting">
   <span class="ei-card__icon">🛠️</span>
   <h3>Troubleshooting</h3>
   <p>Permalinks, missing PDF, gateway sandbox, blank reports, role / capability oddities, and recurring cron issues.</p>
   <span class="ei-card__cta">Fix issues →</span>
 </a>
 
-<a class="ei-card" href="/support">
+<a class="ei-card" href="/docs/support">
   <span class="ei-card__icon">💬</span>
   <h3>Get support</h3>
   <p>WordPress.org forum, MatrixAddons support portal, Pro priority help, and how to file a useful bug report.</p>

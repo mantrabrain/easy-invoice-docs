@@ -5,7 +5,7 @@ description: Customize the emails Easy Invoice sends — invoice ready, quote re
 
 <div class="doc-pro-callout" role="note">
   <span class="doc-pro-pill">Pro</span>
-  <span><strong>Easy Invoice Pro</strong> adds the <strong>Email Enhancements</strong> module — custom reply-to per template, brand colours, and the full <strong>Payment Reminder</strong> cadence. See <a href="/features#email-enhancements">all email Pro features</a>.</span>
+  <span><strong>Easy Invoice Pro</strong> adds the <strong>Email Enhancements</strong> module — custom reply-to per template, brand colours, and the full <strong>Payment Reminder</strong> cadence. See <a href="/docs/features#email-enhancements">all email Pro features</a>.</span>
   <a class="doc-pro-callout__cta" href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">View pricing &amp; buy →</a>
 </div>
 

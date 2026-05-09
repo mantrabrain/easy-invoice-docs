@@ -5,7 +5,7 @@ description: Configure PayPal & Manual (free) and the eight Pro gateways — Str
 
 <div class="doc-pro-callout" role="note">
   <span class="doc-pro-pill">Pro</span>
-  <span><strong>Easy Invoice Free</strong> ships <strong>PayPal</strong> &amp; <strong>Manual</strong>. <strong>Easy Invoice Pro</strong> adds Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, and Moneris — see <a href="/features#pro-gateways">all Pro gateways</a>.</span>
+  <span><strong>Easy Invoice Free</strong> ships <strong>PayPal</strong> &amp; <strong>Manual</strong>. <strong>Easy Invoice Pro</strong> adds Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, and Moneris — see <a href="/docs/features#pro-gateways">all Pro gateways</a>.</span>
   <a class="doc-pro-callout__cta" href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">View pricing &amp; buy →</a>
 </div>
 

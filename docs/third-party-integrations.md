@@ -5,7 +5,7 @@ description: A guided tour of every Easy Invoice Pro module — gateways, recurr
 
 <div class="doc-pro-callout" role="note">
   <span class="doc-pro-pill">Pro</span>
-  <span>This page is the <strong>guided tour</strong> of Easy Invoice Pro. For the <strong>flat catalog</strong> (one card per feature), see <a href="/features">All Pro features</a>.</span>
+  <span>This page is the <strong>guided tour</strong> of Easy Invoice Pro. For the <strong>flat catalog</strong> (one card per feature), see <a href="/docs/features">All Pro features</a>.</span>
   <a class="doc-pro-callout__cta" href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">View pricing &amp; buy →</a>
 </div>
 
