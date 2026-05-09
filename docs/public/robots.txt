@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+Allow: /installation
+Allow: /quick-start
+Allow: /admin-dashboard
+Allow: /invoices
+Allow: /quotes
+Allow: /clients
+Allow: /payments
+Allow: /payment-settings
+Allow: /email-settings
+Allow: /recurring-invoices
+Allow: /third-party-integrations
+Allow: /features
+Allow: /shortcodes
+Allow: /hooks-filters
+Allow: /api-reference
+Allow: /faqs
+Allow: /troubleshooting
+Allow: /changelog
+Allow: /support
+
+Sitemap: https://easy-invoice.matrixaddons.com/docs/sitemap.xml

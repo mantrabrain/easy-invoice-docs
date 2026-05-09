@@ -1,0 +1,13 @@
+{
+  "name": "Easy Invoice Documentation",
+  "short_name": "Easy Invoice Docs",
+  "description": "Official documentation for the Easy Invoice WordPress plugin (Free + Pro)",
+  "start_url": "/docs/",
+  "scope": "/docs/",
+  "icons": [
+    { "src": "/docs/logo.svg", "type": "image/svg+xml", "sizes": "any" }
+  ],
+  "theme_color": "#059669",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
