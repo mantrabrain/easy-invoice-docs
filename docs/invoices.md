@@ -1,181 +1,244 @@
 ---
-title: Invoices
-description: Build, send, and track invoices in Easy Invoice — the builder, line items, taxes, discounts, status flow, numbering, multi-currency, and client-side PDF export.
+title: Invoices — create, send, and get paid (step by step)
+description: Beginner-friendly walkthrough of creating, sending, and reconciling invoices in Easy Invoice — every field explained, the why behind each input, and the full flow from Add New to Paid.
 ---
 
-# Invoices
+# Invoices — step-by-step for first-time users
 
-The invoice is the core unit of Easy Invoice. Every list, report, payment, and email is anchored to an invoice. This page walks the entire builder, all the meta you can set, the status flow, and how PDFs work.
+If this is your **first invoice ever** in Easy Invoice, follow this page top to bottom. Every field on the Invoice Builder is listed, with **why** you'd fill it in and **what the client sees** when you do.
 
-## What an invoice _is_, technically
+> Need help setting up your defaults first (company name, logo, currency, prefix)? Run through the **[Quick start](./quick-start)** first, then come back here.
 
-- **Custom post type:** `easy_invoice` (registered in `includes/EasyInvoice.php:281–311`).
-- **Public**: yes (visitors can open the public invoice URL).
-- **Admin UI**: hidden — Easy Invoice ships its own admin pages instead of standard WP edit screens.
-- **Slug**: `invoice/<post-slug>`.
-- **Capabilities**: `manage_options` to edit (admins), separate role for portal viewing.
+## What an invoice looks like end-to-end
 
-## Status flow
+| Stage | Where it happens | Status |
+| --- | --- | --- |
+| 1. Create it | WP Admin → Easy Invoice → Add New Invoice | `Draft` |
+| 2. Mark Available | Click **Publish** / **Available** in the builder | `Available` |
+| 3. Send to client | **Send Email** button in the builder | (email sent) |
+| 4. Client pays online | Public invoice URL → gateway → return | `Paid` (auto, with webhooks) |
+| 5. Or record a manual payment | Easy Invoice → Add New Payment | `Paid` (manual) |
 
-WordPress core post status + Easy Invoice payment status (meta key `_payment_status`):
+---
 
-| Stage | Post status | Payment status (meta) | Triggered by |
-| --- | --- | --- | --- |
-| **Draft** | `draft` | `unpaid` | Save without sending |
-| **Sent** | `publish` | `unpaid` | _Send to Client_ button |
-| **Pending bank** | `pending-bank` | `pending-bank` | Bank Transfer gateway (Pro) |
-| **Pending cheque** | `pending-cheque` | `pending-cheque` | Cheque gateway (Pro) |
-| **Paid** | `publish` | `completed` (or `paid`) | Manual mark or successful gateway return |
-| **Refunded** | `publish` | `refunded` | Mark refunded on the related Payment |
-| **Overdue** | `publish` | `unpaid` + due date past | Derived in UI / reports |
-| **Cancelled** | `private` | `cancelled` | Manual via builder |
+## 1. Open the Invoice Builder
 
-> "Overdue" isn't a CPT status — it's computed each render from the due date. This means overdue badges update without a cron run.
+WP Admin sidebar → **Easy Invoice → Add New Invoice**.
 
-## The invoice builder
+The builder opens with **five tabs** on the left:
 
-Open <span class="screen-path">Easy Invoice → Add New</span>.
+1. **Invoice Details** — the basics (title, number, dates, status, notes, terms)
+2. **Items** — what you're billing for
+3. **Client** — who you're billing
+4. **Discounts & Taxes** — pricing modifiers
+5. **Payment** — gateways and currency override
 
-### Header
+You don't have to fill them in this exact order — the builder remembers everything between tabs and saves on **Publish**.
 
-- **Invoice number** — auto-incremented from <span class="screen-path">Settings → Invoice → Next invoice number</span>. Override per invoice if you need to.
-- **Client** — start typing to search WP users; click _+ Add new_ to create one.
-- **Invoice date** — defaults to today.
-- **Due date** — defaults to today + N days from settings.
-- **Status badge** — inline, shows current state.
+![Invoice Builder — the five-tab editor with live total](/screenshots/24-invoice-builder.png)
 
-### Line items
+---
 
-Each line has:
+## 2. Invoice Details tab
 
-- **Item** — title (autocomplete from <span class="doc-pro-pill">Pro</span> Item Library when active).
-- **Description** — multi-line, printed on the invoice.
-- **Quantity** — decimals supported.
-- **Unit price** — currency-formatted.
-- **Tax** (per line, when "Item" tax method is selected).
-- **Discount** (per line, when enabled).
-- **Total** — auto-computed, read-only.
+### Invoice Title
+**What it is**: A short label like *"Website design — May 2026"*.
+**Why it matters**: Shows in your invoice list (admin) and on the public invoice page right under the invoice number. Helps both you and the client identify which job this invoice is for.
 
-> Reorder lines by drag handle. Delete with the trash icon.
+### Invoice Description
+**What it is**: Free-text paragraph.
+**Why it matters**: Optional. Use for context that doesn't fit in line items — *"This invoice covers Phase 1 only; Phase 2 will be invoiced separately."*
 
-### Totals
+### Invoice Number
+**What it is**: Auto-generated from your prefix + counter (e.g. `EIIN_0042`).
+**Why it matters**: Read-only by default — auto-increment keeps numbers sequential, which most tax authorities require. The format is set under **Settings → Invoice → Invoice Prefix** and **Next Invoice Number**.
 
-| Field | What it is |
-| --- | --- |
-| **Subtotal** | Sum of (qty × price) for every line, before discount/tax. |
-| **Discount** | Either a flat amount or a percentage; before- or after-tax depending on settings. |
-| **Tax** | Per-line or single bottom rate, depending on `Tax entry method`. |
-| **Total** | Final amount the client owes. |
-| **Amount paid** | Aggregated from related Payment posts. |
-| **Balance due** | Total − amount paid. |
+### Issue Date
+**What it is**: The day you consider the invoice "issued" (today, usually).
+**Why it matters**: Many tax regimes calculate VAT/GST based on issue date, not due date. Set this carefully if you're back-dating.
 
-> The `easy_invoice_invoice_total` filter (`includes/Models/Invoice.php:914`) lets you re-derive totals — useful for B2B with negotiated lines.
+### Due Date
+**What it is**: When the invoice should be paid by.
+**Why it matters**: Drives the "Overdue" badge, the auto-email payment reminders (Pro), and the "X days late" warnings on your dashboard.
 
-### Currency
+> **Suggested default**: Issue Date + 30 days for B2B, Issue Date + 7 days for retainers.
 
-Per-invoice currency override field (defaults to <span class="screen-path">Settings → Currency</span>). Useful for multi-currency operators who bill some clients in EUR and others in USD.
+### Status
+| Status | What it means | When to use |
+| --- | --- | --- |
+| **Draft** | Hidden from clients, not yet "issued" | While you're still editing |
+| **Available** | Live and visible at the public URL | Once you're ready to send |
+| **Unpaid** | Sent, not yet paid | After sending (set automatically) |
+| **Overdue** | Past the due date, unpaid | Auto-set on the due date |
+| **Paid** | Payment recorded | After a payment is collected |
+| **Cancelled** | Withdrawn | If the deal falls through |
 
 ### Notes
+Visible **to the client** on the PDF/public invoice — use for "thanks!" or special instructions.
 
-- **Customer notes** — printed at the bottom of the invoice (visible to the client).
-- **Private notes** — admin-only, useful for internal context.
+### Internal Notes
+**Not visible** to the client — for you and your team only. Use for *"client wants Net 60 — already approved by Sarah."*
 
-### Sidebar actions
+### Payment Terms
+The terms paragraph at the bottom of the invoice. **Defaults to your global** *Settings → Invoice → Terms & Conditions* — override per invoice if needed.
 
-- **Save draft**
-- **Send to Client** — fires the email template.
-- **Print**
-- **Download PDF** — opens the client-side renderer (jsPDF + canvas capture).
-- **Public link** — copy/paste; opens the public invoice page.
-- **Duplicate** <span class="pro-pill">PRO</span> — clone every line, status reset to draft.
+---
 
-## Sending the invoice
+## 3. Items tab — what you're billing for
 
-Click **Send to Client** from the builder. Easy Invoice:
+Click **Add Item** to add a line. Each item has:
 
-1. Reads <span class="screen-path">Settings → Email → Invoice Available</span> (subject, heading, body).
-2. Substitutes merge tags (see [Email & notifications](/email-settings#merge-tags)).
-3. Posts via `wp_mail` (use SMTP for deliverability — see [Troubleshooting](/troubleshooting#email-not-arriving)).
-4. Logs the result via the `easy_invoice_email_sent` / `easy_invoice_email_failed` actions.
-
-Re-sending triggers another email; status doesn't change (still _Sent_).
-
-## PDF export (client-side)
-
-Easy Invoice generates the PDF **in the browser** using **jsPDF + html2canvas** (see `includes/Helpers/PdfHelper.php:78–86`).
-
-- **Pro:** No server-side library required (no Dompdf / mPDF dependency).
-- **Con:** Long invoices need browser canvas resources — very-long invoices (50+ line items) may be slow on weak machines.
-- **Print-to-PDF** is always a fallback (Cmd-P / Ctrl-P).
-
-> <span class="doc-pro-pill">Pro</span> The **PDF Enhancements** module adds a watermark, alignment options, and per-template PDF customisation. See [Pro features overview](/third-party-integrations#pdf-enhancements).
-
-## Numbering format
-
-Set in <span class="screen-path">Settings → Invoice</span>:
-
-| Field | Example | Note |
-| --- | --- | --- |
-| Prefix | `INV-` | Anything text. |
-| Next number | `1` | Increments on every save. |
-| Auto-increment | On / Off | Off = manual numbering. |
-| Padding | `4` | `INV-0001`, `INV-0002`… (set in advanced if exposed). |
-
-> Year-restart numbering (e.g. `INV-2026-0001`): set the next number manually each January and bake the year into the prefix. The free plugin doesn't auto-restart per year.
-
-## Bulk actions
-
-The invoice list (<span class="screen-path">Easy Invoice → All Invoices</span>) supports:
-
-- **Filter** by status, client, date range.
-- **Bulk delete** (trashed first, can be restored).
-- **Bulk export to CSV** <span class="doc-pro-pill">Pro</span>
-
-## Discounts
-
-Free supports both **before-tax** and **after-tax** discount methods (set in <span class="screen-path">Settings → Tax</span>). Discounts can be:
-
-- A **flat** amount in your currency.
-- A **percentage** of the subtotal.
-
-> <span class="doc-pro-pill">Pro</span> The Pro plugin doesn't add a coupon system — discounts are per-invoice manual fields. For coupon codes use a marketing plugin alongside Easy Invoice.
-
-## Tax
-
-Per-line or one bottom rate (set in <span class="screen-path">Settings → Tax</span>):
-
-- **Item** — tax field on each line, taxable flag per line.
-- **Subtotal** — single rate at the bottom.
-
-> <span class="doc-pro-pill">Pro</span> **Additional Tax** adds support for more than one rate stack — useful for "GST + State Tax" or "VAT + service charge".
-
-## Refunds
-
-Refunds aren't an invoice action — they're a **status change on the Payment record**:
-
-1. Issue the refund in the gateway dashboard (Stripe, PayPal, etc.).
-2. Open <span class="screen-path">Easy Invoice → Payments</span> → click the payment.
-3. Set status to **Refunded**.
-4. The invoice's payment status flips back to `unpaid` (or partially paid, depending on amount).
-
-See [Payments → Refunds](/payments#refunds) for the full flow.
-
-## Where the data lives
-
-| Data | Storage |
+| Field | Why it matters |
 | --- | --- |
-| Invoice header (number, dates, client, currency) | post meta |
-| Line items | meta `_easy_invoice_items` |
-| Payment status | meta `_payment_status` |
-| Payment records | separate `easy_invoice_payment` posts |
-| Recurring schedule (Pro) | meta on `easy_invoice_recurring` posts |
+| **Item Title** | Short name — what shows on the invoice (e.g. "Website design"). |
+| **Description** | Multi-line explanation under the title. Useful for breaking down what's included. |
+| **Quantity** | Number of units (hours, items, etc.). Use `1` for fixed-price jobs. |
+| **Price** | Unit price. |
+| **Adjust (%)** | (optional) Markup or markdown for **this item only**. `+10` adds 10%, `-25` subtracts 25%. Hide this column globally via **Settings → Invoice → Show/Hide Adjust Field** if it confuses clients. |
+| **Total** | Auto-calculated (Qty × Price + Adjust). Read-only. |
+| **Taxable** | Tick to include this item in the invoice tax calculation. Untick for tax-exempt items. |
 
-> Easy Invoice does **not** create custom DB tables — everything is in `wp_posts` + `wp_postmeta`. This means standard WP backups capture invoice data automatically.
+> **Pro tip:** With Pro's [Item Library](./features#item-library), you can save your common line items (hourly rate, support retainer, hosting) and add them with one click. <span class="pro-pill">PRO</span>
 
-## Where to go next
+---
 
-- 📝 [Quotes / estimates](/quotes) — same builder pattern for pre-sales.
-- 👥 [Clients & portal](/clients) — let clients see their invoices.
-- 💳 [Payment gateways](/payment-settings) — connect Stripe, PayPal, more.
-- ✉️ [Email & notifications](/email-settings) — customise every email.
-- 💎 [Pro features overview](/third-party-integrations) — what Pro adds.
+## 4. Client tab — who you're billing
+
+### Select Client (dropdown)
+Pick from existing clients you've already added. Each client is created under **Easy Invoice → All Clients → Add New Client** with:
+
+- Business name (or first + last name for individuals)
+- Billing email
+- Phone, website
+- Billing & shipping address
+- Tax / VAT number
+
+If you don't have a client yet, save the invoice as Draft, jump to **All Clients → Add New**, then return.
+
+> **Why this matters:** the selected client's email is who receives the **Invoice Available** email when you click **Send Email**. Their billing address is printed on the invoice header under "Bill To".
+
+![Client list — pick an existing client or add a new one](/screenshots/27-clients-list.png)
+
+---
+
+## 5. Discounts & Taxes tab
+
+### Discount Type
+- **No Discount** — skip the whole section.
+- **Percentage** — e.g. 10% off the subtotal.
+- **Fixed Amount** — e.g. $50 off.
+
+### Discount Value
+The number that goes with Discount Type (10 for 10%, 50 for $50).
+
+### Calculation Method
+- **Before Tax** — discount reduces the taxable amount, then tax applies. *(EU-friendly)*
+- **After Tax** — tax is applied on the full subtotal, then the discount comes off the total. *(US-friendly)*
+
+This choice matters for legal accuracy — check what your local tax authority requires.
+
+### Tax Rate (%)
+Override the global default tax rate (set in **Settings → Tax → Default Tax Rate**). Use `0` for tax-exempt invoices.
+
+### Price Includes Tax
+- **No** (default) — the prices you typed in Items are **net**, tax is added.
+- **Yes** — the prices you typed **already include** tax; Easy Invoice extracts the tax portion for reporting.
+
+> **Why it matters:** in the EU, most B2C catalog prices include VAT by default. In the US, prices are typically net.
+
+### Additional Tax fields <span class="pro-pill">PRO</span>
+
+If you've enabled *Pro → Additional Tax* (e.g. for Canadian GST + PST), a second tax block appears here. See [Settings reference → Tax](./settings-reference#_5-tax-settings) for the calculation modes.
+
+---
+
+## 6. Payment tab
+
+### Payment Gateways
+Tick which gateways the client can choose on this specific invoice. Defaults to **all enabled gateways from Settings**. Untick to hide one for this invoice — useful for *"this big client gets bank transfer only, no card fees."*
+
+### Currency
+Per-invoice override. Defaults to **Use from Global Settings**. Set when you bill an international client in their currency.
+
+### Currency Symbol Position
+Same idea — override the global symbol position (before/after the number) for this one invoice.
+
+---
+
+## 7. Save, mark Available, send
+
+When you're done editing:
+
+1. Click **Save Draft** to keep editing later, **or**
+2. Set Status to **Available** and click **Publish** — the invoice goes live at a public URL.
+3. Click **Send Email** to email the **Invoice Available** template to the client.
+
+The email body and subject come from **Settings → Email → Invoice Available**. The default body includes a **Pay Now** button that links to the public invoice. See [Email & notifications](./email-settings) for editing the template.
+
+![Invoice Available email template editor](/screenshots/18-settings-email-invoice.png)
+
+---
+
+## 8. The public invoice page
+
+When your client opens the link (or PDF) they see:
+
+- Your **logo** + company details (top left)
+- Their **billing details** (top right)
+- The line items table
+- Subtotal, discount, tax, total
+- A **Pay Now** button (if at least one gateway is enabled on this invoice)
+- The **Print** and **Download as PDF** buttons (their labels can be renamed via **Settings → Text Settings**)
+
+Once they pay (via Stripe/PayPal/etc.), the webhook fires and the invoice is marked **Paid** automatically. They also receive your **Payment Received** email.
+
+---
+
+## 9. The invoice list
+
+WP Admin → **Easy Invoice → All Invoices** shows every invoice with quick filters by status and a search box.
+
+![All Invoices — list with status filters, search, and row actions](/screenshots/23-invoices-list.png)
+
+Row actions:
+
+- **View** — open the public invoice
+- **Edit** — back to the Invoice Builder
+- **Duplicate** — clone with a fresh number (great for repeat jobs without recurring billing)
+- **PDF** — download
+- **Send** — re-send the email
+- **Delete** — trash
+
+---
+
+## Tips for new users
+
+- **Don't worry about getting numbering perfect on day 1.** Pick a prefix you like (`INV-`, `EIIN_`, year-based like `2026-`). You can change it later via Settings; existing invoices keep the number they were created with.
+- **Set realistic due dates.** Net 7 / 14 / 30 are common. Anything shorter than 7 days for B2B feels aggressive.
+- **Customize one email template.** The default **Invoice Available** body works fine, but adding a personal sentence at the top dramatically improves payment speed.
+- **Test with yourself first.** Email a $1 invoice to your own address, pay it, watch the whole flow — that's the fastest way to learn the system.
+
+---
+
+## Pro-only invoice extras
+
+- **Item Library** <span class="pro-pill">PRO</span> — saved products/services, one-click add. [Read more](./features#item-library)
+- **Recurring** <span class="pro-pill">PRO</span> — bill monthly/quarterly/yearly automatically. [Recurring invoices guide](./recurring-invoices)
+- **Partial payments** <span class="pro-pill">PRO</span> — let clients pay in installments. [Settings reference](./settings-reference#pro-only-invoice-settings)
+- **Deposit invoices** <span class="pro-pill">PRO</span> — split an invoice into deposit + balance.
+- **Watermarks** <span class="pro-pill">PRO</span> — `DRAFT`, `PAID`, `CONFIDENTIAL` overlay on the PDF.
+- **Template Builder** <span class="pro-pill">PRO</span> — drag-and-drop PDF layout designer. [Read more](./features#template-builder)
+
+<div class="doc-pro-callout">
+  <span class="doc-pro-pill">Pro</span>
+  <span>Need any of the above? <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro</a></span>
+</div>
+
+---
+
+## Next
+
+- [Send a Quote first, convert to invoice](./quotes)
+- [Email templates & smart tags](./email-settings)
+- [Recording payments manually](./payments)
+- [Payment gateway setup](./payment-settings)

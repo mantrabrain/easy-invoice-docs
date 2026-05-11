@@ -1,6 +1,6 @@
 ---
 title: Support
-description: How to get help with Easy Invoice — community forum, MatrixAddons support portal, priority Pro help, and writing a useful bug report.
+description: How to get help with Easy Invoice — community forum, MantraBrain support, priority Pro help, and writing a useful bug report.
 ---
 
 # Support
@@ -23,11 +23,11 @@ You're already here. Use the search box (top of page, on every page) to scan the
 
 ## Pro users
 
-### MatrixAddons support portal
+### MantraBrain support
 
 Pro license holders get **priority email support**:
 
-- 🌐 [matrixaddons.com/support](https://matrixaddons.com/support/)
+- 🌐 [mantrabrain.com/contact](https://mantrabrain.com/contact)
 - Sign in with the email tied to your license.
 - File a ticket with the answers from [What to include in a bug report](#what-to-include-in-a-bug-report) below.
 - Replies typically within 24 hours on Personal, faster on Professional/Agency.
@@ -70,9 +70,9 @@ Reproduce the issue once, then check `wp-content/debug.log`.
 | Channel | Purpose | Audience |
 | --- | --- | --- |
 | [WordPress.org forum](https://wordpress.org/support/plugin/easy-invoice/) | General questions, free plugin bugs | Free + Pro |
-| [MatrixAddons support](https://matrixaddons.com/support/) | Priority help, license issues | Pro only |
+| [MantraBrain support](https://mantrabrain.com/contact) | Priority help, license issues | Pro only |
 | [GitHub](https://github.com/mantrabrain/easy-invoice-docs) | Docs source & history | Developers |
-| [Facebook community](https://www.facebook.com/groups/easyinvoice) | Casual chat, tips | All |
+| [Facebook community](https://www.facebook.com/groups/mantrabraincommunity) | Casual chat, tips | All |
 
 ## Before opening a ticket
 
@@ -91,13 +91,13 @@ If the issue persists, file your ticket — and mention the steps you've already
 
 We track feature requests separately from bugs:
 
-- 🌐 [matrixaddons.com/contact](https://matrixaddons.com/contact/) — pick "Feature request" in the form.
+- 🌐 [mantrabrain.com/contact](https://mantrabrain.com/contact) — pick "Feature request" in the form.
 - Include a clear use case ("I run X kind of business and I'd love it if Y").
 - Pro license holders get priority on the roadmap.
 
 ## Custom development
 
-Need a custom integration, gateway, or migration? We do paid custom work for **Agency** customers and select **Professional** customers — reach out via [matrixaddons.com/contact](https://matrixaddons.com/contact/).
+Need a custom integration, gateway, or migration? We do paid custom work for **Agency** customers and select **Professional** customers — reach out via [mantrabrain.com/contact](https://mantrabrain.com/contact).
 
 ## Where to go next
 

@@ -60,15 +60,34 @@ Set up under <span class="screen-path">Settings → Subscription Invoices</span>
 
 ### Item Library
 
+![Item Library — saved products & services for one-click insertion](/screenshots/40-item-library.png)
+
 Saved line items with default price, tax, description. Recall on any invoice — type two characters and the line autocompletes.
 
 Open <span class="screen-path">Easy Invoice → Item Library</span> to manage. Storage: WP options key `easy_invoice_pro_saved_items`.
 
+**What you can save per item:** title, description, default unit price, default quantity, taxable flag, SKU/code (optional), and category tag. Useful for: hourly rates, fixed-price services, common products, hosting plans, retainers.
+
+**How clients see it:** they don't — Item Library is admin-only and just speeds up your invoice creation.
+
 ### Template Builder
 
-Drag-drop builder for custom invoice and quote templates. Add header blocks, footer notes, accent colours, alternate row layouts.
+![Template Builder — drag-and-drop designer for invoice / quote layouts](/screenshots/41-template-builder.png)
 
-Open <span class="screen-path">Easy Invoice → Template Builder</span>.
+Drag-and-drop visual builder for custom invoice and quote PDFs. Each template is composed of elements you can rearrange:
+
+- **Company Logo** &nbsp;·&nbsp; **Company Info** &nbsp;·&nbsp; **Billing Info** (client)
+- **Invoice Title / Quote Title** &nbsp;·&nbsp; **Invoice Number / Quote Number**
+- **Invoice Date / Quote Date** &nbsp;·&nbsp; **Due Date / Expiry Date**
+- **Items Table** (with column toggles)
+- **Total Amount** block
+- **Notes** &nbsp;·&nbsp; **Terms** &nbsp;·&nbsp; **Footer**
+- **Text Block** (arbitrary HTML) &nbsp;·&nbsp; **Divider** &nbsp;·&nbsp; **Spacer**
+- **Signature Field** (printable signature line)
+
+Per-template you can also set: accent colour, font family, row striping, watermark, and custom CSS.
+
+Open <span class="screen-path">Easy Invoice → Template Builder</span> and click **Create New Template**. Once saved, the template appears in the **Templates** picker on every invoice / quote.
 
 ### Duplicate invoices &amp; quotes
 

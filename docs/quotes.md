@@ -1,117 +1,200 @@
 ---
-title: Quotes / estimates
-description: Send quotes, let clients accept or decline online, and one-click convert into an invoice. Free in core — same builder pattern as invoices.
+title: Quotes / Estimates — step-by-step
+description: Send quotes (estimates), let clients accept or decline online, and one-click convert to an invoice. Field-by-field guide with every form input and the why behind each setting.
 ---
 
-# Quotes / estimates
+# Quotes / Estimates — step-by-step for first-time users
 
-A **quote** (estimate / proposal) is a pre-sale price summary. Easy Invoice ships a full quote system in the **free** plugin — separate CPT, separate list, separate numbering, online accept/decline.
+A **quote** (also called an *estimate*, *proposal* or in some countries a *devis* / *cotización* / *presupuesto*) is a price you send a prospective client **before** the work starts. Easy Invoice's quote builder is almost identical to the invoice builder, with three extra pieces:
 
-## What a quote _is_, technically
+1. **Valid Until Date** — when the price expires.
+2. **Accept** and **Decline** buttons on the public quote page.
+3. **One-click conversion** to an invoice once the client accepts.
 
-- **Custom post type:** `easy_invoice_quote` (registered in `includes/EasyInvoice.php:314–346`).
-- **Slug:** `easy-invoice-quote/<post-slug>`.
-- **Lifecycle:** draft → sent → accepted / declined → (optional) converted to invoice.
+The free plugin includes everything below — no Pro upgrade needed for quotes.
 
-## When to use a quote vs an invoice
+![All Quotes — list view with status filters](/screenshots/25-quotes-list.png)
 
-| Scenario | Use |
+---
+
+## When to use a Quote vs. an Invoice
+
+| Use a **Quote** when... | Use an **Invoice** when... |
 | --- | --- |
-| Client hasn't agreed yet ("send me a quote for…") | **Quote** |
-| You're locking in scope and waiting on approval | **Quote** |
-| Client agreed; you're billing | **Invoice** |
-| Client paid up-front (deposits) | **Invoice** with deposit (Pro) |
+| Negotiating the price | Price is final |
+| Client hasn't approved yet | Work is done or about to start |
+| You need formal sign-off | Payment is now owed |
+| Several pricing options | One agreed amount |
 
-## Building a quote
+---
 
-Open <span class="screen-path">Easy Invoice → Add New Quote</span>.
+## 1. Open the Quote Builder
 
-The builder mirrors the invoice builder:
+WP Admin sidebar → **Easy Invoice → Add New Quote**.
 
-- **Quote number** — auto-incremented from <span class="screen-path">Settings → Quote → Next quote number</span>. Default prefix `QUO-`.
-- **Client** — search WP users.
-- **Quote date** + **Expiry date** (default = today + N days).
-- **Line items** — name, description, quantity, unit price, optional tax/discount per line.
-- **Currency override** (per quote).
-- **Notes** — customer + private.
+Like the invoice builder, the form has tabs:
 
-Click **Save Draft** to keep it private, or **Send to Client** when ready.
+1. **Quote Details** — title, number, dates, status, notes
+2. **Items** — what you're quoting for
+3. **Client** — who the quote goes to
+4. **Discounts & Taxes** — discount + tax options
+5. **Payment** (optional) — preview gateways the client will use after acceptance
 
-## The accept / decline flow
+![Quote Builder — five-tab editor with live total](/screenshots/26-quote-builder.png)
 
-When the client opens the public quote URL:
+---
 
-1. They see the quote on a styled single template.
-2. **Accept** and **Decline** buttons appear at the bottom (free).
-3. Clicking **Accept** flips the post status to "accepted" and fires `easy_invoice_quote_accepted` action.
-4. Clicking **Decline** flips to "declined" and fires `easy_invoice_quote_declined`.
+## 2. Quote Details — every field
 
-On accept, you (admin) get an email — see <span class="screen-path">Settings → Email → Quote Available / Accepted / Declined</span>.
+### Quote Title
+Short label like *"Website redesign — proposal v2"*. Helps you find it in the admin list.
 
-## Convert quote → invoice
+### Quote Description
+Free-text paragraph for context. Often used for *"Scope summary"* paragraphs.
 
-Open the accepted quote → click **Convert to Invoice**:
+### Quote Number
+Auto-generated from your prefix + counter (default `EIQN_0001`). Change the prefix under **Settings → Quote → Quote Prefix** (try `QT-`, `EST-`, or `2026-Q-`). Read-only here.
 
-1. A new invoice is created with the same line items, totals, currency, and client.
-2. The new invoice starts in draft (so you can tweak before sending).
-3. The original quote stays in the system (not deleted).
+### Quote Date
+The day you issued the quote.
 
-> The conversion preserves the link via meta — you can always click "Source quote" from the new invoice.
+### Valid Until Date
+**The most important field on a quote.** It's the date your prices expire. Why it matters:
 
-## Quote-only settings
+- Communicates urgency to the prospect.
+- Protects you from old quotes coming back with stale pricing months later.
+- Triggers the "Expired" status when the date passes.
 
-Open <span class="screen-path">Easy Invoice → Settings → Quote</span>:
+> **Suggested default:** Quote Date + 14 to 30 days.
 
-| Setting | Default | What it does |
-| --- | --- | --- |
-| **Quote prefix** | `QUO-` | Visible in the number. |
-| **Next quote number** | `1` | Auto-increments. |
-| **Default validity** | `30` days | Used to compute the expiry date when you create a new quote. |
-| **Auto-expire** | On | Daily cron flips expired quotes to "expired" via `easy_invoice_quote_expiration_check`. |
+### Status
+- **Draft** — internal only
+- **Available** — live, the client can view, accept, or decline
+- **Accepted** — client accepted (set automatically when they click Accept)
+- **Declined** — client declined
+- **Expired** — past Valid Until
+- **Cancelled** — withdrawn
 
-## Email templates
+### Notes
+Visible to the client at the bottom of the quote PDF.
 
-Quote-related templates live under <span class="screen-path">Easy Invoice → Settings → Email</span>:
+### Internal Notes
+Visible only to you. Use for *"customer wants the cheap option but probably needs the premium plan — talk on Tuesday."*
 
-- **Quote Available** — sent on _Send to Client_.
-- **Quote Accepted** — sent to admin when client accepts.
-- **Quote Declined** — sent to admin when client declines.
+### Terms & Conditions
+Defaults to your global *Settings → Quote → Terms & Conditions* (which ships with: *"This quote has a fixed price. Upon acceptance, we kindly ask for a 25% deposit..."*). Override per quote if needed.
 
-Merge tags include `{quote_number}`, `{quote_total}`, `{client_name}`, `{accept_url}`, `{decline_url}`. See [Email & notifications](/email-settings#merge-tags) for the full table.
+---
 
-## Public quote shortcode
+## 3. Items — same as invoices
 
-Linking to a quote inside a page or email body? Use:
+Exactly the same line-item table as invoices: Title, Description, Quantity, Price, Adjust (%), Total, Taxable. See [Invoices → Items tab](./invoices#_3-items-tab-what-you-re-billing-for) for the field explanations.
 
-```
-[easy_quote_url id="123" text="View your quote"]
-```
+---
 
-See [Shortcodes](/shortcodes#easy_quote_url) for every attribute.
+## 4. Client tab — same dropdown as invoices
 
-## Bulk actions
+Pick from your **All Clients** list. The client's email is who receives the **Quote Available** email when you click Send.
 
-The quote list supports the same filters and bulk delete as invoices. Pro adds CSV export.
+---
 
-## Cron: expiration
+## 5. Discounts & Taxes
 
-Hook: `easy_invoice_quote_expiration_check` (daily). Marks quotes as **expired** when:
+Same options as invoices — Percentage / Fixed discount, Before/After Tax calculation method, Tax Rate, Price Includes Tax. See [Settings reference → Tax](./settings-reference#_5-tax-settings) if you're unsure.
 
-- The quote is in `sent` status.
-- The expiry date is in the past.
-- "Auto-expire" is enabled.
+---
 
-If WP-Cron is broken, quotes won't expire automatically — see [Troubleshooting](/troubleshooting#wp-cron-isnt-running).
+## 6. Save → mark Available → send
 
-## What's NOT in quotes
+1. Click **Save Draft** if you're still editing, **or**
+2. Set Status to **Available** and **Publish** — the quote is now live at a public URL.
+3. Click **Send Email** to email the **Quote Available** template (configured under **Settings → Email → Quote Available**).
 
-- No coupon system.
-- No e-signature field (use a separate plugin if you need a legal signature).
-- No version history (saving overwrites the previous draft).
+---
 
-## Where to go next
+## 7. The public quote page — accept / decline
 
-- 🧾 [Invoices](/invoices) — convert a quote to an invoice and bill.
-- 👥 [Clients & portal](/clients) — show clients their quote history.
-- ✉️ [Email & notifications](/email-settings) — customise the quote emails.
-- ⚙️ [Shortcodes](/shortcodes) — embed quote links anywhere.
+When the client opens the quote URL, they see:
+
+- The full quote (logo, line items, totals)
+- An **Accept Quote** button
+- A **Decline Quote** button
+
+What happens when they click **Accept** is controlled by **Settings → Quote → Accept quote button action** — six options:
+
+| Action | Behaviour |
+| --- | --- |
+| **Convert quote to invoice — Draft** | Creates a new invoice from the quote. Status: Draft. You review/send it. |
+| **Convert quote to invoice — Available** | Creates an invoice and publishes it. No email. |
+| **Convert quote to invoice and send to client — Available** | Creates, publishes, **and emails the invoice** to the client. (Hands-off mode.) |
+| **Create new invoice, keep quote as-is — Draft** | Like option 1, but the original quote keeps its Accepted status (rather than being "converted"). |
+| **Create new invoice and send to client, keep quote as-is** | Like option 3, but keeps the quote alongside the new invoice. |
+| **Do nothing** | The quote is marked Accepted; no invoice is created (manual workflow). |
+
+> **Why six options?** Different businesses convert quotes differently — some send the invoice immediately, others want a manual review step, some never auto-convert at all (e.g. legal, where the contract is the trigger, not the quote acceptance).
+
+### Decline Quote button
+
+By default, the client can decline with no reason. Tick **Settings → Quote → Decline Reason Required** to force them to fill the *"Reason for declining"* textarea before they can submit — useful for win/loss analysis.
+
+### Accept / Decline messages
+
+- **Accept Quote Text** — shown above the Accept button (a confirmation prompt).
+- **Accepted Quote Message** — shown after a successful Accept.
+- **Declined Quote Message** — shown after a successful Decline.
+
+All three are rich-text editors under **Settings → Quote**. Customize them to match your brand voice.
+
+### Hide the Accept button entirely
+
+Untick **Settings → Quote → Accept quote button** to hide it (you'd then accept the quote in admin manually).
+
+---
+
+## 8. The quote list
+
+WP Admin → **Easy Invoice → All Quotes** shows every quote with status filters.
+
+Row actions: View, Edit, Duplicate, PDF, Send, Convert to Invoice, Delete.
+
+---
+
+## 9. Converting a quote manually
+
+You don't have to wait for the client to click Accept. From the admin quote list:
+
+1. Find the quote.
+2. **Row actions → Convert to Invoice**.
+3. A new invoice is created with all the quote's items pre-filled. You can edit it, then send.
+
+---
+
+## Quote-specific Pro features
+
+| Feature | What it does |
+| --- | --- |
+| **Quote watermarks** <span class="pro-pill">PRO</span> | Overlay `DRAFT`, `EXPIRED`, custom text or image on quote PDFs. |
+| **Custom permalinks** <span class="pro-pill">PRO</span> | Branded URLs like `/proposal/your-quote/` instead of the default. |
+| **Email reply-to** <span class="pro-pill">PRO</span> | Quote emails go from a different reply-to than invoices. |
+
+<div class="doc-pro-callout">
+  <span class="doc-pro-pill">Pro</span>
+  <span><a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro</a> for watermarks, custom permalinks, template builder, and the client portal.</span>
+</div>
+
+---
+
+## Tips
+
+- **Send a Quote first whenever the price is negotiable.** It costs you nothing and gives the client a chance to push back without losing the deal.
+- **Set Valid Until Date conservatively** — 14 days is fine for most jobs. If you set it to a year, you'll get quotes coming back with stale prices.
+- **Customize the Accept message** so the client knows what happens next ("We'll begin work within 2 business days and email you a Phase 1 invoice for the 25% deposit").
+- **Auto-convert mode is hands-off magic.** Set Accept button action to *"Convert quote to invoice and send to client — Available"* once you trust your template — no human in the loop.
+
+---
+
+## Next
+
+- [Create your first Invoice](./invoices)
+- [Email templates (Quote Available, Invoice Available)](./email-settings)
+- [Quote settings reference](./settings-reference#_3-quote-settings)

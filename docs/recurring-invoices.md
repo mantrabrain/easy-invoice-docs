@@ -1,117 +1,130 @@
 ---
-title: Recurring & subscriptions
-description: Schedule repeating invoices and subscription billing in Easy Invoice Pro — frequencies, cron generation, deposit + partial payment combinations, and stop conditions.
+title: Recurring & Subscription invoices (Pro)
+description: Automatic recurring invoices and subscription billing in Easy Invoice Pro — set the frequency, let WordPress cron generate new invoices, optionally auto-send, with pause / resume / cancel.
 ---
 
 <div class="doc-pro-callout" role="note">
   <span class="doc-pro-pill">Pro</span>
-  <span><strong>Recurring invoices</strong> and <strong>subscription billing</strong> are <strong>Easy Invoice Pro</strong> features. The free plugin only does one-shot invoices.</span>
-  <a class="doc-pro-callout__cta" href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">View pricing &amp; buy →</a>
+  <span>Recurring and Subscription invoices are <strong>Easy Invoice Pro</strong> features. <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro →</a></span>
 </div>
 
-# Recurring & subscriptions
+# Recurring & Subscription invoices
 
-Pro adds two related but distinct features:
+Use **recurring invoices** when you bill the same client on a schedule — monthly retainer, yearly hosting, quarterly maintenance, etc. Easy Invoice Pro generates each new invoice **automatically** via WordPress cron and (optionally) emails it to the client.
 
-- **Recurring invoices** — generate the next invoice on a schedule. The client pays each one (or has card-on-file via Stripe).
-- **Subscription invoices** — like recurring, but the gateway charges automatically (no manual client action).
+## Recurring vs Subscription — what's the difference?
 
-## What recurring invoices _are_
-
-- **Custom post type**: `easy_invoice_recurring` (registered in `includes/Controllers/RecurringInvoiceController.php:61–99`).
-- **Public**: no.
-- **`create_posts` capability**: `do_not_allow` — recurring records are created from the invoice builder, not directly.
-
-A recurring record is a **template** for future invoices. Each generation creates a fresh `easy_invoice` post linked back to the template.
-
-## Setting up a recurring invoice
-
-<ol class="step-list">
-  <li>Build a normal invoice as you would (line items, currency, client).</li>
-  <li>In the right sidebar, toggle <strong>Make recurring</strong>.</li>
-  <li>Pick the <strong>Frequency</strong>: daily / weekly / fortnightly / monthly / quarterly / yearly.</li>
-  <li>Pick the <strong>Start date</strong> (defaults to today).</li>
-  <li>Pick a <strong>Stop condition</strong>: never / after N invoices / on a specific date.</li>
-  <li>Save. The first invoice is generated immediately or on the start date.</li>
-</ol>
-
-## How generation actually runs
-
-Pro defines two cron mechanisms (so you have a fallback if one is delayed):
-
-| Hook | Frequency | What it does |
+| Feature | **Recurring** | **Subscription** |
 | --- | --- | --- |
-| `easy_invoice_recurring_cron` | **every 2 minutes** (custom schedule) | Primary — picks up due-now templates and generates. |
-| `easy_invoice_pro_generate_recurring` | **daily** | Backup pass — catches anything the 2-min job missed. |
-| `easy_invoice_pro_process_subscriptions` | **daily** | Subscription billing (auto-charge on file). |
+| Triggers | New invoice on a schedule | New invoice + payment auto-charge |
+| Best for | "Send me the bill, I'll pay it" | "Bill me and just charge my card" |
+| Requires gateway support | No — works with all gateways | Yes — works with Stripe / Authorize.Net |
+| Trial period | No | Yes |
+| Maximum cycles | Yes (optional cap) | Yes (optional cap) |
+| Client-side review | No — auto-generated | Optional — client can edit amount each cycle |
 
-> If the 2-min job runs more often than you want, switch your hosting cron to fire every 15 min — schedule still respects the per-invoice "next run" date.
+Enable each module independently:
 
-When a recurring invoice generates:
+- **Recurring** → **Easy Invoice → Settings → Invoice → Enable Recurring Invoices**
+- **Subscription** → set in the per-invoice subscription section (requires Pro license tier that includes it)
 
-1. A new `easy_invoice` post is created with the same line items.
-2. The new invoice's **invoice date** = today; **due date** = today + (default due days).
-3. The recurring template's "next run" advances by one frequency.
-4. The configured email template is sent (use **Invoice Available** by default).
-5. Action `easy_invoice_pro_recurring_generated` fires (if you want to extend).
+---
 
-## Stopping a recurring invoice
+## 1. Enable the engine
 
-Two ways:
+Open **Easy Invoice → Settings → Invoice** and tick **Enable Recurring Invoices**. Save.
 
-- Open the recurring template → toggle **Active** off.
-- Or set a stop condition (after N or by date) when first creating.
+This unlocks the **Recurring** section inside each invoice's builder.
 
-> Pausing doesn't delete past invoices. They stay in the All Invoices list with their original dates.
+---
 
-## Subscription invoices (Pro module)
+## 2. Make any invoice recurring
 
-Subscription invoices are **recurring with auto-charge**. The client enters card / mandate once; Pro charges them automatically each cycle.
+1. Build a normal invoice (see [Invoices walkthrough](./invoices)).
+2. Inside the builder, find the **Recurring** section.
+3. Tick **Enable Recurring**.
+4. Configure:
 
-| Setting | What it is |
+| Field | What it does |
 | --- | --- |
-| **Gateway** | Must be a subscription-capable gateway (Stripe, Mollie). |
-| **Frequency** | Same options as recurring. |
-| **Trial period** | Optional N free days before first charge. |
-| **Setup fee** | One-off charge added to the first invoice. |
-| **Cycles** | How many charges total (or _unlimited_). |
-| **Send invoice email** | Even when auto-charged, you can still email a copy. |
+| **Frequency** | `day` / `month` / `year` |
+| **Interval** | Number of frequency units — e.g. Frequency=month, Interval=3 ⇒ every 3 months (quarterly). |
+| **Start Date** | First generation date. Defaults to today. |
+| **End Date / Max Cycles** | (Optional) Stop after N invoices or a specific date. |
+| **Auto-send to client** | Email each new generated invoice automatically. |
+| **Status** | `active` / `paused` / `cancelled` (set later from the Recurring list). |
 
-Configure under <span class="screen-path">Settings → Subscription Invoices</span>.
+5. Publish the invoice. From now on, the cron generates new child invoices on the schedule.
 
-## Combining with deposits & partials
+---
 
-Pro lets you stack:
+## 3. The Recurring dashboard
 
-- **Deposit + recurring** — a one-off deposit invoice on signup, then recurring monthly maintenance.
-- **Recurring + partial payments** — let clients pay each recurring invoice in chunks.
-- **Subscription + setup fee** — Stripe charges the setup once + monthly subscription.
+Open **Easy Invoice → All Invoices** and filter by **Recurring** (a star icon in the title indicates parent invoices). You can:
 
-See:
-- [Pro features → Deposit Invoices](/features#deposit-invoices)
-- [Pro features → Partial Payments](/features#partial-payments)
-- [Pro features → Subscription Invoices](/features#subscription-invoices)
+- **Pause** — stop generation until you resume
+- **Resume** — restart
+- **Cancel** — stop permanently
+- **Manual trigger** — generate the next child invoice now (useful for testing)
 
-## Reporting
+Each parent invoice keeps a **history** of every child invoice it has created.
 
-Recurring invoices appear in the **All Invoices** list with a recurring icon. Filter by **Source: Recurring** to see only those. Reports treat each generated invoice as a normal one (revenue counts each cycle).
+---
 
-## Common pitfalls
+## 4. Subscription invoices
 
-| Symptom | Cause | Fix |
-| --- | --- | --- |
-| New invoice not generated on schedule | WP-Cron not running. | [Troubleshooting → WP-Cron](/troubleshooting#wp-cron-isnt-running). |
-| Two invoices generated on the same day | Hooked to `easy_invoice_recurring_cron` **and** `easy_invoice_pro_generate_recurring`. | Disable one of the two via custom code if you only want one. |
-| Subscription auto-charge fails | Card on file declined. | Stripe → Subscriptions; either retry or the client updates their card. |
-| Recurring stops after pause | Toggle **Active** is off. | Re-enable in the template. |
+Same idea as Recurring but with **auto-charging** the client's card. Setup:
 
-## Architecture note
+1. Open **Easy Invoice → Settings → Invoice → Subscription Invoices** (visible only with a compatible Pro license tier and after enabling subscriptions globally).
+2. On the invoice builder, find the **Subscription** section. Configure:
+   - **Frequency** + **Interval**
+   - **Trial enabled** + **Trial days** + **Trial amount** (e.g. $0 for 14 days)
+   - **Variable amount** — let the client review and edit each cycle's amount before charge
+   - **Maximum cycles** — stop after N successful charges
 
-The Pro plugin contains **two recurring subsystems** (`RecurringInvoices.php` extension and `RecurringInvoiceController` controller). Both are wired in production builds; the controller is the newer admin UI, the extension is the cron-glue. If you build a custom recurring extension, hook against the **controller's actions** (`easy_invoice_pro_recurring_generated`) — those are stable.
+3. The client's first payment **saves their card** via the gateway (Stripe / Authorize.Net). Subsequent cycles auto-charge.
 
-## Where to go next
+> **Why two engines instead of one?** Subscriptions require gateway support for stored-card charging, which not every Pro user has. Recurring works with any gateway (PayPal, Bank Transfer, even Manual) because the client manually pays each invoice as it's generated.
 
-- 💎 [Pro features overview](/third-party-integrations) — Recurring + Subscription overview cards.
-- 📋 [All Pro features](/features) — flat catalog.
-- 💳 [Payment gateways](/payment-settings) — connect Stripe for auto-charge.
-- 🧾 [Invoices](/invoices) — invoice statuses recurring uses.
+---
+
+## 5. Cron — make sure it runs
+
+Recurring + Subscription rely on **WordPress cron** firing at least once per day. WordPress runs cron on each page hit by default, which is unreliable on low-traffic sites.
+
+**For reliability:**
+
+1. In `wp-config.php` add: `define('DISABLE_WP_CRON', true);`
+2. Add a real server cron job hitting `https://yoursite.com/wp-cron.php` every 15 minutes:
+   ```
+   */15 * * * * curl -s https://yoursite.com/wp-cron.php > /dev/null
+   ```
+
+Otherwise, recurring invoices may generate hours or days late.
+
+---
+
+## 6. Tips for new users
+
+- **Test with a +1 day Interval first.** Make a fake recurring invoice with Frequency=day, Interval=1, then check tomorrow that a new child invoice was created.
+- **Auto-send is powerful — and risky.** Don't enable auto-send until you've manually triggered at least one child invoice and confirmed it looks right.
+- **Pause before cancelling.** Cancelling is permanent. Pausing keeps history and lets you resume next month.
+
+---
+
+## Combining with other Pro features
+
+| Combined with | Effect |
+| --- | --- |
+| **Partial payments** | Each generated invoice supports installments. |
+| **Deposit invoices** | Each cycle creates a deposit + balance pair. |
+| **Payment reminders** | Reminders apply to every generated child. |
+| **Client portal** | Clients see all generated invoices in one place. |
+
+---
+
+## Next
+
+- [Payment gateways (needed for Subscriptions)](./payment-settings)
+- [Client portal](./clients)
+- [Settings reference (recurring fields)](./settings-reference#pro-only-invoice-settings)

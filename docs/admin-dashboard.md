@@ -7,6 +7,8 @@ description: A plain-English map of the Easy Invoice WordPress admin sidebar —
 
 After activating Easy Invoice, a top-level **Easy Invoice** menu appears in the WordPress sidebar. Click any item below for the matching docs page.
 
+![Easy Invoice admin dashboard — overview cards and quick actions](/screenshots/10-admin-menu.png)
+
 | Sidebar label | What it does | Docs |
 | --- | --- | --- |
 | **Easy Invoice → Dashboard** | Overview cards (revenue, invoices sent, paid, overdue, recent activity). | This page |
@@ -57,6 +59,26 @@ Easy Invoice (top)
 | Join Community | `read` | Any logged-in user |
 
 > The **Easy Invoice Client** role exists separately for the Pro client portal — see [Clients & portal](/clients#client-role).
+
+## Reports
+
+![Reports — revenue, status breakdown, payment methods, period filters](/screenshots/29-reports.png)
+
+The Reports page summarises:
+
+- **Revenue this month / year** (total paid)
+- **Outstanding** (total of unpaid + overdue)
+- **Invoices by status** (donut chart)
+- **Revenue by payment method** (bar chart)
+- **Top clients** by spend
+
+Use the date-range picker to compare periods. <span class="pro-pill">PRO</span> adds CSV export of any report — see [Pro features → CSV export](./third-party-integrations#csv-export).
+
+## License (Pro)
+
+![License page — enter your Easy Invoice Pro license key](/screenshots/30-license.png)
+
+Activate Easy Invoice Pro by pasting your license key here. The license unlocks every Pro module on your plan tier (Personal / Professional / Agency). See [Installation → Activate your Pro license](./installation#activate-your-pro-license).
 
 ## Where next
 

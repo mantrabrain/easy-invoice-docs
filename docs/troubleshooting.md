@@ -31,8 +31,8 @@ A symptom-based guide. Find the closest match, follow the steps, and you'll have
 | --- | --- |
 | Outbound HTTPS firewall on your host | Whitelist `store.mantrabrain.com` in your host's outbound rules. |
 | `wp_remote_post` blocked by a security plugin | Temporarily disable Wordfence / iThemes Security and retry. |
-| Site URL changed since purchase | Manually deactivate the old URL in your MatrixAddons account, then activate fresh. |
-| License expired | Renew at [matrixaddons.com/account](https://matrixaddons.com/account/). |
+| Site URL changed since purchase | Manually deactivate the old URL in your MantraBrain Account, then activate fresh. |
+| License expired | Renew at [MantraBrain Account](https://store.mantrabrain.com/account). |
 
 ## Permalinks & 404s
 

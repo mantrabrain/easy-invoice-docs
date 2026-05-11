@@ -103,6 +103,7 @@ export default defineConfig({
           {
             text: 'Configure',
             items: [
+              { text: 'Settings reference (every field)', link: '/settings-reference' },
               { text: 'Payment gateways', link: '/payment-settings' },
               { text: 'Email & notifications', link: '/email-settings' },
               { text: 'Pro features overview', link: '/third-party-integrations' },
@@ -162,6 +163,7 @@ export default defineConfig({
         text: 'Configure',
         collapsed: false,
         items: [
+          { text: 'Settings reference (every field)', link: '/settings-reference' },
           { text: 'Payment gateways', link: '/payment-settings' },
           { text: 'Email & notifications', link: '/email-settings' },
           { text: 'Pro features overview', link: '/third-party-integrations' },

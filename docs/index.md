@@ -33,6 +33,22 @@ next:
   </div>
 </div>
 
+<div class="ei-video">
+  <div class="ei-video__heading">
+    <h2 class="ei-video__title">Watch the 3-minute tour</h2>
+    <p class="ei-video__sub">See Easy Invoice in action — building an invoice, sending it, and taking a payment, from start to finish.</p>
+  </div>
+  <div class="ei-video__frame">
+    <iframe
+      src="https://www.youtube.com/embed/a_0BnBpl0y0?rel=0"
+      title="Easy Invoice WordPress plugin demo"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen></iframe>
+  </div>
+</div>
+
 <div class="doc-pro-banner" role="note">
   <p class="doc-pro-banner__copy"><strong><span class="doc-pro-pill">Pro</span> Need Stripe, recurring billing, partial payments, deposits, or the Template Builder?</strong> Activate Easy Invoice Pro and turn features on under <strong>Easy Invoice → Settings</strong> &amp; <strong>License</strong>. The license unlocks every Pro module on your active plan tier (Personal / Professional / Agency).</p>
   <div class="doc-pro-banner__actions">
@@ -83,9 +99,16 @@ next:
 <a class="ei-card ei-card--flagged" href="/docs/payment-settings">
   <span class="doc-card-badge-pro"><span class="doc-pro-pill">Pro extra</span></span>
   <span class="ei-card__icon">💳</span>
-  <h3>Payments</h3>
-  <p><strong>Free:</strong> PayPal &amp; Manual. <strong>Pro:</strong> Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, Moneris.</p>
+  <h3>Payment gateways (step-by-step)</h3>
+  <p><strong>Free:</strong> PayPal &amp; Manual. <strong>Pro:</strong> Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, Moneris — with exact dashboard links &amp; webhooks.</p>
   <span class="ei-card__cta">Configure gateways →</span>
+</a>
+
+<a class="ei-card" href="/docs/settings-reference">
+  <span class="ei-card__icon">🧰</span>
+  <h3>Settings reference (every field)</h3>
+  <p>Field-by-field reference for every setting in Free + Pro — Company, Invoice, Quote, Currency, Tax, Email, Text labels, watermarks, partial payments, recurring, deposits.</p>
+  <span class="ei-card__cta">Find a field →</span>
 </a>
 
 <a class="ei-card ei-card--flagged" href="/docs/recurring-invoices">
@@ -157,7 +180,7 @@ next:
 <a class="ei-card" href="/docs/support">
   <span class="ei-card__icon">💬</span>
   <h3>Get support</h3>
-  <p>WordPress.org forum, MatrixAddons support portal, Pro priority help, and how to file a useful bug report.</p>
+  <p>WordPress.org forum, MantraBrain support portal, Pro priority help, and how to file a useful bug report.</p>
   <span class="ei-card__cta">Contact us →</span>
 </a>
 
@@ -203,7 +226,7 @@ next:
 
 - 📖 Start with [Installation](/installation) and the [Quick start](/quick-start).
 - 🐛 File issues on the [WordPress.org support forum](https://wordpress.org/support/plugin/easy-invoice/).
-- 💎 Pro license holders get [priority support](https://matrixaddons.com/support/).
+- 💎 Pro license holders get [priority support](https://mantrabrain.com/contact).
 
 <style>
 .ei-hero {

@@ -1,119 +1,122 @@
 ---
-title: Clients & portal
-description: How Easy Invoice models clients (mapped to WordPress users), the dedicated "Easy Invoice Client" role, the hosted Pro client portal, and the magic-link login flow.
+title: Clients & client portal
+description: Manage clients in Easy Invoice — fields, list view, search, and the Pro client portal with login, profile, and invoice/payment history.
 ---
 
-# Clients & portal
+# Clients & Client Portal
 
-Easy Invoice doesn't have a separate "client" CPT — clients are WordPress users. This is intentional: it lets you reuse WordPress login, password reset, and avatars without reinventing them.
+Every invoice and quote in Easy Invoice is sent **to a Client**. Clients are stored separately from your line items so you don't have to retype their address each time.
 
-## How clients are stored
+WP Admin → **Easy Invoice → All Clients**.
 
-- **Storage**: `wp_users` + `wp_usermeta` (queried via `includes/Repositories/ClientRepository.php`).
-- **Role**: `easy_invoice_client` (auto-created on activation; capability `read` only).
-- **Listing**: <span class="screen-path">Easy Invoice → All Clients</span> — uses `WP_User_Query` filtered to admins + portal-role users that have invoices.
+![All Clients — list view with search and quick actions](/screenshots/27-clients-list.png)
 
-> Some installs may also have legacy `easy_invoice_client` _post type_ data from older versions — Reports still considers it (`ReportController.php:978`) for backward compatibility.
+---
 
-## Adding a client
+## 1. Add a Client
 
-Three ways:
+WP Admin → **Easy Invoice → All Clients → Add New Client**.
 
-1. **From the invoice builder** — start typing in the **Client** field, hit _+ Add new_.
-2. **Bulk** — <span class="screen-path">Users → Add New</span> with role `Easy Invoice Client`.
-3. **Programmatically** via `wp_insert_user` + `add_role`.
+### Identity fields
 
-Required fields:
+| Field | Why |
+| --- | --- |
+| **First Name** | The contact person's first name. |
+| **Last Name** | The contact person's last name. |
+| **Business Name** | Their company name. If empty, invoices show First + Last. |
+| **Email** | Where invoice/quote emails go. **Required** if you want to send emails. |
+| **Phone** | Optional. Printed on invoices. |
+| **Website** | Optional. Printed on invoices. |
 
-- **First / last name** — printed on invoices.
-- **Email** — invoice / quote emails are sent here.
-- **Address** — billing address on the invoice template.
+### Billing address
 
-Optional per-client defaults (Pro):
+| Field | Why |
+| --- | --- |
+| **Address Line 1 / 2** | Street address printed on the invoice. |
+| **City / State / Postal Code / Country** | Required in most countries for tax compliance. |
 
-- **Currency** override.
-- **Tax exempt** flag.
-- **Default payment method** (if multiple are enabled).
+### Tax / VAT
 
-## The portal (Pro)
+| Field | Why |
+| --- | --- |
+| **Tax ID / VAT Number** | The client's VAT/GST number — required when issuing tax-reverse-charge invoices in the EU, reciprocal compliance in Canada, etc. |
 
-<div class="pro-callout">
-  <div class="pro-callout__head">
-    <span class="pro-callout__badge">PRO</span>
-    <span class="pro-callout__title">Hosted client portal</span>
-  </div>
-  <p class="pro-callout__desc">Pro adds a self-service area where clients log in, see every invoice, every quote, every payment, and download PDFs — without seeing wp-admin.</p>
-  <a class="pro-callout__cta" href="https://matrixaddons.com/plugins/easy-invoice/">Unlock the portal →</a>
-</div>
+### Shipping address (optional)
 
-### What the client sees
+A second address used for B2B clients who have a separate "ship to" location.
 
-After logging in:
+### Notes (private)
 
-- **Profile** — name, address, default email, change password.
-- **Invoices** — list with status badges, due dates, total + balance due.
-- **Quotes** — list with accept / decline buttons inline.
-- **Payments** — receipt history.
+Internal notes — never shown to the client. Use for *"prefers email over phone"*, *"finance contact is Sarah"*, etc.
 
-Click any row → opens the public single template, with **Pay now** if the invoice has a balance.
+---
 
-### Portal pages
+## 2. Client list view
 
-The Pro plugin uses three shortcodes you place anywhere:
+WP Admin → **Easy Invoice → All Clients**:
+
+- Search box (matches name, email, business name)
+- Per-row counters: total invoices, total paid, total outstanding
+- Row actions: **View**, **Edit**, **Delete**
+
+Click **View** to open a single-client overview with their full invoice and quote history.
+
+---
+
+## 3. The Client Portal <span class="pro-pill">PRO</span>
+
+The free plugin sends invoices via email links — clients view, pay, and download from those links. **Easy Invoice Pro adds a hosted Client Portal** where clients can:
+
+- Log in with their email
+- See **all** their invoices and quotes in one dashboard
+- Download PDFs
+- Pay any open invoice
+- Track payment history
+- Update their profile
+
+### Set it up
+
+1. Activate Easy Invoice Pro.
+2. Create a WordPress page and add this shortcode: `[easy_invoice_profile]`.
+3. Save / Publish the page.
+4. Add a link to it from your main menu (e.g. **My Account** or **Customer Portal**).
+
+When a client receives their first invoice email, Easy Invoice automatically creates a WordPress user account for them (role: **Easy Invoice Client**) and includes a **magic login link** they can click to access the portal without a password.
+
+### Available portal shortcodes
 
 | Shortcode | What it renders |
 | --- | --- |
-| `[easy_invoice_login]` | Login form for the `easy_invoice_client` role. |
-| `[easy_invoice_profile]` | Profile + address editor. |
-| `[easy_invoice_client_login]` | Alternative login form (legacy alias). |
+| `[easy_invoice_profile]` | The full client portal page (dashboard + invoices + quotes + profile editor). |
+| `[easy_invoice_client_login]` | A standalone login form (email + magic link). |
+| `[easy_invoice_login]` | Alias for the login form. |
+| `[easy_invoice_url id="123"]` | Renders a link to a specific invoice. |
+| `[easy_quote_url id="456"]` | Renders a link to a specific quote. |
 
-Recommended structure:
+See [Shortcodes](./shortcodes) for the full reference.
 
-```
-/client-area/login         → [easy_invoice_login]
-/client-area/profile       → [easy_invoice_profile]
-/client-area/invoices      → list (auto-rendered when logged in)
-```
+### Restrict invoices to logged-in clients
 
-> See [Shortcodes](/shortcodes) for every attribute.
+In the Pro Privacy settings, tick **Require login to view invoices**. Clients must then log in via the magic link or password before they can see any invoice. Useful for medical, legal, or financial documents.
 
-### Magic link login (Pro)
+<div class="doc-pro-callout">
+  <span class="doc-pro-pill">Pro</span>
+  <span>Client portal, magic-link login, login restriction, and private invoices are all <strong>Easy Invoice Pro</strong> features. <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro →</a></span>
+</div>
 
-Pro supports a tokenised login URL: append `?client_token=xxx` to any portal page and the user is auto-logged in (single-use token, expires).
+---
 
-Use case: include a "View your invoice" link in the email that signs the client in without a password — see `ClientPortal.php:75–78`.
+## 4. Client tips
 
-## Client role & capabilities
+- **Always set an email.** Without it, the **Send Email** button can't do anything.
+- **Use Business Name for B2B clients.** Invoices look more professional with `Acme Co.` than `John Smith` for corporate clients.
+- **Keep notes** — your future self will thank you when you're trying to remember why this client always pays late.
+- **Tax ID compliance** — in the EU, an invoice missing the recipient's VAT number for a reverse-charge transaction can be rejected by tax authorities.
 
-The dedicated `easy_invoice_client` role:
+---
 
-- Has **only** `read` capability.
-- Cannot see wp-admin (Pro forces redirect to the portal).
-- Cannot edit anything site-wide.
+## Next
 
-> Combine this with a **redirect on login** plugin (or the Pro portal itself) so clients never land in wp-admin.
-
-## Privacy & data export (GDPR)
-
-The Pro plugin's **Privacy & Access** tab adds:
-
-- **Login required** to view invoice URLs.
-- **Token-based access** (hash-protected slugs).
-- **GDPR exporter** — exports a client's invoices/quotes/payments as JSON via WordPress's Tools → Export Personal Data.
-
-> See [Pro features overview → Privacy & Access](/third-party-integrations#privacy-access).
-
-## Bulk operations
-
-From <span class="screen-path">All Clients</span>:
-
-- Search by name / email.
-- Filter by role.
-- Bulk action: **Send statement of account** <span class="doc-pro-pill">Pro</span> — emails a summary of outstanding invoices.
-
-## Where to go next
-
-- 🧾 [Invoices](/invoices) — assign invoices to clients.
-- 📝 [Quotes / estimates](/quotes) — pre-invoice flows.
-- 💳 [Payment gateways](/payment-settings) — let clients pay via card or PayPal.
-- 💎 [Pro features overview](/third-party-integrations#client-portal) — full portal details.
+- [Build & send invoices to a client](./invoices)
+- [Build & send quotes to a client](./quotes)
+- [Shortcodes (portal, login)](./shortcodes)

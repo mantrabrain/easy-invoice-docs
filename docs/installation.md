@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Install Easy Invoice (free) from WordPress.org plus Easy Invoice Pro from your MatrixAddons account, configure permalinks, and verify the plugin loaded cleanly.
+description: Install Easy Invoice (free) from WordPress.org plus Easy Invoice Pro from your MantraBrain Account, configure permalinks, and verify the plugin loaded cleanly.
 ---
 
 # Installation
@@ -12,7 +12,7 @@ description: Install Easy Invoice (free) from WordPress.org plus Easy Invoice Pr
 - **WordPress 5.6+**
 - **PHP 7.4+** (the bundled `composer.json` is stricter than the readme — use the readme value for compatibility)
 - A WordPress site with **Pretty permalinks** enabled (Settings → Permalinks → anything other than _Plain_)
-- For Pro: an active **Easy Invoice Pro license** from your [MatrixAddons account](https://matrixaddons.com/account/)
+- For Pro: an active **Easy Invoice Pro license** from your [MantraBrain Account](https://store.mantrabrain.com/account)
 
 > Easy Invoice Pro **requires the free Easy Invoice plugin to be active**. Activating Pro without Free triggers a `wp_die` and auto-deactivates Pro — see `easy-invoice-pro.php:184–211`.
 
@@ -40,10 +40,10 @@ You should see a new top-level **Easy Invoice** menu item in the WordPress sideb
 
 ## 2. Install Easy Invoice Pro (optional)
 
-Pro is delivered as a separate plugin ZIP from your MatrixAddons account.
+Pro is delivered as a separate plugin ZIP from your MantraBrain Account.
 
 <ol class="step-list">
-  <li>Sign in at <a href="https://matrixaddons.com/account/" target="_blank" rel="noopener">matrixaddons.com/account</a>.</li>
+  <li>Sign in at <a href="https://store.mantrabrain.com/account" target="_blank" rel="noopener">MantraBrain Account</a>.</li>
   <li>Download <strong>easy-invoice-pro.zip</strong> from <strong>Downloads</strong>.</li>
   <li>In WordPress, open <span class="screen-path">Plugins → Add New → Upload Plugin</span>.</li>
   <li>Upload the ZIP, click <strong>Install Now</strong>, then <strong>Activate</strong>.</li>
@@ -53,7 +53,7 @@ Pro is delivered as a separate plugin ZIP from your MatrixAddons account.
 
 <ol class="step-list">
   <li>Open <span class="screen-path">Easy Invoice → License</span>.</li>
-  <li>Paste your <strong>license key</strong> (from your MatrixAddons account → Licenses).</li>
+  <li>Paste your <strong>license key</strong> (from your MantraBrain Account → Licenses).</li>
   <li>Click <strong>Activate</strong>.</li>
 </ol>
 
