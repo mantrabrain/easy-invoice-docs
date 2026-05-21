@@ -1,6 +1,6 @@
 ---
 title: Client Portal (Pro addon)
-description: A branded self-service area where your clients view invoices, quotes, download PDFs, and accept or decline quotes — without an email exchange.
+description: A branded self-service area where your clients view invoices, quotes, download PDFs, and accept or decline quotes — without an email exchange. Includes the Easy Invoice Account Gutenberg block.
 ---
 
 <div class="doc-pro-callout" role="note">
@@ -42,8 +42,10 @@ You can override the slugs from **Easy Invoice → Settings** (Client Portal sec
 - **Accept or decline quotes** with one click (quotes are auto-converted to invoices on accept)
 - **Make a payment** through any configured gateway
 - **Update their own profile** (name, email, address) — no admin intervention needed
-- **Export their personal data** (GDPR compliance — works with the [Privacy & GDPR addon](./privacy-tools))
-- **Delete their account** (if you enable that setting)
+- **Export their personal data** — when [Privacy & GDPR Tools](./privacy-tools) is also active
+- **Delete their account** — when [Privacy & GDPR Tools](./privacy-tools) is also active
+
+The last two buttons require the **Privacy & GDPR Tools** addon to be enabled. With Client Portal alone, those buttons are hidden — the canonical GDPR addon owns those data-subject features so there's a single source of truth.
 
 ## Shortcodes
 
@@ -51,12 +53,25 @@ The addon registers shortcodes you can drop into any page:
 
 | Shortcode | What it renders |
 |---|---|
-| `[easy_invoice_client_login]` | Login form |
-| `[easy_invoice_client_dashboard]` | Logged-in client dashboard with their invoices and quotes |
-| `[easy_invoice_client_invoice_list]` | Just the invoice list |
-| `[easy_invoice_client_quote_list]` | Just the quote list |
+| `[easy_invoice_profile]` | Logged-in client dashboard (invoices, quotes, profile, account actions) |
+| `[easy_invoice_url]` | Signed URL to the current invoice — pairs with [Secure Links](./secure-links) |
+| `[easy_quote_url]` | Signed URL to the current quote — pairs with [Secure Links](./secure-links) |
 
 This lets you embed the portal anywhere — a dedicated page, a sidebar, a popup — and style it with your theme.
+
+## Gutenberg block: Easy Invoice Account
+
+For sites that build pages with the WordPress block editor, the addon also registers a native block:
+
+- **Block name:** **Easy Invoice Account**
+- **Category:** **Easy Invoice** (pinned to the top of the inserter)
+- **What it does:** Wraps the `[easy_invoice_profile]` shortcode so you can drop the portal into any page without hand-typing a shortcode.
+- **Block sidebar settings:**
+  - *Redirect URL after login (optional)* — where to send the user after they sign in from this block
+  - *Alignment* — Wide / Full width
+  - *Spacing* — margin and padding controls
+- **Editor preview:** uses WordPress's `ServerSideRender` so the editor preview matches the front-end exactly. Styles are enqueued on the block-editor screen automatically — no extra setup.
+- **When to use the block vs. the shortcode:** Block — content built with Gutenberg or Site Editor. Shortcode — page builders, custom templates, classic editor.
 
 ## Branding
 
@@ -64,11 +79,14 @@ The portal templates inherit your theme's typography and colors. To go further, 
 
 ## Settings location
 
-Client Portal settings appear as a section on **Easy Invoice → Settings**. There's no separate admin page for the portal — the configuration is all in one place.
+Client Portal settings appear under **Easy Invoice → Settings → Client Portal**. The **Privacy & GDPR** tab (separate from this section) is where the Privacy & GDPR Tools addon contributes its own settings — including the two self-service toggles (Allow Self-Service Data Export, Allow Self-Service Account Deletion) that affect what the portal's account screen shows.
+
+If you enable Client Portal but **not** the Privacy & GDPR Tools addon, an admin notice points this out: the portal works fine without it, but the data-export / delete-account features stay hidden until you turn the GDPR addon on too.
 
 ## See also
 
-- [Privacy & GDPR Tools](./privacy-tools) — for client-initiated data export / deletion
+- [Privacy & GDPR Tools](./privacy-tools) — required for the portal's data-export and delete-account buttons
+- [Secure Links for Invoices & Quotes](./secure-links) — for unguessable invoice / quote URLs used by the portal
 - [Email Enhancements](./email-enhancements) — for branded login & receipt emails
 - [White-Label](./white-label) (Agency) — to rebrand the portal completely
 

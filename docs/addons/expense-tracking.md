@@ -111,7 +111,7 @@ The addon appends one setting to **Easy Invoice → Settings**:
 
 - [Time Tracking & Project Billing](./time-tracking) — same workflow for billable hours
 - [Smart Reminders & Late Fees](./smart-reminders) — chase the resulting invoices automatically
-- [Custom Invoice & Quote Templates](../custom-templates) — design how the expense lines render on the PDF
+- [Custom Invoice & Quote Templates](./custom-templates) — design how the expense lines render on the PDF
 
 <div class="doc-pro-callout" role="note" style="margin-top:2rem;">
   <span class="doc-pro-pill">Pro</span>

@@ -24,7 +24,7 @@ Otherwise the free plugin handles unlimited basic invoicing with PayPal and Manu
 
 ### Does Personal-tier really come free with the Pro plugin?
 
-Yes. Once you install Easy Invoice Pro, all 11 Personal-tier addons unlock automatically — no license key required. A license key only unlocks the higher Professional and Agency tiers. This is a deliberate design choice so you can buy Pro once and get the most-requested addons (recurring billing, client portal, reports, etc.) without any extra steps.
+Yes. Once you install Easy Invoice Pro, all 12 Personal-tier addons unlock automatically — no license key required. A license key only unlocks the higher Professional and Agency tiers. This is a deliberate design choice so you can buy Pro once and get the most-requested addons (recurring billing, client portal, secure links, reports, etc.) without any extra steps.
 
 ### Does Pro work without Free?
 

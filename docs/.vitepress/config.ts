@@ -113,12 +113,29 @@ export default defineConfig({
           {
             text: 'Pro addons',
             items: [
-              { text: 'Addons overview', link: '/addons/' },
-              { text: 'Time Tracking & Project Billing', link: '/addons/time-tracking' },
-              { text: 'Smart Reminders & Late Fees', link: '/addons/smart-reminders' },
-              { text: 'White-Label & Brand Override', link: '/addons/white-label' },
-              { text: 'Team Members & Audit Log', link: '/addons/team-roles' },
-              { text: 'Webhooks & Zapier Bridge', link: '/addons/webhooks' }
+              { text: 'Addons overview',                       link: '/addons/' },
+              // Personal tier
+              { text: 'Recurring Invoices & Subscriptions',    link: '/recurring-invoices' },
+              { text: 'Partial Payments & Deposits',           link: '/addons/partial-payments' },
+              { text: 'Client Portal',                         link: '/addons/client-portal' },
+              { text: 'PDF Toolkit',                           link: '/addons/pdf-toolkit' },
+              { text: 'Bulk Email & Export',                   link: '/addons/bulk-operations' },
+              { text: 'Item Library',                          link: '/addons/item-library' },
+              { text: 'Custom Invoice & Quote Templates',      link: '/addons/custom-templates' },
+              { text: 'Additional Tax Lines',                  link: '/addons/additional-tax' },
+              { text: 'Email Enhancements',                    link: '/addons/email-enhancements' },
+              { text: 'Secure Links for Invoices & Quotes',    link: '/addons/secure-links' },
+              { text: 'Privacy & GDPR Tools',                  link: '/addons/privacy-tools' },
+              { text: 'Reports & Analytics',                   link: '/addons/reports' },
+              // Professional tier
+              { text: 'Time Tracking & Project Billing',       link: '/addons/time-tracking' },
+              { text: 'Expense Tracking & Reimbursables',      link: '/addons/expense-tracking' },
+              { text: 'Smart Reminders & Late Fees',           link: '/addons/smart-reminders' },
+              // Agency tier
+              { text: 'White-Label & Brand Override',          link: '/addons/white-label' },
+              { text: 'Team Members & Audit Log',              link: '/addons/team-roles' },
+              { text: 'Webhooks & Zapier Bridge',              link: '/addons/webhooks' },
+              { text: 'Accounting Sync (QBO / Xero / FreshBooks)', link: '/addons/accounting-sync' }
             ]
           }
         ]
@@ -181,16 +198,45 @@ export default defineConfig({
           { text: 'All Pro features', link: '/features' }
         ]
       },
+      // Full addon catalog grouped by license tier — every doc gets a
+      // sidebar entry so the active-page highlight works on any addon
+      // page. Three sub-groups keep the list scannable.
       {
-        text: 'Pro addons',
+        text: 'Pro addons — Personal tier',
         collapsed: false,
         items: [
-          { text: 'Addons overview', link: '/addons/' },
-          { text: 'Time Tracking & Project Billing', link: '/addons/time-tracking' },
-          { text: 'Smart Reminders & Late Fees', link: '/addons/smart-reminders' },
-          { text: 'White-Label & Brand Override', link: '/addons/white-label' },
-          { text: 'Team Members & Audit Log', link: '/addons/team-roles' },
-          { text: 'Webhooks & Zapier Bridge', link: '/addons/webhooks' }
+          { text: 'Addons overview',                       link: '/addons/' },
+          { text: 'Recurring Invoices & Subscriptions',    link: '/recurring-invoices' },
+          { text: 'Partial Payments & Deposits',           link: '/addons/partial-payments' },
+          { text: 'Client Portal',                         link: '/addons/client-portal' },
+          { text: 'PDF Toolkit',                           link: '/addons/pdf-toolkit' },
+          { text: 'Bulk Email & Export',                   link: '/addons/bulk-operations' },
+          { text: 'Item Library',                          link: '/addons/item-library' },
+          { text: 'Custom Invoice & Quote Templates',      link: '/addons/custom-templates' },
+          { text: 'Additional Tax Lines',                  link: '/addons/additional-tax' },
+          { text: 'Email Enhancements',                    link: '/addons/email-enhancements' },
+          { text: 'Secure Links for Invoices & Quotes',    link: '/addons/secure-links' },
+          { text: 'Privacy & GDPR Tools',                  link: '/addons/privacy-tools' },
+          { text: 'Reports & Analytics',                   link: '/addons/reports' }
+        ]
+      },
+      {
+        text: 'Pro addons — Professional tier',
+        collapsed: false,
+        items: [
+          { text: 'Time Tracking & Project Billing',       link: '/addons/time-tracking' },
+          { text: 'Expense Tracking & Reimbursables',      link: '/addons/expense-tracking' },
+          { text: 'Smart Reminders & Late Fees',           link: '/addons/smart-reminders' }
+        ]
+      },
+      {
+        text: 'Pro addons — Agency tier',
+        collapsed: false,
+        items: [
+          { text: 'White-Label & Brand Override',          link: '/addons/white-label' },
+          { text: 'Team Members & Audit Log',              link: '/addons/team-roles' },
+          { text: 'Webhooks & Zapier Bridge',              link: '/addons/webhooks' },
+          { text: 'Accounting Sync (QBO / Xero / FreshBooks)', link: '/addons/accounting-sync' }
         ]
       },
       {

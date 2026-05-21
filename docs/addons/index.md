@@ -12,14 +12,14 @@ description: Easy Invoice Pro is addon-driven. The Personal tier is free with th
 
 Easy Invoice Pro ships an **addon system**: every Pro feature is an independently-toggleable addon you turn on from **Easy Invoice → Addons**. Disabled addons contribute **zero PHP**, **zero database queries**, **zero hooks** — so a clean install is just as fast as the free plugin.
 
-> **Still on the free plugin?** You're missing 16 addons across recurring billing, deposits, client portal, custom templates, reports, and more — eleven of them are included free with the Pro plugin, no license key required. [Get Easy Invoice Pro →](https://matrixaddons.com/plugins/easy-invoice/#pricing)
+> **Still on the free plugin?** You're missing 19 addons across recurring billing, deposits, client portal, custom templates, reports, and more — twelve of them are included free with the Pro plugin, no license key required. [Get Easy Invoice Pro →](https://matrixaddons.com/plugins/easy-invoice/#pricing)
 
 ## How the tiers work
 
 | Tier | What unlocks it | What you get |
 |---|---|---|
 | **Free** | Easy Invoice plugin only | The free core: unlimited invoices, quotes, clients, PDF generation, PayPal & Manual gateways, email notifications. |
-| **Personal** | Install Easy Invoice Pro — **no license required** | All 9 Pro payment gateways + 11 Personal-tier addons (Recurring, Client Portal, PDF Toolkit, Item Library, Templates, Bulk Operations, Reports, and more). |
+| **Personal** | Install Easy Invoice Pro — **no license required** | All 9 Pro payment gateways + 12 Personal-tier addons (Recurring, Client Portal, PDF Toolkit, Item Library, Templates, Bulk Operations, Secure Links, Reports, and more). |
 | **Professional** | Activate a Professional license | Personal **+** Time Tracking, Smart Reminders & Late Fees, Priority Support. |
 | **Agency** | Activate an Agency license | Professional **+** White-Label, Team Roles & Audit Log, Webhooks & Zapier. |
 
@@ -199,6 +199,6 @@ For per-addon hooks, see each addon's docs page.
 
 <div class="doc-pro-callout" role="note" style="margin-top:2rem;">
   <span class="doc-pro-pill">Pro</span>
-  <span><strong>Ready to unlock the full addon catalog?</strong> Install Easy Invoice Pro for 11 Personal-tier addons free — no license required. Add a Professional or Agency license to unlock the rest.</span>
+  <span><strong>Ready to unlock the full addon catalog?</strong> Install Easy Invoice Pro for 12 Personal-tier addons free — no license required. Add a Professional or Agency license to unlock the rest.</span>
   <a class="doc-pro-callout__cta" href="https://matrixaddons.com/plugins/easy-invoice/#pricing" target="_blank" rel="noopener">Get Easy Invoice Pro →</a>
 </div>
