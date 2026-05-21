@@ -17,12 +17,13 @@ Easy Invoice Pro is one plugin that adds about 20 modules to the free core. Acti
 
 ### Pro gateways
 
-Eight new gateways unlock when Pro is active:
+Nine new gateways unlock when Pro is active:
 
 - **Stripe** — cards, Apple Pay, Google Pay, Link.
 - **Square** — US/CA/UK/AU/JP processing.
 - **Authorize.Net** — US AIM + CIM.
 - **Mollie** — SEPA, iDEAL, Bancontact, card.
+- **Paystack** — Africa-first (NGN/GHS/ZAR/KES/USD): card, bank transfer, USSD, mobile money, QR. HMAC-SHA512-signed webhooks.
 - **Bank Transfer** — display IBAN/SWIFT, mark paid manually.
 - **Cheque** — show mailing address, mark paid on receipt.
 - **Cash** — in-person, mark paid manually.
@@ -100,6 +101,22 @@ When a payment completes, Pro can generate a separate **Receipt** document (inde
 ### CSV export
 
 Bulk export invoices, quotes, payments, or clients as CSV — handy for accounting tools or migrating to a new system. <span class="screen-path">Easy Invoice → All Invoices → Export</span>.
+
+### Bulk Send Email
+
+Adds a **Send Email** option to the Bulk Actions dropdown on both the Invoice and Quote listing pages. Tick the rows you want, pick **Send Email**, click Apply — Pro dispatches the configured **Invoice / Quote Available** email to every selected document's client through `EmailManager`, then surfaces a per-row success / failure report. Pairs naturally with the **Filter by client** dropdown introduced in Easy Invoice 2.1.22.
+
+Extension hook: `do_action('easy_invoice_pro_after_bulk_send_email', $type, $ids, $report)`.
+
+### Bulk Export Selected
+
+Adds an **Export Selected** option to the Bulk Actions dropdown on both listings. Tick rows, choose Export Selected, click Apply — after a confirm prompt Pro streams a UTF-8 CSV (with BOM for Excel) of just the selected rows to your browser as `easy-invoice-{invoices|quotes}-YYYY-MM-DD.csv`. No filter form to set up first.
+
+When Easy Invoice (Free) is present without Pro active, the option still shows as "Export Selected (Pro)" and picking it opens the Upgrade-to-Pro dialog — discoverable for every user, gated behind the license.
+
+Endpoint: `admin-post.php?action=easy_invoice_pro_bulk_export` · capability: `manage_options` · nonce: `easy_invoice_pro_bulk_export`.
+
+Extension hook: `do_action('easy_invoice_pro_after_bulk_export', $type, $ids)`.
 
 ## Tax
 

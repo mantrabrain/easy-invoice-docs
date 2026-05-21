@@ -155,7 +155,36 @@ Untick **Settings → Quote → Accept quote button** to hide it (you'd then acc
 
 WP Admin → **Easy Invoice → All Quotes** shows every quote with status filters.
 
-Row actions: View, Edit, Duplicate, PDF, Send, Convert to Invoice, Delete.
+![All Quotes — client filter, status tabs, and bulk Send Email](/screenshots/51-quotes-client-filter-and-bulk-send.png)
+
+### Filter by client (Free)
+The **Filter by client** dropdown next to the search box narrows the list to one specific client's quotes — useful for "what did we last quote this prospect?" lookups. The filter persists across view tabs, status chips, pagination, and search.
+
+### Bulk Send Email <span class="pro-pill">PRO</span>
+
+With **Easy Invoice Pro**, the **Bulk Actions** dropdown gains a **Send Email** option for quotes too. Tick the rows, pick **Send Email**, click **Apply** — Pro dispatches the **Quote Available** email to every selected quote's client and reports a "Sent: X ok, Y failed" toast.
+
+<div class="doc-pro-callout">
+  <span class="doc-pro-pill">Pro</span>
+  <span>Bulk Send Email is a <strong>Pro</strong> feature. <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro →</a></span>
+</div>
+
+### Bulk Export Selected <span class="pro-pill">PRO</span>
+
+Same flow as the invoice export: tick the quotes you want, pick **Export Selected**, confirm — your browser downloads `easy-invoice-quotes-YYYY-MM-DD.csv`.
+
+**Columns exported:** Quote Number, Title, Client Name, Client Email, Quote Date, Expiry Date, Status, Subtotal, Tax, Discount, Total, Currency, Accepted Date, Declined Date.
+
+> **Without Pro:** the option shows as **Export Selected (Pro)** and picking it opens the Upgrade-to-Pro dialog.
+
+<div class="doc-pro-callout">
+  <span class="doc-pro-pill">Pro</span>
+  <span>Bulk Export Selected is a <strong>Pro</strong> feature. <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro →</a></span>
+</div>
+
+### Row actions
+
+View, Edit, Duplicate, PDF, Send, Convert to Invoice, Delete.
 
 ---
 

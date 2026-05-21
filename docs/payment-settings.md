@@ -1,11 +1,11 @@
 ---
 title: Payment gateways — step-by-step setup
-description: Connect every payment gateway supported by Easy Invoice — PayPal & Manual (Free) plus Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, and Moneris (Pro). Includes exact dashboard links, credential names, webhook URLs, and test-mode steps.
+description: Connect every payment gateway supported by Easy Invoice — PayPal & Manual (Free) plus Stripe, Square, Authorize.Net, Mollie, Paystack, Bank Transfer, Cheque, Cash, and Moneris (Pro). Includes exact dashboard links, credential names, webhook URLs, and test-mode steps.
 ---
 
 <div class="doc-pro-callout" role="note">
   <span class="doc-pro-pill">Pro</span>
-  <span><strong>Easy Invoice Free</strong> ships <strong>PayPal Standard</strong> and <strong>Manual</strong>. <strong>Easy Invoice Pro</strong> adds Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, and Moneris. Need them? <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro →</a></span>
+  <span><strong>Easy Invoice Free</strong> ships <strong>PayPal Standard</strong> and <strong>Manual</strong>. <strong>Easy Invoice Pro</strong> adds Stripe, Square, Authorize.Net, Mollie, Paystack, Bank Transfer, Cheque, Cash, and Moneris. Need them? <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro →</a></span>
 </div>
 
 # Payment gateways
@@ -33,6 +33,8 @@ When you open **Easy Invoice → Settings → Payment**, you'll see:
 - **Save Changes** button (top right of the page).
 
 If a gateway row is missing required credentials, the **public invoice** will not show it to clients even if its checkbox is on.
+
+> **Without Pro:** above the gateway list you'll see an **"Unlock more payment gateways with Easy Invoice Pro"** teaser block listing every Pro-only gateway (Stripe, Square, Authorize.Net, Mollie, Paystack, Moneris, Bank Transfer, Cheque, Cash). Click any row, or the **View pricing** button on the right, to upgrade. The block disappears as soon as Pro is active.
 
 ---
 
@@ -220,7 +222,53 @@ Mollie generates the callback URL automatically when each payment is created —
 
 ---
 
-## 7. Bank Transfer <span class="pro-pill">PRO</span>
+## 7. Paystack <span class="pro-pill">PRO</span>
+
+![Paystack settings — live + test keys plus the ready-to-paste webhook URL](/screenshots/42-settings-payment-paystack.png)
+
+The right pick if you sell into **Africa** — Nigeria, Ghana, South Africa, Kenya, plus international USD. Paystack accepts cards, bank transfers, USSD, mobile money (M-Pesa, MoMo) and QR codes through one hosted checkout.
+
+### What you need
+
+A Paystack merchant account ([sign up free at paystack.com](https://paystack.com/signup)).
+
+### Step-by-step
+
+<ol class="step-list">
+  <li>Open <a href="https://dashboard.paystack.com/#/settings/developers" target="_blank" rel="noopener">Paystack Dashboard → Settings → API Keys &amp; Webhooks</a>.</li>
+  <li>Copy your <strong>Live Public Key</strong> (starts with <code>pk_live_</code>) and reveal + copy the <strong>Live Secret Key</strong> (<code>sk_live_</code>). Also grab the <strong>Test Public Key</strong> (<code>pk_test_</code>) and <strong>Test Secret Key</strong> (<code>sk_test_</code>) if you'll test in sandbox first.</li>
+  <li>In WordPress: <strong>Easy Invoice → Settings → Payment</strong>, enable the <strong>Paystack</strong> row.</li>
+  <li>Paste <strong>Live Public Key</strong> / <strong>Live Secret Key</strong> (and Test pair if you want).</li>
+  <li>Set <strong>Paystack Mode</strong> to <code>Live</code> for real transactions or <code>Test</code> for sandbox.</li>
+  <li>Click <strong>Save Changes</strong>.</li>
+</ol>
+
+### Webhook (critical — payments only auto-mark as Paid if this is set)
+
+Paystack confirms each payment via a signed webhook. **The plugin won't trust unsigned events** — it verifies HMAC-SHA512 of the raw body against your secret key before writing anything.
+
+<ol class="step-list">
+  <li>Still on <a href="https://dashboard.paystack.com/#/settings/developers" target="_blank" rel="noopener">Dashboard → Settings → API Keys &amp; Webhooks</a>, find the <strong>Webhook URL</strong> field.</li>
+  <li>Copy the URL from the <strong>Webhook URL (copy into Paystack)</strong> field that Easy Invoice shows in the Paystack settings row. It looks like:<br><code>https://yoursite.com/wp-admin/admin-ajax.php?action=easy_invoice_paystack_webhook</code></li>
+  <li>Paste it into Paystack's Webhook URL field. <em>(Paystack uses one URL for live + test events.)</em></li>
+  <li>Save. No further config is needed — signature verification uses the same secret key you already pasted.</li>
+</ol>
+
+### Supported currencies
+
+Paystack accepts amounts in: <code>NGN</code>, <code>GHS</code>, <code>ZAR</code>, <code>KES</code>, <code>USD</code>, <code>EGP</code>, <code>XOF</code>. Easy Invoice will refuse to start a Paystack checkout if the invoice currency is outside this list. Pick the right currency under <strong>Settings → Currency</strong> or on the per-invoice Payment tab.
+
+### Test it (with sandbox test cards)
+
+1. Put **Paystack Mode** = `Test` and use your `pk_test_` / `sk_test_` pair.
+2. Use any [Paystack test card](https://paystack.com/docs/payments/test-payments/) — e.g. `4084 0840 8408 4081`, expiry any future date, CVV `408`, OTP `123456`.
+3. After the test payment, return to the invoice — it should be marked **Paid** automatically.
+
+> **Local development tip:** webhooks can't reach `localhost` / `.local` sites. Use [ngrok](https://ngrok.com) or [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/) to expose your dev site, then paste the public tunnel URL into Paystack's Webhook URL field.
+
+---
+
+## 8. Bank Transfer <span class="pro-pill">PRO</span>
 
 Shows your **bank details** on the invoice and lets the client upload a payment-proof file when they pay.
 
@@ -236,7 +284,7 @@ When clients pick Bank Transfer at checkout, they see the bank details and an up
 
 ---
 
-## 8. Cheque <span class="pro-pill">PRO</span>
+## 9. Cheque <span class="pro-pill">PRO</span>
 
 For "send us a cheque" workflows.
 
@@ -253,7 +301,7 @@ Clients see your payable name + mailing address on the public invoice and can ma
 
 ---
 
-## 9. Cash <span class="pro-pill">PRO</span>
+## 10. Cash <span class="pro-pill">PRO</span>
 
 Like Manual, but with an explicit cash-only label.
 
@@ -267,7 +315,7 @@ Like Manual, but with an explicit cash-only label.
 
 ---
 
-## 10. Moneris <span class="pro-pill">PRO</span>
+## 11. Moneris <span class="pro-pill">PRO</span>
 
 Canada's largest payment processor — Visa, Mastercard, AMEX, Interac Online.
 
@@ -297,6 +345,7 @@ A Moneris merchant account.
 | Already use Square at a physical store | **Square** <span class="pro-pill">PRO</span> |
 | US merchant on an existing gateway | **Authorize.Net** <span class="pro-pill">PRO</span> |
 | European customers (iDEAL, SEPA, Klarna) | **Mollie** <span class="pro-pill">PRO</span> |
+| Africa-focused (NGN/GHS/ZAR/KES) or USSD/mobile money | **Paystack** <span class="pro-pill">PRO</span> |
 | Canadian merchant (Visa, MC, Interac) | **Moneris** <span class="pro-pill">PRO</span> |
 | Wire transfer business | **Bank Transfer** <span class="pro-pill">PRO</span> |
 | Old-school cheque clients | **Cheque** <span class="pro-pill">PRO</span> |
@@ -304,7 +353,7 @@ A Moneris merchant account.
 
 <div class="doc-pro-callout">
   <span class="doc-pro-pill">Pro</span>
-  <span>Stripe, Square, Authorize.Net, Mollie, Moneris, Bank Transfer, Cheque, Cash — all require <strong>Easy Invoice Pro</strong>. <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">View plans &amp; upgrade →</a></span>
+  <span>Stripe, Square, Authorize.Net, Mollie, Paystack, Moneris, Bank Transfer, Cheque, Cash — all require <strong>Easy Invoice Pro</strong>. <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">View plans &amp; upgrade →</a></span>
 </div>
 
 ---

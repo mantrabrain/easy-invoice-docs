@@ -41,6 +41,12 @@ Easy Invoice Pro adds ~20 modules to the free core. This page is the catalog —
   <span class="doc-addon-card__cta">Configure Mollie →</span>
 </a>
 
+<a class="doc-addon-card" href="/docs/payment-settings#paystack">
+  <h3 class="doc-addon-card__title">Paystack <span class="doc-pro-pill">Pro</span></h3>
+  <p class="doc-addon-card__copy">Africa-first: NGN / GHS / ZAR / KES / USD via card, bank transfer, USSD, mobile money &amp; QR. HMAC-SHA512 signed webhooks.</p>
+  <span class="doc-addon-card__cta">Configure Paystack →</span>
+</a>
+
 <a class="doc-addon-card" href="/docs/payment-settings#bank-transfer">
   <h3 class="doc-addon-card__title">Bank Transfer <span class="doc-pro-pill">Pro</span></h3>
   <p class="doc-addon-card__copy">Show IBAN / SWIFT on the invoice. Manual reconciliation when wire lands.</p>
@@ -129,6 +135,18 @@ Easy Invoice Pro adds ~20 modules to the free core. This page is the catalog —
   <h3 class="doc-addon-card__title">CSV export <span class="doc-pro-pill">Pro</span></h3>
   <p class="doc-addon-card__copy">Bulk export invoices, quotes, payments, or clients to CSV. Handy for accounting tools.</p>
   <span class="doc-addon-card__cta">Export data →</span>
+</a>
+
+<a class="doc-addon-card" href="/docs/invoices#bulk-send-email-pro">
+  <h3 class="doc-addon-card__title">Bulk Send Email <span class="doc-pro-pill">Pro</span></h3>
+  <p class="doc-addon-card__copy">Select multiple invoices or quotes and send the configured "Available" email to every client in one click. Per-row success/failure report.</p>
+  <span class="doc-addon-card__cta">Send in bulk →</span>
+</a>
+
+<a class="doc-addon-card" href="/docs/invoices#bulk-export-selected-pro">
+  <h3 class="doc-addon-card__title">Bulk Export Selected <span class="doc-pro-pill">Pro</span></h3>
+  <p class="doc-addon-card__copy">Tick rows on the Invoice or Quote listing, hit <strong>Export Selected</strong>, and download an accounting-ready CSV (UTF-8 BOM for Excel). Works with QuickBooks, Xero, FreshBooks.</p>
+  <span class="doc-addon-card__cta">Export selected rows →</span>
 </a>
 
 </div>
@@ -249,7 +267,7 @@ Every check below means the feature is available — there are no per-tier featu
 
 | Feature | Personal | Professional | Agency |
 | --- | :-: | :-: | :-: |
-| Stripe / Square / Authorize.Net / Mollie / Bank / Cheque / Cash / Moneris | ✅ | ✅ | ✅ |
+| Stripe / Square / Authorize.Net / Mollie / Paystack / Bank / Cheque / Cash / Moneris | ✅ | ✅ | ✅ |
 | Recurring invoices | ✅ | ✅ | ✅ |
 | Subscription invoices | ✅ | ✅ | ✅ |
 | Partial payments | ✅ | ✅ | ✅ |

@@ -198,15 +198,61 @@ Once they pay (via Stripe/PayPal/etc.), the webhook fires and the invoice is mar
 
 WP Admin → **Easy Invoice → All Invoices** shows every invoice with quick filters by status and a search box.
 
-![All Invoices — list with status filters, search, and row actions](/screenshots/23-invoices-list.png)
+![All Invoices — client filter, status filters, search, and bulk Send Email](/screenshots/50-invoices-client-filter-and-bulk-send.png)
 
-Row actions:
+### Filter by client (Free)
+The **Filter by client** dropdown next to the search box narrows the list to one specific client's invoices. The filter sticks across:
+
+- view-tab switches (All / Draft / Trash)
+- status-filter chips (Paid / Unpaid / Overdue / …)
+- pagination
+- the search box
+
+Pick **All clients** to clear the filter.
+
+### Bulk Send Email <span class="pro-pill">PRO</span>
+
+With **Easy Invoice Pro** active, the **Bulk Actions** dropdown gains a **Send Email** option. Use it to:
+
+1. Tick the checkboxes next to the invoices you want to email.
+2. Pick **Send Email** in the Bulk Actions dropdown.
+3. Click **Apply** — confirm the dialog.
+4. Easy Invoice Pro dispatches the configured **Invoice Available** email to every selected invoice's client, then shows a "Sent: X ok, Y failed" toast.
+
+This is one of the highest-impact Pro features for end-of-month invoicing — a single click replaces opening each invoice individually and clicking **Send**.
+
+<div class="doc-pro-callout">
+  <span class="doc-pro-pill">Pro</span>
+  <span>Bulk Send Email requires <strong>Easy Invoice Pro</strong>. <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro →</a></span>
+</div>
+
+### Bulk Export Selected <span class="pro-pill">PRO</span>
+
+Need invoice data for accounting or an external audit? The **Export Selected** bulk action streams a UTF-8 CSV of just the rows you've ticked — no separate Export screen, no date filter to set up.
+
+1. Tick the checkboxes next to the invoices you want to export.
+2. Pick **Export Selected** in the Bulk Actions dropdown.
+3. Click **Apply** — confirm the prompt (*"Download a CSV of N selected invoices?"*).
+4. Your browser downloads `easy-invoice-invoices-YYYY-MM-DD.csv`.
+
+**Columns exported:** Invoice Number, Title, Client Name, Client Email, Issue Date, Due Date, Status, Subtotal, Tax, Discount, Total, Currency, Payment Method, Payment Date, Transaction ID.
+
+The CSV ships with a UTF-8 BOM so Excel opens it with the right encoding — works straight in QuickBooks Online, Xero, FreshBooks, and any spreadsheet.
+
+> **Without Pro:** the option still shows as **Export Selected (Pro)** and picking it opens the Upgrade-to-Pro dialog with a one-click upgrade link.
+
+<div class="doc-pro-callout">
+  <span class="doc-pro-pill">Pro</span>
+  <span>Bulk Export Selected requires <strong>Easy Invoice Pro</strong>. <a href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Upgrade to Easy Invoice Pro →</a></span>
+</div>
+
+### Row actions
 
 - **View** — open the public invoice
 - **Edit** — back to the Invoice Builder
 - **Duplicate** — clone with a fresh number (great for repeat jobs without recurring billing)
 - **PDF** — download
-- **Send** — re-send the email
+- **Send** — re-send the email (single invoice)
 - **Delete** — trash
 
 ---

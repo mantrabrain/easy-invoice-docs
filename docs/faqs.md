@@ -13,11 +13,32 @@ Yes. The core plugin is GPLv2-or-later, lives on [WordPress.org](https://wordpre
 
 ### Do I need Easy Invoice Pro?
 
-Only if you need any of: Stripe / Square / Mollie / Authorize.Net / other Pro gateways, recurring billing, partial payments, deposit invoices, the Item Library, the Template Builder, custom permalinks, PDF watermarks, the client portal, or the GDPR exporter. Otherwise the free plugin handles unlimited basic invoicing.
+Get [Easy Invoice Pro](https://matrixaddons.com/plugins/easy-invoice/#pricing) if you need any of:
+
+- **Pro payment gateways** — Stripe, Square, Mollie, Authorize.Net, Paystack, Moneris, Bank Transfer, Cheque, Cash
+- **Personal-tier addons** (free with the Pro plugin, no license required): Recurring Invoices, Partial Payments & Deposits, Client Portal, PDF Toolkit, Bulk Email & Export, Item Library, Custom Invoice & Quote Templates, Additional Tax Lines, Email Enhancements, Privacy & GDPR Tools, Reports & Analytics
+- **Professional tier** (with license): Time Tracking & Project Billing, Smart Reminders & Late Fees, Priority Support
+- **Agency tier** (with license): White-Label, Team Members & Audit Log, Webhooks & Zapier
+
+Otherwise the free plugin handles unlimited basic invoicing with PayPal and Manual payment methods.
+
+### Does Personal-tier really come free with the Pro plugin?
+
+Yes. Once you install Easy Invoice Pro, all 11 Personal-tier addons unlock automatically — no license key required. A license key only unlocks the higher Professional and Agency tiers. This is a deliberate design choice so you can buy Pro once and get the most-requested addons (recurring billing, client portal, reports, etc.) without any extra steps.
 
 ### Does Pro work without Free?
 
 No. Easy Invoice Pro **requires the free plugin to be active**. Activating Pro without Free auto-deactivates Pro and shows an admin error.
+
+### How do I turn an addon on or off?
+
+Go to **Easy Invoice → Addons** in your WordPress admin. Each addon has a card with an **Activate** / **Deactivate** button. Toggle changes take effect on the next page load.
+
+Disabled addons contribute zero PHP, zero database queries, and zero hooks to your site — so leaving an addon off has zero performance cost. Only turn on what you actually use.
+
+### Will my existing Pro features break after the addon-system upgrade?
+
+No. A one-time migration runs automatically on the next admin page load after you upgrade to Easy Invoice 2.3.0+. It auto-enables every addon for features you were already using, so nothing stops working. You can then customize what's enabled from **Easy Invoice → Addons**.
 
 ## Versions & compatibility
 

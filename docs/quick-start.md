@@ -95,7 +95,7 @@ You need at least one gateway so the **Pay Now** button works.
 3. Paste Publishable Key + Secret Key.
 4. Add a webhook in Stripe (`yoursite.com/wp-admin/admin-ajax.php?action=easy_invoice_stripe_webhook`) and paste the Webhook Secret back into Easy Invoice.
 
-📖 [Full payment gateway guide — Stripe, Square, Authorize.Net, Mollie, Moneris, Bank Transfer, Cheque, Cash, PayPal](./payment-settings)
+📖 [Full payment gateway guide — Stripe, Square, Authorize.Net, Mollie, Paystack, Moneris, Bank Transfer, Cheque, Cash, PayPal](./payment-settings)
 
 ---
 

@@ -17,7 +17,7 @@ next:
       <span class="doc-pro-pill" title="Adds Stripe, Square, Mollie, recurring, partials, deposits, item library, custom permalinks">Pro</span>
     </div>
     <h1 class="ei-hero__title">Bill clients on your own WordPress site — invoices, quotes, payments, recurring billing.</h1>
-    <p class="ei-hero__lede">Run a real billing office from WordPress: build invoices, send quotes, take card payments, and let clients self-serve a portal. The <strong>free plugin</strong> ships PayPal &amp; Manual gateways. <strong>Easy Invoice Pro</strong> unlocks Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, recurring &amp; subscription billing, partial payments, deposits, the Item Library, and the Template Builder.<br /><span style="margin-top:.6rem;display:inline-block;color:var(--vp-c-text-2);font-size:0.95rem;">New here? Jump to <a href="/docs/installation">Install</a>, then read <a href="/docs/admin-dashboard">Your WordPress admin</a> — it mirrors the Easy Invoice sidebar one-to-one.</span></p>
+    <p class="ei-hero__lede">Run a real billing office from WordPress: build invoices, send quotes, take card payments, and let clients self-serve a portal. The <strong>free plugin</strong> ships PayPal &amp; Manual gateways. <strong>Easy Invoice Pro</strong> unlocks Stripe, Square, Authorize.Net, Mollie, Paystack, Bank Transfer, Cheque, Cash, recurring &amp; subscription billing, partial payments, deposits, the Item Library, and the Template Builder.<br /><span style="margin-top:.6rem;display:inline-block;color:var(--vp-c-text-2);font-size:0.95rem;">New here? Jump to <a href="/docs/installation">Install</a>, then read <a href="/docs/admin-dashboard">Your WordPress admin</a> — it mirrors the Easy Invoice sidebar one-to-one.</span></p>
     <div class="ei-hero__actions">
       <a class="ei-btn ei-btn--primary" href="/docs/installation">Install Easy Invoice (free)</a>
       <a class="ei-btn ei-btn--ghost" href="/docs/quick-start">Setup walkthrough</a>
@@ -28,7 +28,7 @@ next:
       <span class="ei-hero__chip" role="listitem">WordPress 5.6+</span>
       <span class="ei-hero__chip" role="listitem">PHP 7.4+</span>
       <span class="ei-hero__chip ei-hero__chip--free" role="listitem"><strong>Free</strong> PayPal · Manual</span>
-      <span class="ei-hero__chip ei-hero__chip--prolane" role="listitem"><span class="doc-pro-pill">Pro</span> Stripe · Square · Authorize.Net · Mollie · Bank · Cheque · Cash · Moneris<a class="doc-pro-upgrade-link" href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Compare plans →</a></span>
+      <span class="ei-hero__chip ei-hero__chip--prolane" role="listitem"><span class="doc-pro-pill">Pro</span> Stripe · Square · Authorize.Net · Mollie · Paystack · Bank · Cheque · Cash · Moneris<a class="doc-pro-upgrade-link" href="https://matrixaddons.com/plugins/easy-invoice/" target="_blank" rel="noopener">Compare plans →</a></span>
     </div>
   </div>
 </div>
@@ -100,7 +100,7 @@ next:
   <span class="doc-card-badge-pro"><span class="doc-pro-pill">Pro extra</span></span>
   <span class="ei-card__icon">💳</span>
   <h3>Payment gateways (step-by-step)</h3>
-  <p><strong>Free:</strong> PayPal &amp; Manual. <strong>Pro:</strong> Stripe, Square, Authorize.Net, Mollie, Bank Transfer, Cheque, Cash, Moneris — with exact dashboard links &amp; webhooks.</p>
+  <p><strong>Free:</strong> PayPal &amp; Manual. <strong>Pro:</strong> Stripe, Square, Authorize.Net, Mollie, Paystack, Bank Transfer, Cheque, Cash, Moneris — with exact dashboard links &amp; webhooks.</p>
   <span class="ei-card__cta">Configure gateways →</span>
 </a>
 
@@ -202,7 +202,7 @@ next:
 | **Free gateways**: PayPal &amp; Manual                       | ✅   | ✅  |
 | Custom email templates (invoice, quote, payment, reminders)  | ✅   | ✅  |
 | Daily payment-reminder cron (manual flows)                   | ✅   | ✅  |
-| **Stripe, Square, Authorize.Net, Mollie, Bank, Cheque, Cash, Moneris** | — | ✅ |
+| **Stripe, Square, Authorize.Net, Mollie, Paystack, Bank, Cheque, Cash, Moneris** | — | ✅ |
 | **Recurring invoices**                                       | —    | ✅  |
 | **Subscription invoices**                                    | —    | ✅  |
 | **Partial payments**                                         | —    | ✅  |

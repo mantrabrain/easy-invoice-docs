@@ -109,6 +109,17 @@ export default defineConfig({
               { text: 'Pro features overview', link: '/third-party-integrations' },
               { text: 'All Pro features', link: '/features' }
             ]
+          },
+          {
+            text: 'Pro addons',
+            items: [
+              { text: 'Addons overview', link: '/addons/' },
+              { text: 'Time Tracking & Project Billing', link: '/addons/time-tracking' },
+              { text: 'Smart Reminders & Late Fees', link: '/addons/smart-reminders' },
+              { text: 'White-Label & Brand Override', link: '/addons/white-label' },
+              { text: 'Team Members & Audit Log', link: '/addons/team-roles' },
+              { text: 'Webhooks & Zapier Bridge', link: '/addons/webhooks' }
+            ]
           }
         ]
       },
@@ -168,6 +179,18 @@ export default defineConfig({
           { text: 'Email & notifications', link: '/email-settings' },
           { text: 'Pro features overview', link: '/third-party-integrations' },
           { text: 'All Pro features', link: '/features' }
+        ]
+      },
+      {
+        text: 'Pro addons',
+        collapsed: false,
+        items: [
+          { text: 'Addons overview', link: '/addons/' },
+          { text: 'Time Tracking & Project Billing', link: '/addons/time-tracking' },
+          { text: 'Smart Reminders & Late Fees', link: '/addons/smart-reminders' },
+          { text: 'White-Label & Brand Override', link: '/addons/white-label' },
+          { text: 'Team Members & Audit Log', link: '/addons/team-roles' },
+          { text: 'Webhooks & Zapier Bridge', link: '/addons/webhooks' }
         ]
       },
       {
