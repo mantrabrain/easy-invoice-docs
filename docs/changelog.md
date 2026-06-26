@@ -7,6 +7,29 @@ description: Easy Invoice version history. Recent releases for both the free plu
 
 Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `MAJOR` is reserved for breaking schema changes (rare).
 
+## Easy Invoice (free) — 2.3.5 — June 26, 2026
+
+- **Security** — Hardened authorisation on the manual-payment submission flow (Bank Transfer / Cheque / Cash). The public AJAX endpoint now requires either a valid per-invoice access key, an admin session, or the bound client logged in by email match. All sites should update.
+- **Improved** — Invoice share links sent via `{{invoice_url}}` email merge tag and the `[easy_invoice_url]` shortcode now carry a per-invoice access key. Recipients of these links can submit manual-payment proof as before — no extra steps for the customer.
+- **Note** — Invoice links generated **before** this update still load and pay through online gateways (Stripe / PayPal / etc.); only the "submit manual payment" form requires the new keyed link or a logged-in client whose email matches the invoice.
+- **Fixed** — Race condition under high concurrency where two simultaneous invoice (or quote) creates could be assigned the same number. The counter read-check-write sequence is now serialised via a MySQL named lock; the lock auto-releases on connection close so it cannot leak across requests.
+- **Added** — License recognition for the new **Professional Lifetime** and **Agency Lifetime** SKUs so customers on those tiers are placed correctly and see the matching variant label on the License page.
+
+## Easy Invoice Pro — 2.2.5 — June 26, 2026
+
+- **Security** — Hardened authorisation on the Partial Payments AJAX endpoints (`processPartialPayment`, `getPaymentHistory`). Same ownership model as the Free plugin's manual-payment flow.
+- **Security** — Webhooks outbound SSRF blocklist extended to explicitly cover Azure's IaaS metadata endpoint (`168.63.129.16`) and IPv4-mapped IPv6 representations of loopback and cloud-metadata addresses.
+- **Security** — Square webhook replay protection. The handler records each `event_id` in a 24-hour transient and short-circuits replays so a captured signed webhook can't be re-fired to duplicate notifications or payment records.
+- **Security** — Bulk-export endpoints (`exportCSV`, `exportInvoicesCSV`, `exportQuotesCSV`) now require admin capability (`manage_options`), matching the sibling "Export All" buttons that were already gated.
+- **Fixed** — Recurring invoice next-run dates now respect the site timezone (WordPress **Settings → General → Timezone**) instead of falling back to the host's PHP `date.timezone` ini value. Existing schedules keep their stored next-run; the first recalculation after upgrade picks up the corrected logic.
+- **Fixed** — Pro deactivation now clears all nine Pro-owned cron events instead of just the legacy payment-reminders hook. Previously, orphan cron registrations stayed in WordPress's cron queue indefinitely after Pro was deactivated.
+
+## Easy Invoice (free) — 2.3.4 — June 12, 2026
+
+- **Security** — Hardened authorisation on the quote Accept and Decline flows. The public AJAX endpoints now require a per-quote access key, admin session, or bound-client email match (CVE-2026-9021).
+- **Improved** — Quote share links emailed to clients (`{{quote_url}}`, `[easy_quote_url]`) now carry a per-quote access key.
+- **Note** — Quote links generated before this update still display the quote, but Accept / Decline buttons require a new keyed link (admin resend), client login, or admin action.
+
 ## Easy Invoice (free) — 2.2.0 — May 13, 2026
 
 - **Added** — "Export Selected (Pro)" option in the Bulk Actions dropdown on both Invoice and Quote listings. Visible to all users; picking it without Pro opens the Upgrade-to-Pro dialog.

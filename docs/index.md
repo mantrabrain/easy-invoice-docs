@@ -220,7 +220,12 @@ next:
 | **Receipt generation**                                       | —    | ✅  |
 | **Pro Settings &amp; Translations** submenus                 | —    | ✅  |
 
-> Pro plans (Personal / Professional / Agency) all unlock the same feature set in the current build — they differ on **license seats** and **support priority**. See the [pricing page](https://matrixaddons.com/plugins/easy-invoice/) for the latest.
+> Pro plans gate features by tier:
+> - **Personal** (1 site) — 12 included addons: Recurring Invoices, Partial Payments &amp; Deposits, Client Portal, PDF Toolkit, Bulk Email &amp; Export, Item Library, Custom Invoice &amp; Quote Templates, Additional Tax Lines, Email Enhancements, Privacy &amp; GDPR Tools, Reports &amp; Analytics, Secure Links.
+> - **Professional** (5 sites) — adds Time Tracking &amp; Project Billing, Expense Tracking &amp; Reimbursables, and Smart Reminders &amp; Late Fees.
+> - **Agency** (unlimited sites) — adds White-Label &amp; Brand Override, Team Roles &amp; Audit Log, Webhooks &amp; Zapier Bridge, and Accounting Sync (QuickBooks / Xero / FreshBooks).
+>
+> Each tier is available as a **yearly subscription** (with first-year discount) or a one-time **Lifetime** purchase. See the [pricing page](https://matrixaddons.com/plugins/easy-invoice/#pricing) for current prices and the [License page](/license) inside the admin for the active variant on this install.
 
 ## Need help fast?
 

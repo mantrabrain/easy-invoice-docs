@@ -249,44 +249,72 @@ Easy Invoice Pro adds ~20 modules to the free core. This page is the catalog —
 
 ## Plan tier matrix {#plan-matrix}
 
-Easy Invoice Pro is sold in three tiers. **All three tiers unlock every Pro module** — they differ on license seats and support level.
+Easy Invoice Pro is sold in three tiers. **Higher tiers add features on top of everything in the lower tier** — they are *not* flat parity. Each tier is also available as a one-time **Lifetime** purchase.
 
 ### Tier overview
 
-| Plan | Sites | Support level | Use case |
+| Plan | Sites | Support level | Best fit |
 | --- | --- | --- | --- |
 | **Personal** | 1 | Standard | Solo freelancer / single business. |
-| **Professional** | 5 | Priority | Multi-site agency or franchisee. |
-| **Agency** | 25 | Priority + onboarding | Large studio managing many client sites. |
+| **Professional** | 5 | Priority | Active business with team workflows (time, expenses, reminders). |
+| **Agency** | Unlimited | Priority + onboarding | Studios, white-label resellers, multi-site portfolio. |
 
-> Internal price IDs `1`, `2`, `3` on the EDD checkout link to Personal / Professional / Agency.
+### Billing options
+
+Every tier ships with both billing modes:
+
+- **Yearly** — first year discounted, renews at list price annually.
+- **Lifetime** — one-time payment, no renewals, no expiry. Same feature set as the matching yearly tier; you only buy out of the renewal cycle.
 
 ### Feature × tier matrix
 
-Every check below means the feature is available — there are no per-tier feature gates in the current Pro plugin.
+Inclusion follows tier hierarchy: anything checked in a lower tier is also checked in higher tiers.
 
 | Feature | Personal | Professional | Agency |
 | --- | :-: | :-: | :-: |
+| **Sites covered** | 1 | 5 | Unlimited |
+| **— Personal addons (12 included)** | | | |
 | Stripe / Square / Authorize.Net / Mollie / Paystack / Bank / Cheque / Cash / Moneris | ✅ | ✅ | ✅ |
-| Recurring invoices | ✅ | ✅ | ✅ |
-| Subscription invoices | ✅ | ✅ | ✅ |
-| Partial payments | ✅ | ✅ | ✅ |
-| Deposit invoices | ✅ | ✅ | ✅ |
+| Recurring &amp; subscription invoices | ✅ | ✅ | ✅ |
+| Partial payments &amp; deposit invoices | ✅ | ✅ | ✅ |
 | Item Library | ✅ | ✅ | ✅ |
-| Template Builder | ✅ | ✅ | ✅ |
+| Custom Invoice &amp; Quote Template Builder | ✅ | ✅ | ✅ |
 | Duplicate, Receipt, CSV export | ✅ | ✅ | ✅ |
-| Additional Tax | ✅ | ✅ | ✅ |
-| Custom &amp; secure permalinks | ✅ | ✅ | ✅ |
-| PDF Enhancements (watermark, fonts) | ✅ | ✅ | ✅ |
-| Email Enhancements (cadence, branding) | ✅ | ✅ | ✅ |
-| Client portal + magic-link login | ✅ | ✅ | ✅ |
-| Privacy &amp; Access (GDPR exporter) | ✅ | ✅ | ✅ |
-| Translations submenu | ✅ | ✅ | ✅ |
-| **Sites covered** | **1** | **5** | **25** |
-| **Priority support** | — | ✅ | ✅ |
-| **Onboarding session** | — | — | ✅ |
+| Additional Tax Lines | ✅ | ✅ | ✅ |
+| Secure Links (custom permalinks + signed URLs) | ✅ | ✅ | ✅ |
+| PDF Toolkit (watermark, fonts, branding) | ✅ | ✅ | ✅ |
+| Email Enhancements (cadence, reply-to, branding) | ✅ | ✅ | ✅ |
+| Client Portal + magic-link login | ✅ | ✅ | ✅ |
+| Privacy &amp; Access (GDPR exporter / eraser) | ✅ | ✅ | ✅ |
+| Reports &amp; Analytics | ✅ | ✅ | ✅ |
+| **— Professional addons (added on top)** | | | |
+| Time Tracking &amp; Project Billing | — | ✅ | ✅ |
+| Expense Tracking &amp; Reimbursables | — | ✅ | ✅ |
+| Smart Reminders &amp; Late Fees | — | ✅ | ✅ |
+| **— Agency addons (added on top)** | | | |
+| White-Label &amp; Brand Override | — | — | ✅ |
+| Team Roles &amp; Audit Log | — | — | ✅ |
+| Webhooks &amp; Zapier Bridge | — | — | ✅ |
+| Accounting Sync (QuickBooks / Xero / FreshBooks) | — | — | ✅ |
+| **— Support** | | | |
+| Priority support | — | ✅ | ✅ |
+| Onboarding session | — | — | ✅ |
 
-> See the [pricing page](https://matrixaddons.com/plugins/easy-invoice/) for current numbers and renewal terms.
+### EDD checkout price IDs
+
+For vendor / debugging reference:
+
+| price_id | Variant | Plan tier |
+| --- | --- | --- |
+| `1` | Personal yearly | Personal |
+| `2` | Professional yearly | Professional |
+| `3` | Agency yearly | Agency |
+| `4` | Personal Lifetime | Personal |
+| `5` | Unlimited Lifetime (discontinued — legacy customers only) | Personal |
+| `6` | Professional Lifetime | Professional |
+| `7` | Agency Lifetime | Agency |
+
+> See the [pricing page](https://matrixaddons.com/plugins/easy-invoice/#pricing) for current numbers and renewal terms.
 
 ## Where to go next
 

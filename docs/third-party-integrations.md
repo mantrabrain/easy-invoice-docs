@@ -208,15 +208,29 @@ Open <span class="screen-path">Easy Invoice → License</span>. Daily license ch
 
 ## Plan tiers
 
-Easy Invoice Pro is sold in three tiers — they all unlock the same feature set; they differ on **license seats** and **support priority**:
+Easy Invoice Pro is sold in three tiers. Higher tiers add features on top of everything in the lower tier — they're **not** flat parity. Tiers also differ on license seats and support priority.
 
-| Plan | Sites | Support | Annual price (USD) |
+| Plan | Sites | Adds on top of the previous tier | Support |
 | --- | --- | --- | --- |
-| **Personal** | 1 | Standard | _see [pricing](https://matrixaddons.com/plugins/easy-invoice/)_ |
-| **Professional** | 5 | Priority | _see pricing_ |
-| **Agency** | 25 | Priority + onboarding | _see pricing_ |
+| **Personal** | 1 | 12 included addons (Recurring Invoices, Partial Payments &amp; Deposits, Client Portal, PDF Toolkit, Bulk Email &amp; Export, Item Library, Custom Templates, Additional Tax Lines, Email Enhancements, Privacy &amp; GDPR, Reports &amp; Analytics, Secure Links). | Standard |
+| **Professional** | 5 | Time Tracking &amp; Project Billing · Expense Tracking &amp; Reimbursables · Smart Reminders &amp; Late Fees. | Priority |
+| **Agency** | Unlimited | White-Label &amp; Brand Override · Team Roles &amp; Audit Log · Webhooks &amp; Zapier Bridge · Accounting Sync (QuickBooks / Xero / FreshBooks). | Priority + onboarding |
 
-> The price IDs (`1`, `2`, `3`) on the EDD checkout map to Personal / Professional / Agency. The PHP code doesn't gate features per tier — every active license enables every Pro module.
+Each tier is available as a **yearly subscription** (first year discounted) or a one-time **Lifetime** purchase. See the [pricing page](https://matrixaddons.com/plugins/easy-invoice/#pricing) for current numbers.
+
+**EDD checkout price IDs** (for vendor / partner / debugging reference):
+
+| price_id | Variant | Plan tier |
+| --- | --- | --- |
+| `1` | Personal yearly | Personal |
+| `2` | Professional yearly | Professional |
+| `3` | Agency yearly | Agency |
+| `4` | Personal Lifetime | Personal |
+| `5` | Unlimited Lifetime (discontinued — legacy customers only) | Personal |
+| `6` | Professional Lifetime | Professional |
+| `7` | Agency Lifetime | Agency |
+
+> Tier gating is enforced at runtime by `\EasyInvoice\Addons\LicensePlanResolver::planSatisfies()` (in the Free plugin). The yearly variant and the Lifetime variant of the same tier unlock the same feature set — Lifetime just removes the renewal.
 
 ## Where to go next
 

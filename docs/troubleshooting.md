@@ -213,7 +213,7 @@ The Free plugin sometimes ships at a different version number than Pro (e.g. Fre
 
 ### Each site needs its own license?
 
-Yes — license seats are tracked per site. A **Personal** license = 1 site, **Professional** = 5, **Agency** = 25. Subsite activations count individually.
+Yes — license seats are tracked per site. A **Personal** license = 1 site, **Professional** = 5, **Agency** = unlimited. Subsite activations count individually against the seat cap (except Agency, which has none).
 
 ## Where to go next
 
