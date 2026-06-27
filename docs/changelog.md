@@ -7,6 +7,13 @@ description: Easy Invoice version history. Recent releases for both the free plu
 
 Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `MAJOR` is reserved for breaking schema changes (rare).
 
+## Easy Invoice (free) — 2.3.6 — June 26, 2026
+
+- **Security** — Tightened the capability check on the AJAX payment-update endpoint so only users with the dedicated payment-management permission can change payment records or invoice status. All sites should update.
+- **Security** — `[easy_invoice_url]` and `[easy_quote_url]` no longer mint per-document access keys for arbitrary visitors. Access keys are now produced exclusively when an invoice / quote email is sent; the shortcodes attach an existing key only when the current viewer is the site admin, the bound client, or already holds the key in the page URL.
+- **Fixed** — Bound-client recognition on quote Accept / Decline and invoice manual-payment submission was a dead branch since 2.3.4: the guard used `method_exists()` which returns false for `__call`-resolved methods, and both Invoice and Quote resolve `getClientId()` that way. Logged-in clients whose email matches the document's bound client are now correctly authorised. (Admin and emailed-link paths were unaffected.)
+- **Note** — Emailed `{{invoice_url}}` and `{{quote_url}}` links continue to work unchanged for the legitimate recipient. The shortcode change is invisible for admin embeds on admin-context pages; on public pages the shortcode now renders a plain permalink for visitors who don't already hold a valid key.
+
 ## Easy Invoice (free) — 2.3.5 — June 26, 2026
 
 - **Security** — Hardened authorisation on the manual-payment submission flow (Bank Transfer / Cheque / Cash). The public AJAX endpoint now requires either a valid per-invoice access key, an admin session, or the bound client logged in by email match. All sites should update.
