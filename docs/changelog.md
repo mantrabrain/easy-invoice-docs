@@ -7,6 +7,10 @@ description: Easy Invoice version history. Recent releases for both the free plu
 
 Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `MAJOR` is reserved for breaking schema changes (rare).
 
+## Easy Invoice Pro — 2.2.6 — June 28, 2026
+
+- **Security** — Twelve AJAX handlers in the Custom Templates addon (the Template Builder back-end) were previously gated by nonce only; they now also require admin capability (`manage_options`). The Template Builder UI is admin-only in practice — the change brings the previously-missing handlers to the same policy already enforced on the controller's other eight handlers. No customer-facing behaviour changes; admins continue to use the Template Builder exactly as before.
+
 ## Easy Invoice (free) — 2.3.6 — June 26, 2026
 
 - **Security** — Tightened the capability check on the AJAX payment-update endpoint so only users with the dedicated payment-management permission can change payment records or invoice status. All sites should update.
