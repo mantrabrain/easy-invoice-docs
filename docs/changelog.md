@@ -7,6 +7,14 @@ description: Easy Invoice version history. Recent releases for both the free plu
 
 Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `MAJOR` is reserved for breaking schema changes (rare).
 
+## Easy Invoice (free) — 2.3.7 — June 29, 2026
+
+- **Fixed** — Download PDF from the Invoice and Quote listing pages could leave the user stranded on the intermediate `admin-ajax.php?action=easy_invoice_generate_pdf…` URL — sometimes showing a JSON "Security check failed" body, sometimes a completely blank page. Root causes were the browser dropping the WordPress session cookie into the new tab (Safari ITP, `SameSite=Strict`, third-party cookie blockers), CDN / page-cache layers replaying stale responses, and third-party plugins emitting whitespace that flushed response headers before the redirect could fire. The download-target handler now:
+  1. Accepts an admin session (`manage_options`) or a valid per-document access key as alternate authorisation paths when the per-request nonce fails.
+  2. Emits explicit `Cache-Control: no-store` headers to defeat intermediate caching.
+  3. Falls back to a client-side redirect (`<meta refresh>` + `window.location.replace()`) when the server-side redirect can't fire because headers are already sent.
+  All three failure modes are now covered.
+
 ## Easy Invoice Pro — 2.2.6 — June 28, 2026
 
 - **Security** — Twelve AJAX handlers in the Custom Templates addon (the Template Builder back-end) were previously gated by nonce only; they now also require admin capability (`manage_options`). The Template Builder UI is admin-only in practice — the change brings the previously-missing handlers to the same policy already enforced on the controller's other eight handlers. No customer-facing behaviour changes; admins continue to use the Template Builder exactly as before.
