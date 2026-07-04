@@ -9,11 +9,9 @@ Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `
 
 ## Easy Invoice (free) — 2.3.7 — June 29, 2026
 
-- **Fixed** — Download PDF from the Invoice and Quote listing pages could leave the user stranded on the intermediate `admin-ajax.php?action=easy_invoice_generate_pdf…` URL — sometimes showing a JSON "Security check failed" body, sometimes a completely blank page. Root causes were the browser dropping the WordPress session cookie into the new tab (Safari ITP, `SameSite=Strict`, third-party cookie blockers), CDN / page-cache layers replaying stale responses, and third-party plugins emitting whitespace that flushed response headers before the redirect could fire. The download-target handler now:
-  1. Accepts an admin session (`manage_options`) or a valid per-document access key as alternate authorisation paths when the per-request nonce fails.
-  2. Emits explicit `Cache-Control: no-store` headers to defeat intermediate caching.
-  3. Falls back to a client-side redirect (`<meta refresh>` + `window.location.replace()`) when the server-side redirect can't fire because headers are already sent.
-  All three failure modes are now covered.
+- **Fixed** — **Invoice and Quote listing "Download PDF" button** could leave the user stranded on a blank `admin-ajax.php?action=easy_invoice_generate_pdf…` page instead of downloading the PDF. Root causes on affected sites included page-cache layers (WP Rocket, LiteSpeed, Cloudflare) replaying stale responses of the intermediate admin-ajax URL, security plugins / WAFs stripping the redirect body, and cross-tab session-cookie behaviour (Safari ITP, `SameSite=Strict`) dropping the WP session between the click and the new tab. Two coordinated changes address this:
+  1. **The button no longer routes through admin-ajax.** The anchor's native href already points at `<invoice-permalink>?auto_download_pdf=1`, and the single-page JS renders the PDF from there. Removing the click interceptor collapses three server round-trips into one and sidesteps every intermediate-hop failure mode. No security posture change — the destination is the same public permalink the hop was going to anyway.
+  2. **The server-side download handlers are hardened for any external caller.** `generateInvoicePdf` and `generateQuotePdf` now accept an admin session (`manage_options`) or a valid per-document access key (`?ik=` / `?qk=`) as alternate authorisation paths when the per-request nonce fails, emit explicit `Cache-Control: no-store` headers to defeat intermediate caching, and fall back to a client-side redirect (`<meta refresh>` + `window.location.replace()`) when the server-side redirect can't fire because headers are already sent. Email download links, dashboard widgets, and any other integration calling these endpoints directly benefit from the same hardening.
 
 ## Easy Invoice Pro — 2.2.6 — June 28, 2026
 
