@@ -131,6 +131,7 @@ export default defineConfig({
               { text: 'Time Tracking & Project Billing',       link: '/addons/time-tracking' },
               { text: 'Expense Tracking & Reimbursables',      link: '/addons/expense-tracking' },
               { text: 'Smart Reminders & Late Fees',           link: '/addons/smart-reminders' },
+              { text: 'E-Invoicing (Factur-X / Peppol)',       link: '/addons/e-invoicing' },
               // Agency tier
               { text: 'White-Label & Brand Override',          link: '/addons/white-label' },
               { text: 'Team Members & Audit Log',              link: '/addons/team-roles' },
@@ -226,7 +227,8 @@ export default defineConfig({
         items: [
           { text: 'Time Tracking & Project Billing',       link: '/addons/time-tracking' },
           { text: 'Expense Tracking & Reimbursables',      link: '/addons/expense-tracking' },
-          { text: 'Smart Reminders & Late Fees',           link: '/addons/smart-reminders' }
+          { text: 'Smart Reminders & Late Fees',           link: '/addons/smart-reminders' },
+          { text: 'E-Invoicing (Factur-X / Peppol)',       link: '/addons/e-invoicing' }
         ]
       },
       {
