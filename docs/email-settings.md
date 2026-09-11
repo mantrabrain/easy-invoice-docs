@@ -47,6 +47,10 @@ The display name on the Reply-To header.
 **Default:** On.
 **Why it matters:** Off = plain-text only (no styling, no images, no Pay Now button). Almost everyone wants this **on**.
 
+### Attach a PDF copy to invoice emails
+**Default:** Off.
+**Why it matters:** On = the invoice is rendered on the server and attached to the **Invoice Available** email, so the client has the document without clicking through. Off by default because it changes what every client receives and makes each message larger than some SMTP relays accept. Requires Easy Invoice 2.4.0+; developers can override per send with the `easy_invoice_attach_pdf_to_email` filter.
+
 ### BCC Admin on All Emails
 **Default:** Off.
 **Why it matters:** Turn on if you want a copy of every client email in your own inbox — useful for record-keeping or for forwarding to accounting.

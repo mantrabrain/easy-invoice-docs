@@ -16,9 +16,10 @@ Use **recurring invoices** when you bill the same client on a schedule — month
 
 | Feature | **Recurring** | **Subscription** |
 | --- | --- | --- |
-| Triggers | New invoice on a schedule | New invoice + payment auto-charge |
+| Triggers | New invoice on a schedule | New invoice on a schedule, with trial and cycle cap |
 | Best for | "Send me the bill, I'll pay it" | "Bill me and just charge my card" |
-| Requires gateway support | No — works with all gateways | Yes — works with Stripe / Authorize.Net |
+| Charges the card on file | Yes, when enabled (see [Card on file](#card-on-file-automatic-charging)) | Yes, when enabled — the same mechanism |
+| Requires gateway support | No — works with all gateways | Card on file needs Stripe; otherwise works with all gateways |
 | Trial period | No | Yes |
 | Maximum cycles | Yes (optional cap) | Yes (optional cap) |
 | Client-side review | No — auto-generated | Optional — client can edit amount each cycle |
@@ -82,9 +83,32 @@ Same idea as Recurring but with **auto-charging** the client's card. Setup:
    - **Variable amount** — let the client review and edit each cycle's amount before charge
    - **Maximum cycles** — stop after N successful charges
 
-3. The client's first payment **saves their card** via the gateway (Stripe / Authorize.Net). Subsequent cycles auto-charge.
+3. Each cycle generates a full invoice from the parent — same lines, client, tax and currency — with a fresh number. A trial cycle bills the trial amount as a single line. Turn on **Card on file** (below) to have each cycle charged automatically.
 
-> **Why two engines instead of one?** Subscriptions require gateway support for stored-card charging, which not every Pro user has. Recurring works with any gateway (PayPal, Bank Transfer, even Manual) because the client manually pays each invoice as it's generated.
+> **Why two engines instead of one?** Recurring is the plain schedule. Subscription adds a trial period, a client-review step and a cycle cap on top of it. Both hand each generated invoice to the same card-on-file charge, so the choice is about the billing shape, not about how the money is collected.
+
+---
+
+## Card on file — automatic charging <span class="pro-pill">PRO 2.3+</span> {#card-on-file-automatic-charging}
+
+Recurring and Subscription invoices *generate* on schedule; on their own they still wait for the client to click Pay. With a card on file, the cycle is charged the moment it is generated.
+
+**How a card gets on file.** On the Stripe payment form the client sees an unticked box — *keep this card for future invoices* — that says exactly what will happen. Only if they tick it, and the payment succeeds, is the card kept — at Stripe, not on your site. Easy Invoice stores Stripe's customer and payment-method identifiers plus the brand, last four digits and expiry for display; never the card number.
+
+**Turn it on.** **Settings → Invoice → Charge recurring invoices to the card on file automatically.** Off by default: nothing is ever charged without a click until you switch this on.
+
+**What happens on each cycle**
+
+| Outcome | What the client sees | What you see |
+| --- | --- | --- |
+| Charged | Invoice arrives already **Paid** | Payment record with the Stripe id |
+| Bank requires the cardholder (3-D Secure) | Email asking them to pay in person | Invoice stays open; card flagged *needs attention* |
+| Card declined | Same email | Same; the card is not retried |
+| No card on file | Normal invoice email | Logged as skipped |
+
+A flagged card is cleared automatically the next time the client pays successfully. The client's record (**All Clients → View**) shows the card on file with a **Remove** control, and Stripe's own dashboard can revoke it at any time.
+
+Stripe is the only gateway that supports card on file. Sites without a Stripe webhook configured still work: the card is saved from the payment confirmation itself.
 
 ---
 

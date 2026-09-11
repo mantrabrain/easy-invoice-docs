@@ -39,7 +39,7 @@ WP Admin → **Easy Invoice → All Clients → Add New Client**.
 
 | Field | Why |
 | --- | --- |
-| **Tax ID / VAT Number** | The client's VAT/GST number — required when issuing tax-reverse-charge invoices in the EU, reciprocal compliance in Canada, etc. |
+| **Tax ID / VAT Number** | The client's VAT/GST number — required when issuing tax-reverse-charge invoices in the EU, reciprocal compliance in Canada, etc. On the invoice builder a **Check with VIES** button verifies EU numbers against the Commission's register. |
 
 ### Shipping address (optional)
 
@@ -57,9 +57,15 @@ WP Admin → **Easy Invoice → All Clients**:
 
 - Search box (matches name, email, business name)
 - Per-row counters: total invoices, total paid, total outstanding
-- Row actions: **View**, **Edit**, **Delete**
+- Row actions: **View**, **Edit**, **Statement**, **Delete**
 
 Click **View** to open a single-client overview with their full invoice and quote history.
+
+### Statement of account
+
+**Statement** answers the question every client eventually asks — *what do I owe you?* — on one page: every invoice, payment and credit note in date order with a running balance, and a **balance brought forward** when you narrow the date range. **Download PDF** produces the same statement as a document you can send. Sending one statement listing three unpaid invoices gets you paid faster than three reminders.
+
+Deleting a client keeps their payment records — they are part of your accounts even when the client is gone.
 
 ---
 

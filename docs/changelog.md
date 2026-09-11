@@ -7,6 +7,32 @@ description: Easy Invoice version history. Recent releases for both the free plu
 
 Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `MAJOR` is reserved for breaking schema changes (rare).
 
+## Easy Invoice (free) — 2.4.0 — September 11, 2026
+
+- **Added** — **Server-side PDF rendering.** PDFs are now real text documents (~25 KB for a page instead of a ~180 KB screenshot), rendered identically for every client. The in-browser method remains as a fallback.
+- **Added** — **PDF attached to invoice emails** (optional, off by default): Settings → Email → General.
+- **Added** — **Credit notes.** Issued invoices can no longer be edited or permanently deleted; a credit note (`CN-…`) corrects them, in part or in full, with a printed reason. See [Payments → Refunds and credit notes](./payments#_4-refunds-and-credit-notes).
+- **Added** — **Statement of account** per client, on screen and as PDF, with running balance and balance brought forward.
+- **Added** — **VIES check** for EU VAT numbers on the invoice builder.
+- **Added** — **REST API** (`easy-invoice/v1`): invoices, quotes, clients, PDF download — gated by the same capabilities as the admin screens.
+- **Added** — Per-line tax categories, VAT identities and reverse-charge handling underneath, which the Pro E-Invoicing addon builds on.
+- **Fixed** — **A PayPal payment verified by IPN left the invoice unpaid** until someone marked it by hand. The verified payment now completes the record and settles the invoice; IPN retries are ignored.
+- **Fixed** — Deleting a client no longer fails; the confirmation count matches what is removed, and payments are kept as accounting records.
+- **Fixed** — Guest customers and per-invoice tax settings are persisted even when the site's global tax is off.
+- **Changed** — All third-party scripts (jsPDF, html2canvas, Chart.js) ship inside the plugin instead of loading from CDNs; the admin stylesheet is purged from 2.9 MB to 47 KB.
+
+## Easy Invoice Pro — 2.3.0 — September 11, 2026
+
+- **Added** — **[E-Invoicing addon](./addons/e-invoicing)** (Professional): Factur-X / ZUGFeRD PDF/A-3 and Peppol BIS 3.0 UBL for invoices and credit notes, validated against EN 16931 before a file is produced; reads incoming Factur-X, CII and UBL.
+- **Added** — **[WooCommerce addon](./addons/woocommerce)** (Personal): an invoice for every order at a chosen status, payments recorded, refunds issued as credit notes, HPOS-compatible, Invoice link in My Account.
+- **Added** — **[Card on file](./recurring-invoices#card-on-file-automatic-charging)**: with the client's consent on the Stripe form, recurring and subscription cycles are charged automatically. Off by default. Not yet exercised against a live Stripe account — watch the first live charge.
+- **Fixed** — **Stripe payments were booked twice** on sites with the webhook configured, and a webhook on its own could never mark an invoice paid. One record per payment, whichever path arrives first.
+- **Security** — The Stripe confirmation trusted the browser's invoice id; it now books only against the invoice in the PaymentIntent's own metadata.
+- **Fixed** — **Subscription invoices generated an invoice for nothing** — no lines, no client, no number — and never charged anyone. Cycles are now built like recurring invoices, trial cycles bill the trial amount, and both flow through card on file.
+- **Fixed** — The custom-PDF endpoint produces a real PDF (with the PDF Toolkit watermark) instead of HTML named `.pdf`.
+- **Security** — Licence/update requests and the Moneris gateway now verify TLS certificates; the client-portal login goes through `wp_signon()` so throttling and 2FA apply; CSRF checks added to the CSV exports.
+- **Fixed** — GDPR export/erasure returned nothing for every subject; Team Roles' audit logger could fatal on quote acceptance; Additional Tax was never applied to totals (a one-time notice appears on affected sites).
+
 ## Easy Invoice (free) — 2.3.7 — June 29, 2026
 
 - **Fixed** — **Invoice and Quote listing "Download PDF" button** could leave the user stranded on a blank `admin-ajax.php?action=easy_invoice_generate_pdf…` page instead of downloading the PDF. Root causes on affected sites included page-cache layers (WP Rocket, LiteSpeed, Cloudflare) replaying stale responses of the intermediate admin-ajax URL, security plugins / WAFs stripping the redirect body, and cross-tab session-cookie behaviour (Safari ITP, `SameSite=Strict`) dropping the WP session between the click and the new tab. Two coordinated changes address this:

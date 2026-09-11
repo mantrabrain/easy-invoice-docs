@@ -166,7 +166,7 @@ Email Enhancements lets you set Reply-To without touching From — best of both 
 - Clear any object/page cache after copying the template.
 
 **"PDFs aren't being attached"**
-PDF attachment is configured in the main **Settings → Email** section (not in this addon's section). The PDF-attach feature is part of the free Easy Invoice plugin; this addon just adds the Reply-To controls on top.
+PDF attachment is a **free-plugin** setting, not part of this addon: **Settings → Email → General → Attach a PDF copy to invoice emails** (Easy Invoice 2.4.0 or later). It is off by default. When it is on, the invoice is rendered on the server and attached to the invoice email; the emailed link still works either way. If the box is missing, update the free plugin.
 
 ## Settings location
 

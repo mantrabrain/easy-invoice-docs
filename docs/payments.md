@@ -76,15 +76,28 @@ See [Settings reference → Pro-only invoice settings](./settings-reference#pro-
 
 ---
 
-## 4. Refunds
+## 4. Refunds and credit notes
 
-To refund a payment:
+Easy Invoice keeps the record; the money moves in your gateway.
 
-1. Open the Payment record.
-2. Click **Refund**.
-3. Enter the refund amount and (optional) reason.
+**To record a refund of a payment**
 
-For gateway-backed payments (Stripe, Square, etc.), the refund is sent to the gateway too — the customer's card is credited. Manual payments are just marked **Refunded** in your records.
+1. Open the payment record and change its **Status** to **Refunded**.
+2. Refund the money itself in the gateway's own dashboard (Stripe, PayPal, Square…). Easy Invoice does not send refund instructions to gateways.
+
+Marking a payment refunded removes it from the invoice's paid total, so the invoice shows as outstanding again.
+
+**To correct the invoice itself — issue a credit note** *(Easy Invoice 2.4.0+)*
+
+An invoice that has been sent (any status other than Draft) is a tax record: Easy Invoice will not let it be edited or permanently deleted. The lawful way to reduce or cancel it is a **credit note** — a separate numbered document (`CN-000001`, …) that references the invoice and records what was credited and why.
+
+1. **All Invoices** → on the invoice's row, click **Credit note**.
+2. Enter the **amount** (leave empty to credit the whole invoice) and a **reason** — it is printed on the document and is what your accountant reads a year later.
+3. **Issue credit note.** The PDF is available from the same page; the invoice row now reads **Credited**.
+
+You cannot credit more than the invoice total, and a credit note itself is never deleted. With the **E-Invoicing** addon, credit notes are also available as Factur-X and UBL (type 381). With the **WooCommerce** addon, a WooCommerce refund issues one automatically.
+
+> Deleting an issued invoice by mistake is protected against at the database level too: the `easy_invoice_allow_issued_invoice_deletion` filter is the only way through, and it is meant for migrations.
 
 ---
 

@@ -181,7 +181,7 @@ Easy Invoice Pro adds ~20 modules to the free core. This page is the catalog —
 
 <a class="doc-addon-card" href="/docs/third-party-integrations#email-enhancements">
   <h3 class="doc-addon-card__title">Email Enhancements <span class="doc-pro-pill">Pro</span></h3>
-  <p class="doc-addon-card__copy">Per-template reply-to, brand colours, PDF attachment, full payment-reminder cadence (before / on / after due).</p>
+  <p class="doc-addon-card__copy">Branded HTML email templates and per-template Reply-To, plus the full payment-reminder cadence (before / on / after due).</p>
   <span class="doc-addon-card__cta">Configure emails →</span>
 </a>
 

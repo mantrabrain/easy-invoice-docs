@@ -121,6 +121,10 @@ If you don't have a client yet, save the invoice as Draft, jump to **All Clients
 
 ---
 
+### Check with VIES (EU VAT numbers)
+
+Next to the client's **VAT number** field there is a **Check with VIES** button. It asks the European Commission's VIES service whether the number is registered, and tells you one of three things: **registered**, **not registered**, or **could not check** (the member state's service is down, or the number is not an EU one). Results are cached for a week. A number that fails here should not be given reverse-charge treatment.
+
 ## 5. Discounts & Taxes tab
 
 ### Discount Type
@@ -190,6 +194,8 @@ When your client opens the link (or PDF) they see:
 - A **Pay Now** button (if at least one gateway is enabled on this invoice)
 - The **Print** and **Download as PDF** buttons (their labels can be renamed via **Settings → Text Settings**)
 
+**About the PDF.** Since 2.4.0 the PDF is rendered on the server: real, selectable text, around 25 KB for a one-page invoice, identical whichever browser the client uses. If the server cannot render (the PDF library is missing from a custom build), the button falls back to the older in-browser method. Developers can force the fallback with the `easy_invoice_server_pdf_enabled` filter.
+
 Once they pay (via Stripe/PayPal/etc.), the webhook fires and the invoice is marked **Paid** automatically. They also receive your **Payment Received** email.
 
 ---
@@ -253,7 +259,8 @@ The CSV ships with a UTF-8 BOM so Excel opens it with the right encoding — wor
 - **Duplicate** — clone with a fresh number (great for repeat jobs without recurring billing)
 - **PDF** — download
 - **Send** — re-send the email (single invoice)
-- **Delete** — trash
+- **Credit note** — correct or cancel an issued invoice without touching it (see [Payments → Refunds and credit notes](./payments#_4-refunds-and-credit-notes)). Shows as **Credited** once one exists.
+- **Delete** — trash. Issued invoices (anything past Draft) can be trashed but never permanently deleted; issue a credit note instead.
 
 ---
 
