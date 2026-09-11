@@ -44,7 +44,10 @@ Each plan **includes everything in lower plans**. Buy once, install once — the
 | [**Email Enhancements**](./email-enhancements) | Branded HTML emails with PDF attached, CC / BCC, and Reply-To. |
 | [**Secure Links for Invoices & Quotes**](./secure-links) | Replace predictable invoice/quote URLs with signed, unguessable links that can expire automatically. |
 | [**Privacy & GDPR Tools**](./privacy-tools) | Comply with GDPR, CCPA, and other data-protection laws in one click. |
-| [**Reports & Analytics**](./reports) | Visual dashboard for revenue, outstanding balances, and per-client performance. |
+| [**Reports & Analytics**](./reports) | Visual dashboard for revenue, outstanding balances, per-client performance, and a month-by-month profit & loss statement. |
+| [**Quote Forms**](./quote-forms) | A WPForms / Gravity / CF7 / Fluent Forms submission opens a draft quote with the client already created. |
+| [**Quote E-Signatures**](./quote-signatures) | Accepting a quote means signing it — drawn signature, name and time on the quote, PDF and invoice. |
+| [**Payment Links & QR Codes**](./payment-links) | A link or QR code for a fixed or open amount; an invoice is created for the payer on the spot. |
 
 ### Professional tier (license required)
 
@@ -53,6 +56,9 @@ Each plan **includes everything in lower plans**. Buy once, install once — the
 | [**Time Tracking & Project Billing**](./time-tracking) | Log billable hours and convert them to invoice lines in one click. |
 | [**Expense Tracking & Reimbursable Items**](./expense-tracking) | Log billable expenses with receipts, apply markup, and roll selected expenses into a draft invoice. |
 | [**Smart Reminders & Late Fees**](./smart-reminders) | Multi-step automated payment chase with auto-applied late fees. |
+| [**E-Invoicing (Factur-X / Peppol)**](./e-invoicing) | Factur-X / ZUGFeRD PDF/A-3 and Peppol BIS 3.0 UBL, validated against EN 16931. |
+| [**Retainers & Prepayments**](./retainers) | Keep a client's prepayment as a balance and settle invoices from it, by hand or automatically. |
+| [**Client Language**](./client-language) | Each client's invoices, PDFs and emails in their own language, with per-language wording on the Translations page. |
 
 [**Upgrade to Professional →**](https://matrixaddons.com/plugins/easy-invoice/#pricing)
 

@@ -87,7 +87,8 @@ export default defineConfig({
             items: [
               { text: 'Installation', link: '/installation' },
               { text: 'Quick start', link: '/quick-start' },
-              { text: 'Your WordPress admin', link: '/admin-dashboard' }
+              { text: 'Your WordPress admin', link: '/admin-dashboard' },
+              { text: 'Importing from other plugins', link: '/importing' }
             ]
           },
           {
@@ -127,12 +128,17 @@ export default defineConfig({
               { text: 'Secure Links for Invoices & Quotes',    link: '/addons/secure-links' },
               { text: 'Privacy & GDPR Tools',                  link: '/addons/privacy-tools' },
               { text: 'Reports & Analytics',                   link: '/addons/reports' },
+              { text: 'Quote Forms',                           link: '/addons/quote-forms' },
+              { text: 'Quote E-Signatures',                    link: '/addons/quote-signatures' },
+              { text: 'Payment Links & QR Codes',              link: '/addons/payment-links' },
               // Professional tier
               { text: 'Time Tracking & Project Billing',       link: '/addons/time-tracking' },
               { text: 'Expense Tracking & Reimbursables',      link: '/addons/expense-tracking' },
               { text: 'Smart Reminders & Late Fees',           link: '/addons/smart-reminders' },
               { text: 'E-Invoicing (Factur-X / Peppol)',       link: '/addons/e-invoicing' },
               { text: 'WooCommerce Invoicing',                 link: '/addons/woocommerce' },
+              { text: 'Retainers & Prepayments',               link: '/addons/retainers' },
+              { text: 'Client Language',                       link: '/addons/client-language' },
               // Agency tier
               { text: 'White-Label & Brand Override',          link: '/addons/white-label' },
               { text: 'Team Members & Audit Log',              link: '/addons/team-roles' },
@@ -175,7 +181,8 @@ export default defineConfig({
           { text: 'Home', link: '/' },
           { text: 'Installation', link: '/installation' },
           { text: 'Quick start (setup wizard)', link: '/quick-start' },
-          { text: 'Your WordPress admin', link: '/admin-dashboard' }
+          { text: 'Your WordPress admin', link: '/admin-dashboard' },
+          { text: 'Importing from other plugins', link: '/importing' }
         ]
       },
       {
@@ -219,7 +226,10 @@ export default defineConfig({
           { text: 'Email Enhancements',                    link: '/addons/email-enhancements' },
           { text: 'Secure Links for Invoices & Quotes',    link: '/addons/secure-links' },
           { text: 'Privacy & GDPR Tools',                  link: '/addons/privacy-tools' },
-          { text: 'Reports & Analytics',                   link: '/addons/reports' }
+          { text: 'Reports & Analytics',                   link: '/addons/reports' },
+          { text: 'Quote Forms',                           link: '/addons/quote-forms' },
+          { text: 'Quote E-Signatures',                    link: '/addons/quote-signatures' },
+          { text: 'Payment Links & QR Codes',              link: '/addons/payment-links' }
         ]
       },
       {
@@ -230,7 +240,9 @@ export default defineConfig({
           { text: 'Expense Tracking & Reimbursables',      link: '/addons/expense-tracking' },
           { text: 'Smart Reminders & Late Fees',           link: '/addons/smart-reminders' },
           { text: 'E-Invoicing (Factur-X / Peppol)',       link: '/addons/e-invoicing' },
-          { text: 'WooCommerce Invoicing',                 link: '/addons/woocommerce' }
+          { text: 'WooCommerce Invoicing',                 link: '/addons/woocommerce' },
+          { text: 'Retainers & Prepayments',               link: '/addons/retainers' },
+          { text: 'Client Language',                       link: '/addons/client-language' }
         ]
       },
       {

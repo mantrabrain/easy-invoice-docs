@@ -82,6 +82,17 @@ You can also filter by:
 - **Currency** (if you bill in multiple currencies)
 - **Tag** (if you tag clients or invoices)
 
+### Profit & loss
+
+Below the charts, a **Profit & Loss** statement for the date range chosen at the top of the page: money received against money spent, month by month, with **net profit** and **margin**.
+
+- **Income** is every completed payment on the day it arrived (cash basis) — card, PayPal, bank transfer, and retainers when they are received (not again when they are applied).
+- **Expenses** come from the [Expense Tracking addon](./expense-tracking). With it off, the statement is income-only and says so.
+- Underneath: income by payment method, expenses by category, and a bar chart of the months.
+- **Export CSV** downloads the statement — one row per month, totals, and the two breakdowns.
+
+The statement is kept to the site currency so the figures add up; payments or expenses in another currency are listed separately below it rather than summed in.
+
 ## Export
 
 The **Export this report** button on each chart downloads the underlying data as CSV. Pairs with the [Bulk Email & Export addon](./bulk-operations) for cross-dataset exports.

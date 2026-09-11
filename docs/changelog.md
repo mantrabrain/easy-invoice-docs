@@ -16,6 +16,10 @@ Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `
 - **Added** — **VIES check** for EU VAT numbers on the invoice builder.
 - **Added** — **REST API** (`easy-invoice/v1`): invoices, quotes, clients, PDF download — gated by the same capabilities as the admin screens.
 - **Added** — Per-line tax categories, VAT identities and reverse-charge handling underneath, which the Pro E-Invoicing addon builds on.
+- **Added** — **[Import from Sliced Invoices, Sprout Invoices and CSV](./importing)**: clients, quotes, invoices with every line, and payments; numbers and dates kept, existing clients reused, running twice adds nothing.
+- **Added** — **Viewed tracking**: each invoice and quote records when the client first and last opened it, shown in the lists and returned by the REST API; `easy_invoice_document_viewed` fires on the first view.
+- **Added** — **Attachments** on invoices and quotes, from the media library — listed on the page and PDF and sent with the email.
+- **Added** — Hooks underneath the new Pro addons: a signature pad on the public quote page, `easy_invoice_quote_accepted` with the acceptance details, `easy_invoice_text_setting` for saved labels, `easy_invoice_email_template_data` / `easy_invoice_email_finished` around every email, `easy_invoice_reports_after_summary` on the Reports page.
 - **Fixed** — **A PayPal payment verified by IPN left the invoice unpaid** until someone marked it by hand. The verified payment now completes the record and settles the invoice; IPN retries are ignored.
 - **Fixed** — Deleting a client no longer fails; the confirmation count matches what is removed, and payments are kept as accounting records.
 - **Fixed** — Guest customers and per-invoice tax settings are persisted even when the site's global tax is off.
@@ -27,6 +31,14 @@ Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `
 - **Added** — **[E-Invoicing addon](./addons/e-invoicing)** (Professional): Factur-X / ZUGFeRD PDF/A-3 and Peppol BIS 3.0 UBL for invoices and credit notes, validated against EN 16931 before a file is produced; reads incoming Factur-X, CII and UBL.
 - **Added** — **[WooCommerce addon](./addons/woocommerce)** (Personal): an invoice for every order at a chosen status, payments recorded, refunds issued as credit notes, HPOS-compatible, Invoice link in My Account.
 - **Added** — **[Card on file](./recurring-invoices#card-on-file-automatic-charging)**: with the client's consent on the Stripe form, recurring and subscription cycles are charged automatically. Off by default. Not yet exercised against a live Stripe account — watch the first live charge.
+- **Added** — **[Quote Forms](./addons/quote-forms)** (Personal): a WPForms, Gravity Forms, Contact Form 7 or Fluent Forms submission opens a draft quote or invoice with the client already created.
+- **Added** — **[Quote E-Signatures](./addons/quote-signatures)** (Personal): accepting a quote means signing it; the signature is printed on the quote, its PDF and the converted invoice.
+- **Added** — **[Payment Links & QR Codes](./addons/payment-links)** (Personal): a link or QR code for a fixed or open amount; an invoice is created for the payer on the spot.
+- **Added** — **[Retainers & Prepayments](./addons/retainers)** (Professional): a prepayment balance per client, applied to invoices by hand or automatically.
+- **Added** — **[Client Language](./addons/client-language)** (Professional): each client's documents and emails in their own language; the Translations page now offers your saved labels and email text per language.
+- **Added** — **[Profit & loss](./addons/reports#profit-loss)** on the Reports page: payments against expenses month by month, net, margin, CSV export.
+- **Added** — Webhooks: `invoice.viewed` and `quote.viewed` events.
+- **Fixed** — **The Translations page did not work** (posted to an unregistered settings group, read values nothing wrote, no import/export handlers). Rebuilt.
 - **Fixed** — **Stripe payments were booked twice** on sites with the webhook configured, and a webhook on its own could never mark an invoice paid. One record per payment, whichever path arrives first.
 - **Security** — The Stripe confirmation trusted the browser's invoice id; it now books only against the invoice in the PaymentIntent's own metadata.
 - **Fixed** — **Subscription invoices generated an invoice for nothing** — no lines, no client, no number — and never charged anyone. Cycles are now built like recurring invoices, trial cycles bill the trial amount, and both flow through card on file.

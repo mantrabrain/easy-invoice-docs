@@ -112,7 +112,14 @@ In the Pro Privacy settings, tick **Require login to view invoices**. Clients mu
 
 ---
 
-## 4. Client tips
+## 4. On the client record <span class="pro-pill">PRO</span>
+
+Two Pro addons add panels to a client's record:
+
+- **Retainer** — record a prepayment once and apply it to invoices as they come, or let new invoices settle from the balance automatically. [Retainers & Prepayments](./addons/retainers)
+- **Document language** — pick the language this client's invoices, quotes, PDFs and emails are produced in. [Client Language](./addons/client-language)
+
+## 5. Client tips
 
 - **Always set an email.** Without it, the **Send Email** button can't do anything.
 - **Use Business Name for B2B clients.** Invoices look more professional with `Acme Co.` than `John Smith` for corporate clients.

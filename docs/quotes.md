@@ -151,6 +151,8 @@ Untick **Settings → Quote → Accept quote button** to hide it (you'd then acc
 
 ---
 
+Every quote also records when the client first and last opened it, shown in the list as "Viewed 1× · last 2 days ago" — useful before you follow up.
+
 ## 8. The quote list
 
 WP Admin → **Easy Invoice → All Quotes** shows every quote with status filters.
@@ -205,6 +207,8 @@ You don't have to wait for the client to click Accept. From the admin quote list
 | **Quote watermarks** <span class="pro-pill">PRO</span> | Overlay `DRAFT`, `EXPIRED`, custom text or image on quote PDFs. |
 | **Custom permalinks** <span class="pro-pill">PRO</span> | Branded URLs like `/proposal/your-quote/` instead of the default. |
 | **Email reply-to** <span class="pro-pill">PRO</span> | Quote emails go from a different reply-to than invoices. |
+| **E-signatures** <span class="pro-pill">PRO</span> | Accepting means signing: a drawn signature with the signer's name and time, printed on the quote, its PDF and the invoice made from it. [Quote E-Signatures](./addons/quote-signatures) |
+| **Quote request forms** <span class="pro-pill">PRO</span> | A WPForms, Gravity Forms, Contact Form 7 or Fluent Forms submission opens a draft quote with the client already created. [Quote Forms](./addons/quote-forms) |
 
 <div class="doc-pro-callout">
   <span class="doc-pro-pill">Pro</span>

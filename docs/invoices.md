@@ -198,6 +198,10 @@ When your client opens the link (or PDF) they see:
 
 Once they pay (via Stripe/PayPal/etc.), the webhook fires and the invoice is marked **Paid** automatically. They also receive your **Payment Received** email.
 
+**Knowing when it was opened.** Each invoice records the first and latest time the client viewed it and how many times; the invoice list shows it beside the number ("Viewed 2× · last 3 hours ago"). Your own previews while logged in are not counted, and the viewer's address is stored with its last octet removed. The REST API returns the same under `viewed`, and the Pro [Webhooks addon](./addons/webhooks) sends `invoice.viewed` on the first view.
+
+**Attachments.** The Details tab has an **Attachments** picker: choose files from the media library — a timesheet, a signed contract, delivery photos — and they are listed on the invoice page and its PDF and sent with the invoice email. Quotes have the same.
+
 ---
 
 ## 9. The invoice list
