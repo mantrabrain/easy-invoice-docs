@@ -124,16 +124,38 @@ add_action( 'easy_invoice_stripe_payment_complete', function ( $payment_id, $cha
 
 ## Frontend templates
 
+### Override a template from your theme *(2.4.0+)*
+
+Copy any file from the plugin's `templates/` folder to `wp-content/themes/{your-theme}/easy-invoice/` keeping the same relative path, and edit the copy. The child theme is checked first, then the parent, then the plugin — the same convention as WooCommerce, and it survives plugin updates.
+
+| What | Copy to |
+| --- | --- |
+| The public invoice / quote page (action bar, payment panel) | `{theme}/easy-invoice/document/single.php` |
+| A design, e.g. Modern | `{theme}/easy-invoice/invoice-templates/modern.php` or `quote-templates/modern.php` |
+| The PDF layouts | `{theme}/easy-invoice/pdf/invoice.php`, `pdf/quote.php`, `pdf/statement.php` |
+| The payment panel | `{theme}/easy-invoice/payment-section.php` |
+
+The page template receives `$document`, `$document_type` (`invoice` or `quote`), `$invoice` / `$quote`, `$formatter`, `$text_settings` and `$template_file`. Start from the plugin's copy rather than a blank file — it fires the hooks the Pro addons (PDF Toolkit, Partial Payments, Additional Tax) render into.
+
 | Hook | Type | Use |
 | --- | --- | --- |
-| `easy_invoice_head` | action | Inside `<head>` of the public invoice / quote single. |
-| `easy_invoice_footer` | action | Before closing `</body>`. |
-| `easy_invoice_listing_row` | action | Inside each row of the public listing. |
-| `single_template` | filter (WP core) | Override which file renders single invoice. |
+| `easy_invoice_locate_template` | filter | `( $path, $template, $args )` — final say on which file is used; return `''` to declare it missing. |
+| `easy_invoice_template_directory` | filter | Folder name inside the theme, default `easy-invoice`. |
+| `easy_invoice_document_isolate_assets` | filter | Default `true`: the theme's styles and scripts are kept off the document page. Return `false` to let them in. |
+| `easy_invoice_document_allowed_handles` | filter | Handles to keep alongside the plugin's own when isolation is on. |
+| `easy_invoice_document_script_config` | filter | Strings and settings handed to the page's script. |
+| `easy_invoice_document_actions` | action | `( $document, $document_type )` — add a button to the action bar. |
+| `easy_invoice_document_footer` | action | Before `wp_footer()` on the document page. |
+| `easy_invoice_head` | action | Inside `<head>` of the document page, after `wp_head()`. Prefer `wp_enqueue_scripts` with `\EasyInvoice\Services\DocumentPage::currentType()` for new code. |
+| `easy_invoice_invoice_view_content_top` / `easy_invoice_quote_view_content_top` | action | Above the design, inside the content frame. |
+| `easy_invoice_invoice_totals_after_tax` / `easy_invoice_quote_totals_after_tax` | action | Extra total lines. |
+| `single_template` | filter (WP core) | Still honoured; the plugin's own resolution runs first. |
 
 ```php
-add_action( 'easy_invoice_head', function () {
-    echo '<meta name="robots" content="noindex,nofollow">';
+// Let the theme's fonts onto the invoice page but nothing else.
+add_filter( 'easy_invoice_document_allowed_handles', function ( $handles ) {
+    $handles[] = 'my-theme-fonts';
+    return $handles;
 } );
 ```
 

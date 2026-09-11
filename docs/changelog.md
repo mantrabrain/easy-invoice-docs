@@ -19,6 +19,7 @@ Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `
 - **Fixed** — **A PayPal payment verified by IPN left the invoice unpaid** until someone marked it by hand. The verified payment now completes the record and settles the invoice; IPN retries are ignored.
 - **Fixed** — Deleting a client no longer fails; the confirmation count matches what is removed, and payments are kept as accounting records.
 - **Fixed** — Guest customers and per-invoice tax settings are persisted even when the site's global tax is off.
+- **Changed** — **The public invoice and quote pages are real WordPress pages now, and themes can override every template** by copying it to `{theme}/easy-invoice/…`. See [Hooks & filters → Frontend templates](./hooks-filters#frontend-templates). Bank transfer / cheque / cash payment from an emailed link, which failed with "Invalid invoice", works again.
 - **Changed** — All third-party scripts (jsPDF, html2canvas, Chart.js) ship inside the plugin instead of loading from CDNs; the admin stylesheet is purged from 2.9 MB to 47 KB.
 
 ## Easy Invoice Pro — 2.3.0 — September 11, 2026
