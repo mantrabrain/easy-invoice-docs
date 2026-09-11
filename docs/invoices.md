@@ -194,7 +194,9 @@ When your client opens the link (or PDF) they see:
 - A **Pay Now** button (if at least one gateway is enabled on this invoice)
 - The **Print** and **Download as PDF** buttons (their labels can be renamed via **Settings → Text Settings**)
 
-**About the PDF.** Since 2.4.0 the PDF is rendered on the server: real, selectable text, around 25 KB for a one-page invoice, identical whichever browser the client uses. If the server cannot render (the PDF library is missing from a custom build), the button falls back to the older in-browser method. Developers can force the fallback with the `easy_invoice_server_pdf_enabled` filter.
+**About the PDF.** The **Download as PDF** button captures the page exactly as it is shown — the design you chose, a Pro custom template, the watermark — and saves it as a PDF, as it always has. Under **Settings → Email → "Download as PDF" button** you can switch it to a **server-generated** file instead: real, selectable text, around 25 KB for a page, identical whichever browser the client uses.
+
+Emails, the REST API and e-invoicing always use the server-generated file (they have no browser to capture). Since 2.4.0 that file **reproduces the selected design** too — every built-in invoice and quote design and Pro Template Builder canvases render with their own colours and layout. **Settings → Email → "Server-generated PDF layout"** switches to a neutral, table-based layout if you prefer it. Developers: `easy_invoice_pdf_download_method`, `easy_invoice_pdf_use_design`, `easy_invoice_pdf_design_css`, `easy_invoice_pdf_html`.
 
 Once they pay (via Stripe/PayPal/etc.), the webhook fires and the invoice is marked **Paid** automatically. They also receive your **Payment Received** email.
 

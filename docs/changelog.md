@@ -25,6 +25,8 @@ Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `
 - **Fixed** — Guest customers and per-invoice tax settings are persisted even when the site's global tax is off.
 - **Changed** — **The public invoice and quote pages are real WordPress pages now, and themes can override every template** by copying it to `{theme}/easy-invoice/…`. See [Hooks & filters → Frontend templates](./hooks-filters#frontend-templates). Bank transfer / cheque / cash payment from an emailed link, which failed with "Invalid invoice", works again.
 - **Changed** — All third-party scripts (jsPDF, html2canvas, Chart.js) ship inside the plugin instead of loading from CDNs; the admin stylesheet is purged from 2.9 MB to 47 KB.
+- **Fixed** — The invoice and quote builders could not add a line item (the row's markup printed as text); CSV exports carried HTML entities; the Pro licence screen and Template Builder canvas rendered as text.
+- **Changed** — **Download as PDF** captures the page exactly as shown again (browser), with a setting to use a server-generated file instead; **server-generated PDFs now reproduce the selected design** (every built-in design and Pro Template Builder canvases) rather than one neutral layout, with a plain layout available under Settings → Email.
 - **Fixed** — An invoice to a person without a business name showed no name in the To block; the PDF now honours renamed Subtotal / Tax / Discount labels and shows **Paid** and **Balance due** when money has been received.
 - **Upgrading from 2.3.x** — links emailed before 2.4.0 carry no access token and show "not found" until re-sent (or keep the old behaviour with `easy_invoice_require_document_authorisation`); issued invoices lock and are corrected with credit notes; theme overrides of the old single templates move to `{theme}/easy-invoice/`; update Pro to 2.3.0 alongside.
 
@@ -41,6 +43,7 @@ Easy Invoice follows semantic versioning loosely — `MAJOR.MINOR.PATCH` where `
 - **Added** — **[Profit & loss](./addons/reports#profit-loss)** on the Reports page: payments against expenses month by month, net, margin, CSV export.
 - **Added** — Webhooks: `invoice.viewed` and `quote.viewed` events.
 - **Fixed** — **The Translations page did not work** (posted to an unregistered settings group, read values nothing wrote, no import/export handlers). Rebuilt.
+- **Fixed** — **The client portal was a blank page on block themes** (every default WordPress theme since 2022): the portal forced a `page.php` those themes do not have. Pro Template Builder and PDF Toolkit **watermarks now appear on server-generated PDFs** (email attachments, API).
 - **Fixed** — **Pro did not run on PHP 7.4** (two PHP 8 union types were parse errors); the build now checks every file with PHP 7.4.
 - **Fixed** — **Secure links switched themselves off** on every admin request because the addon watched a mis-spelled option key; restored where the addon is enabled. A secure link can now pay, accept and decline, and the redirect from a plain permalink keeps its query arguments.
 - **Fixed** — **Recurring invoices were numbered outside the sequence** ("NW-9" from "NW-000008"); generated invoices now take the next sequential number.
