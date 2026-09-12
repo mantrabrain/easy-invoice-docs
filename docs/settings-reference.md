@@ -342,6 +342,7 @@ This section lets you **rename every visible label** on the invoice / quote / po
 | **Date Format** | `MM/DD/YYYY (US)` | Three preset formats: `MM/DD/YYYY (US)`, `DD/MM/YYYY (UK)`, `YYYY-MM-DD (ISO)`. |
 | **Auto-increment invoice numbers** | Yes | When on, every new invoice automatically gets the next number. Turn off only if you want to enter numbers manually. |
 | **Payment Reminder Days** | `3` | Legacy / free reminder offset (deprecated when Pro's reminder engine is enabled). |
+| **Remove all data when the plugin is deleted** | Off | Deleting Easy Invoice from the Plugins screen normally keeps every invoice, quote, payment, client record and setting, so reinstalling picks up where you left off. Turn this on only when you want a complete wipe — invoices are tax records. With it on, deleting the free plugin removes the documents, client records, settings, roles and the addons' tables; deleting Pro removes the addons' tables, options and stored gateway/accounting credentials. Deactivating never removes anything. |
 
 ---
 
