@@ -1,6 +1,6 @@
 ---
 title: Email Enhancements (Pro addon)
-description: Set a Reply-To address so client replies reach the right inbox, override per email type (invoice / reminder / receipt), and load custom email templates from your theme.
+description: Route client replies to the right inbox — one Reply-To for everything or one per kind of email — and place every email Easy Invoice sends in your own HTML layout.
 ---
 
 <div class="doc-pro-callout" role="note">
@@ -10,128 +10,51 @@ description: Set a Reply-To address so client replies reach the right inbox, ove
 
 # Email Enhancements
 
-WordPress's default email delivery is functional but limited. The "From" address is whatever your site admin email is — and when a client hits **Reply** on the invoice email, that reply goes to the same address that sent it. For most businesses that's fine. But the moment you have:
+Two things the stock emails cannot do on their own:
 
-- A separate **billing** or **support** inbox staffed by a different person,
-- A **shared inbox** like `accounts@yourcompany.com`,
-- Or a **custom template** in your theme that you want WordPress to use instead of the plugin's bundled one,
+- **Replies go where you want them.** An invoice email is sent from your site's address; when the client hits Reply, the answer lands there too. With this addon, invoice questions can go to accounts, quote replies to sales, receipts and reminders wherever they belong.
+- **Every email in your own layout.** The free plugin brands emails with your logo and footer inside its stock layout. This addon lets you replace that layout with a full HTML document of your own — colours, fonts, header, footer — while the message text still comes from your email templates.
 
-…the defaults break down.
-
-The **Email Enhancements** addon fixes all three. Set a Reply-To address (so replies land in the right inbox), override it per email type (invoices, reminders, receipts), and point WordPress at your own theme-resident templates.
-
-## Plain-English problem this solves
-
-Your WordPress admin email is `admin@yourcompany.com`. When Easy Invoice sends an invoice, it shows up in the client's inbox as "from `admin@yourcompany.com`." Your client clicks Reply to ask a question about the invoice, and… the reply lands in your **admin inbox**, which probably nobody monitors for client questions. Or worse: the admin inbox auto-forwards to several people, creating CC spam.
-
-With Email Enhancements, you set **Reply-To = `billing@yourcompany.com`**. The "From" stays as the technical admin email (which keeps deliverability strong — DKIM, SPF, etc. are aligned), but clicking Reply now goes straight to your billing team. Clean separation, no inbox fishing.
-
-## When you need this
-
-- **Any business with separate admin and customer-facing email addresses** — universal need.
-- **Agencies / teams** where billing replies should go to one person and tech replies to another.
-- **Shared inboxes / helpdesk software** (Zendesk, Help Scout, Freshdesk) — point Reply-To at your ticket-system address.
-- **White-label resellers** running Easy Invoice on behalf of clients — the client's inbox handles replies, your admin handles deliverability.
-
-If you're a one-person shop using one email for everything, the defaults work — but it costs nothing to set Reply-To anyway.
+Settings live on their own page: **Easy Invoice → Addons → Email Enhancements → Settings** (the page is `easy-invoice-addon-email-enhancements`).
 
 ## Enabling
 
 1. Open **Easy Invoice → Addons**
-2. Find **Email Enhancements**
-3. Click **Activate**
+2. Find **Email Enhancements** and click **Activate**
+3. Click **Settings →** on the card
 
-Settings appear in two places:
+## Where replies go
 
-1. **Easy Invoice → Settings → Email** — the global Reply-To, Reply-To Name, and Template Path settings.
-2. **Per-email-type sub-sections** — three more Reply-To overrides, one each for Invoice, Reminder, and Receipt emails.
+| Setting | What it does |
+|---|---|
+| **Reply-To for all emails** | The address a client's reply goes to, whatever the email. Empty keeps replies going to the From address (Settings → Email). |
+| **Reply-To name** | The name shown on that address. Empty uses your business name from Settings → Company. |
+| **Invoice emails / Quote emails / Payment receipts / Payment reminders** | A Reply-To for that kind of email only. Empty falls back to the address above. |
 
-## Every setting explained
+Only one Reply-To is ever sent: an address here replaces the one from Settings → Email for that kind of email rather than adding a second header. Reminders from [Smart Reminders](./smart-reminders) and the basic payment reminder count as "Payment reminders" and also go out with the From address from Settings → Email (they used to be sent as "WordPress").
 
-### Global Reply-To email address
+## Email layout
 
-**What it does:** When a client clicks **Reply** on any email Easy Invoice sends, their reply goes to this address instead of whatever the "From" was.
+Paste a complete HTML document into **Email layout** and every email — invoices, quotes, receipts, reminders, admin notifications — is placed in it. Leave it empty to keep the stock layout.
 
-**Default:** Empty (replies go to the "From" address — usually your site admin email).
+Placeholders:
 
-**Examples:**
-- `billing@yourcompany.com` — replies land with your accounts team.
-- `support@yourcompany.com` — replies land with general support.
-- `hello@yourcompany.com` — one shared inbox for everything.
-- `ticket-abc123@helpscout.net` — replies turn into helpdesk tickets automatically.
+| Placeholder | Replaced with |
+|---|---|
+| `{{content}}` | The message — **required**; without it the layout is ignored and the stock one is used (the page tells you). |
+| `{{logo}}` | The logo block from Settings → Email, or nothing when no logo is set. |
+| `{{footer}}` | The footer text from Settings → Email (or White-Label's email footer). |
+| `{{company_name}}` | Your business name. |
+| `{{site_url}}` | Your site's address. |
+| `{{year}}` | The current year. |
 
-**Plain-English:** This is the "if anyone replies, send the reply here" address. Most setups change this once and forget about it.
+**Start from the stock layout** fills the box with a plain version of the built-in layout so you can restyle it rather than write one from scratch. A few things to know:
 
-**Tip:** If you use a helpdesk tool (Zendesk, Help Scout, Freshdesk, etc.), copy the inbound email address it gives you. Replies become tickets — no manual forwarding.
+- Email clients ignore external stylesheets and scripts. Keep styles in a `<style>` block in the `<head>` or inline. Scripts and `on*` attributes are stripped on save.
+- The message text uses the classes `.button` (the "View and pay" button), `.highlight-box` and `.info-box`, so give those a style.
+- The message keeps its paragraphs; the layout decides everything around them.
 
-### Reply-To Name
-
-**What it does:** The display name for the Reply-To address. When a client's email client shows the reply destination, this is what they see.
-
-**Default:** Empty (falls back to your company name from Settings).
-
-**Examples:**
-- `Support Team` — friendly, neutral.
-- `Acme Billing` — clearly labelled by department.
-- `Acme Support · Reply Here` — pushy but clear.
-
-**Plain-English:** This is the human-readable label for the Reply-To address. Set it so clients know what they're replying to.
-
-### Email Template Path
-
-**What it does:** If you have your own HTML email templates inside your theme (or a child theme), Easy Invoice will load them from this folder instead of using the bundled defaults.
-
-**Default:** Empty (use the plugin's bundled templates).
-
-**Recommended path:** `wp-content/themes/your-theme/easy-invoice/emails`
-
-**How to use it:**
-1. Copy any template file from `wp-content/plugins/easy-invoice/templates/emails/` into your theme at the matching subpath.
-2. Edit the copy — change colors, add your CSS, restructure the layout — anything HTML/CSS.
-3. Set this field to the folder path **relative to the site root** (no leading slash).
-4. Easy Invoice prefers your copy over the bundled one. Other templates still come from the plugin.
-
-**Plain-English:** This is the "I want to design my own emails" escape hatch. If your branding requires colors and layouts the plugin defaults can't match, point this at your custom folder and copy/edit just the templates you care about.
-
-**When to leave empty:** If the bundled templates are fine for your business. Most users never need to touch this.
-
-### Reply-To: Invoice Emails (override)
-
-**What it does:** Overrides the **Global Reply-To** specifically for the **invoice-sent** email. If empty, invoices use the global Reply-To. If filled, this address takes precedence for new-invoice emails only.
-
-**Default:** Empty (use Global Reply-To).
-
-**Common use:**
-- Global Reply-To: `support@yourcompany.com`
-- Invoice override: `billing@yourcompany.com`
-- Reminder override: `reminders@yourcompany.com`
-- Receipt override: `accounts@yourcompany.com`
-
-This routes each email type to the right person/inbox without touching the global setting.
-
-**Plain-English:** Think of it like setting different return-addresses for different mail categories. You don't have to do this — just nice when you can.
-
-### Reply-To: Reminder Emails (override)
-
-**What it does:** Same as above, but for the automated **payment reminder** emails (the chase sequence sent for unpaid invoices — particularly if you're using the [Smart Reminders](./smart-reminders) addon).
-
-**Why a separate override:** Reminder emails are higher-friction (someone is being chased), so many businesses route those to a dedicated billing inbox where someone is empowered to negotiate or extend.
-
-**Examples:**
-- `collections@yourcompany.com` — formal/firm tone team.
-- `billing@yourcompany.com` — same team that handles all money matters.
-- Leave empty → uses Global Reply-To.
-
-### Reply-To: Receipt Emails (override)
-
-**What it does:** Same as above, but for the **payment-received receipt** email that goes to clients after they pay.
-
-**Why a separate override:** Receipt-email replies are usually questions like "can you re-send my receipt?" or "I need this in a different format" — different from billing/collections. Often handled by a different team.
-
-**Examples:**
-- `receipts@yourcompany.com` — dedicated address.
-- `accounts@yourcompany.com` — accounting team.
-- Leave empty → uses Global Reply-To.
+**Send a test to …** on the right sends the invoice layout to your own address with the saved settings, so you can see it in a real inbox and reply to it to check the Reply-To. Save first — the test uses what is saved.
 
 ## How "From" vs "Reply-To" actually works
 
@@ -160,17 +83,16 @@ Email Enhancements lets you set Reply-To without touching From — best of both 
 - Some email clients (older Outlook in particular) silently strip the Reply-To header. There's no fix for that on the sender side — the email is sent correctly, the client just ignores it.
 - Some SMTP plugins (e.g. WP Mail SMTP) override headers. Check your SMTP plugin's settings for "Force From" / "Force Reply-To" options and disable them.
 
-**"I set a Template Path but my custom template isn't loading"**
-- Confirm the path is **relative to the site root** (e.g. `wp-content/themes/your-theme/easy-invoice/emails`, NOT `/var/www/html/wp-content/...`).
-- Confirm the file at that path has the same name as the bundled template (e.g. `invoice-sent.php`).
-- Clear any object/page cache after copying the template.
+**"My layout is saved but emails still look like the stock one"**
+- The layout must contain `{{content}}`; the settings page warns when it does not.
+- Check the email actually came from Easy Invoice — WooCommerce, membership and form plugins send their own emails, which this addon does not touch.
 
 **"PDFs aren't being attached"**
 PDF attachment is a **free-plugin** setting, not part of this addon: **Settings → Email → General → Attach a PDF copy to invoice emails** (Easy Invoice 2.4.0 or later). It is off by default. When it is on, the invoice is rendered on the server and attached to the invoice email; the emailed link still works either way. If the box is missing, update the free plugin.
 
-## Settings location
+## For developers
 
-All Email Enhancements settings live on **Easy Invoice → Settings → Email**. There's no separate admin page.
+The addon works through two filters in the free plugin, which your own code can use as well: `easy_invoice_email_headers( $headers, $kind, $document )` and `easy_invoice_email_html( '', $message, $logo_html, $footer_html, $settings )` — return a full HTML document from the latter to take over the layout. `easy_invoice_email_footer_html` filters just the footer block. See [Hooks & filters](../hooks-filters).
 
 ## See also
 

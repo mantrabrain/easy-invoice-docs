@@ -92,7 +92,10 @@ add_action( 'easy_invoice_payment_completed', function ( $invoice_id, $invoice, 
 | `easy_invoice_email_sent` | action | After successful `wp_mail`. |
 | `easy_invoice_email_failed` | action | When `wp_mail` returns false. |
 | `easy_invoice_email_attachments` | filter | Add / remove email attachments. |
-| `easy_invoice_email_headers` | filter | Add custom From / Reply-To / BCC. |
+| `easy_invoice_email_headers` | filter | Change the headers of an outgoing email. Args: `$headers`, `$kind` (`invoice`, `quote`, `receipt`, `reminder`, or '' ), `$document`. |
+| `easy_invoice_email_footer_html` | filter | The footer block of every email (`''` when no footer text is set). Args: `$footer_html`, `$settings`. |
+| `easy_invoice_email_html` | filter | Replace the whole email layout: return a full HTML document. Args: `''`, `$message`, `$logo_html`, `$footer_html`, `$settings`. |
+| `easy_invoice_pdf_footer_html` | filter | The footer printed under a document on the page, the PDF and the email attachment. Args: `$text`, `$document`, `$type`. |
 
 ```php
 add_filter( 'easy_invoice_email_attachments', function ( $attachments, $type, $invoice_id ) {
