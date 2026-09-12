@@ -34,7 +34,8 @@ The builder canvas works like a visual page editor:
 
 - **Drag elements** from the left palette: company logo, company info block, invoice title, invoice number, dates, line items table, totals, terms, signatures, footers, custom text blocks
 - **Configure each element** in the right panel: alignment, font, color, padding, visibility per-document-type
-- **Live preview** updates as you edit
+- **Live preview** updates as you edit, with sample data
+- **Check it against a real document** — the **Data** tab in the left panel lists your invoices (or quotes, for a quote template); pick one and the canvas renders it with that document's number, dates, client, lines and totals. Save the template first; switching back to sample data is a reload.
 - **Save & assign** — each template is saved and can be assigned as default OR per-client
 
 ## Multiple templates
