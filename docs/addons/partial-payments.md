@@ -149,9 +149,9 @@ When the client opens the invoice's pay page:
 
 1. They see the **invoice total** and **balance due** (which decreases as they pay).
 2. The chosen payment-amount widgets render — buttons, percentages, or a custom field.
-3. They click their preferred amount, get redirected to the gateway (Stripe, PayPal, etc.), and pay just that portion.
-4. After payment, they're returned to the invoice page where the balance is updated.
-5. They can come back any time and pay more until the balance reaches $0 — at which point the invoice is marked **Paid**.
+3. They click their preferred amount and pay just that portion. With a card or wallet gateway (Stripe, Mollie, Square, Paystack, PayPal…) the gateway charges exactly that amount — the amount is checked on the server against what is still owed, so nothing in the browser can change it. With an offline method (bank transfer, cheque, cash) the instalment is recorded as **pending** and the client is told it will count once you confirm it in **Easy Invoice → Payments**.
+4. After payment, they're returned to the invoice page where the balance is updated and the invoice reads **Partially paid**.
+5. They can come back any time and pay more until the balance reaches $0 — at which point the invoice is marked **Paid**. Credit notes count towards the balance too.
 
 ## What gets tracked
 
