@@ -153,7 +153,7 @@ export default defineConfig({
         items: [
           { text: 'Shortcodes', link: '/shortcodes' },
           { text: 'Hooks & filters', link: '/hooks-filters' },
-          { text: 'AJAX & webhooks', link: '/api-reference' }
+          { text: 'REST API, AJAX & webhooks', link: '/api-reference' }
         ]
       },
       {
@@ -261,7 +261,7 @@ export default defineConfig({
         items: [
           { text: 'Shortcodes', link: '/shortcodes' },
           { text: 'Hooks & filters', link: '/hooks-filters' },
-          { text: 'AJAX & webhooks', link: '/api-reference' }
+          { text: 'REST API, AJAX & webhooks', link: '/api-reference' }
         ]
       },
       {

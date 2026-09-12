@@ -158,8 +158,8 @@ next:
 
 <a class="ei-card" href="/docs/api-reference">
   <span class="ei-card__icon">🔌</span>
-  <h3>AJAX &amp; webhooks</h3>
-  <p>Easy Invoice doesn't register custom REST routes. It uses <code>admin-ajax.php</code> actions and gateway webhooks (Stripe, Mollie, Square, Authorize.Net).</p>
+  <h3>REST API, AJAX &amp; webhooks</h3>
+  <p>An authenticated REST API at <code>easy-invoice/v1</code> for invoices, quotes, clients and PDFs, plus the gateway webhook URLs (Stripe, Mollie, Square, Authorize.Net).</p>
   <span class="ei-card__cta">Read API docs →</span>
 </a>
 

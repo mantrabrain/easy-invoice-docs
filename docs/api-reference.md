@@ -1,16 +1,117 @@
 ---
-title: AJAX & webhooks
-description: Easy Invoice doesn't expose a custom REST API. It uses WordPress's admin-ajax.php for internal AJAX and exposes gateway-specific webhook URLs (Stripe, Mollie, Square, Authorize.Net).
+title: REST API, AJAX & webhooks
+description: Easy Invoice exposes an authenticated REST API at easy-invoice/v1 for invoices, quotes, clients and PDFs, uses admin-ajax.php for its own screens, and listens on gateway-specific webhook URLs (Stripe, Mollie, Square, Authorize.Net).
 ---
 
-# AJAX & webhooks
+# REST API, AJAX & webhooks
 
-Easy Invoice **does not register custom REST routes**. There are no `/wp-json/easy-invoice/v1/...` endpoints. Instead, the plugin uses two transports:
+Easy Invoice has three HTTP surfaces:
 
-1. **`admin-ajax.php`** for in-page AJAX (search, save, send, mark paid, generate PDF).
-2. **Gateway webhooks** for asynchronous payment notifications (Stripe, Mollie, Square, Authorize.Net) — also routed through `admin-ajax.php`.
+1. **REST API** at `/wp-json/easy-invoice/v1/` — the one to build integrations on. Added in 2.4.0.
+2. **`admin-ajax.php`** for the plugin's own in-page AJAX (search, save, send, mark paid, generate PDF). Internal; expect it to change.
+3. **Gateway webhooks** for asynchronous payment notifications (Stripe, Mollie, Square, Authorize.Net) — also routed through `admin-ajax.php`.
 
-If you're integrating Easy Invoice with another system, work via [hooks & filters](/hooks-filters) plus `wp_remote_post` against `admin-ajax.php`, or skip the HTTP layer entirely and call PHP services in-process.
+If you are inside the same WordPress install, skip HTTP and call the PHP services in-process (see the end of this page).
+
+## REST API
+
+Base URL: `https://yoursite.com/wp-json/easy-invoice/v1/`
+
+### Authentication
+
+Every route needs a signed-in user — **there are no public routes**. Use any standard WordPress REST authentication:
+
+- **Application passwords** (WordPress 5.6+): Users → Profile → *Application Passwords*. Send them as HTTP Basic auth. This is the right choice for mobile apps, headless front-ends and server-to-server calls.
+- **Cookie + nonce** from inside a logged-in browser session (pass the `X-WP-Nonce` header).
+
+Each route checks the same `ei_*` capability as the matching admin screen, so a user with the EI Viewer role gets read access and nothing more, and the [Team Roles](/addons/team-roles) addon applies unchanged. An unauthenticated call gets `401 easy_invoice_rest_unauthenticated`; a signed-in user without the capability gets `403 easy_invoice_rest_forbidden`.
+
+### Routes
+
+| Route | Method | Capability | Purpose |
+| --- | --- | --- | --- |
+| `/invoices` | GET | `ei_view_invoices` | List invoices (`page`, `per_page` ≤ 100, `search`). |
+| `/invoices` | POST | `ei_create_invoice` | Create an invoice. |
+| `/invoices/{id}` | GET | `ei_view_invoices` | One invoice. |
+| `/invoices/{id}` | DELETE | `ei_delete_invoice` | Move an invoice to the trash. |
+| `/invoices/{id}/pdf` | GET | `ei_view_invoices` | The invoice as a PDF file (`application/pdf`, server-rendered). |
+| `/quotes` | GET | `ei_view_quotes` | List quotes (`page`, `per_page`, `search`). |
+| `/quotes/{id}` | GET | `ei_view_quotes` | One quote. |
+| `/clients` | GET | `ei_view_clients` | List clients (`page`, `per_page`, `search`). |
+
+List responses carry the usual `X-WP-Total` and `X-WP-TotalPages` headers. An id that does not exist — or belongs to a different kind of document — is a `404 easy_invoice_rest_not_found`.
+
+`DELETE` trashes rather than erases, exactly as the admin screen does: an invoice is a financial record, and an issued one [cannot be deleted permanently](/invoices#_9-the-invoice-list) by any route.
+
+### Invoice representation
+
+```json
+{
+  "id": 20,
+  "number": "INV-000002",
+  "title": "Web Design",
+  "status": "available",
+  "viewed": { "count": 2, "first": "2026-09-01 10:12:00", "last": "2026-09-10 08:40:00" },
+  "issue_date": "2026-08-01",
+  "due_date": "2026-08-31",
+  "customer": { "name": "Rigel Vaughn", "email": "rigel@example.com", "country": "NP", "vat": "" },
+  "totals": {
+    "subtotal": 430, "discount": 0, "tax": 0, "total": 430,
+    "paid": 0, "credited": 0, "due": 430
+  },
+  "items": [
+    { "name": "Design", "description": "", "quantity": 1, "price": 430, "amount": 430, "taxable": true }
+  ],
+  "links": { "pdf": "https://yoursite.com/wp-json/easy-invoice/v1/invoices/20/pdf" },
+  "tax_treatment": { "category": "standard", "statement": "" }
+}
+```
+
+`status` is the stored workflow status (`draft`, `available`, `partial`, `paid`, `unpaid`, `cancelled`); whether an invoice is *overdue* is derived from `due_date` and `totals.due`, just as the admin list does. `totals.paid` sums completed payments, `totals.credited` sums credit notes, and `totals.due` is what is still owed.
+
+The per-document access key that makes the public payment link work is a bearer credential and is **never** included in a response.
+
+### Creating an invoice
+
+```bash
+curl -u "apiuser:xxxx xxxx xxxx xxxx xxxx xxxx" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Web Design",
+    "client_id": 21,
+    "due_date": "2026-10-01",
+    "terms": "Net 30",
+    "items": [ { "name": "Design", "quantity": 1, "price": 430 } ]
+  }' \
+  https://yoursite.com/wp-json/easy-invoice/v1/invoices
+```
+
+| Field | Notes |
+| --- | --- |
+| `items` | Required. Each item takes `name`, `description`, `quantity`, `price`, `taxable`. |
+| `client_id` | A WordPress user id; the invoice's customer name and email are filled from the client record. Unknown id → `400 easy_invoice_rest_no_client`. |
+| `customer_name`, `customer_email` | Used when there is no client record, or to override it. |
+| `status` | `draft` (default) or `available`. Payment statuses cannot be set here — record a payment instead. |
+| `number` | Leave it out to take the next number in your sequence. |
+| `issue_date`, `due_date` | `Y-m-d`. |
+| `notes`, `terms`, `currency`, `customer_vat_number`, `customer_country` | Optional. |
+
+The invoice is created through the same repository the invoice builder uses, so it is numbered, given an access key, and announced on `easy_invoice_invoice_created` — Webhooks, Recurring Invoices and Smart Reminders see it like any other. The response is `201` with the full representation.
+
+### Shaping responses
+
+Two filters let a plugin add fields (or strip them) without touching the controller:
+
+```php
+add_filter( 'easy_invoice_rest_invoice', function ( array $data, $invoice ) {
+    $data['project'] = get_post_meta( $invoice->getId(), '_my_project_code', true );
+    return $data;
+}, 10, 2 );
+
+add_filter( 'easy_invoice_rest_quote', function ( array $data, $quote ) {
+    return $data;
+}, 10, 2 );
+```
 
 ## admin-ajax actions
 
@@ -102,43 +203,31 @@ These have **no webhooks** — the admin marks the Payment record as completed m
 If you're inside the same WordPress install (custom plugin / theme code), skip HTTP entirely:
 
 ```php
-// Get an invoice
-$invoice = new \EasyInvoice\Models\Invoice( $invoice_id );
+$repository = \EasyInvoice\Providers\InvoiceServiceProvider::getInvoiceRepository();
 
-// Mark as paid
-$invoice->set_payment_status( 'completed' );
-$invoice->save();
+// Create an invoice — numbered, hooked and filled from the client, like the builder does
+$invoice = $repository->create( [
+    'title'     => 'Web Design',
+    'client_id' => 21,
+    'status'    => 'draft',
+    'items'     => [ [ 'name' => 'Design', 'quantity' => 1, 'price' => 430 ] ],
+] );
 
-// Trigger the receipt email
-do_action( 'easy_invoice_payment_completed', $payment_id );
+// Read one
+$invoice = $repository->find( $invoice_id );
+$total   = $invoice->getTotal();
+$due     = \EasyInvoice\Services\InvoiceBalance::due( $invoice );
+
+// React to money arriving (fires for full and partial payments)
+add_action( 'easy_invoice_payment_completed', function ( $invoice_id, $invoice, $payment ) { /* settled */ }, 10, 3 );
+add_action( 'easy_invoice_payment_received',  function ( $invoice_id, $invoice, $payment ) { /* partial */ }, 10, 3 );
 ```
 
-This is faster, doesn't need nonces, and respects every filter/hook automatically.
-
-## What about a "real" REST API?
-
-If you need a true `/wp-json/easy-invoice/v1/invoices` endpoint, you can add one yourself in a small mu-plugin that wraps the existing services:
-
-```php
-add_action( 'rest_api_init', function () {
-    register_rest_route( 'easy-invoice/v1', '/invoices/(?P<id>\d+)', [
-        'methods'             => 'GET',
-        'callback'            => function ( $request ) {
-            $invoice = new \EasyInvoice\Models\Invoice( $request['id'] );
-            return rest_ensure_response( $invoice->to_array() );
-        },
-        'permission_callback' => function () {
-            return current_user_can( 'manage_options' );
-        },
-    ] );
-} );
-```
-
-Apply the `easy_invoice_model_to_array` filter to control what's returned.
+This is faster, doesn't need authentication, and respects every filter/hook automatically.
 
 ## Rate limits & caching
 
-- `admin-ajax.php` is **uncached** by default (most caching plugins exclude it).
+- The REST API and `admin-ajax.php` are **uncached** by default (most caching plugins exclude both).
 - No built-in rate limit — protect with **Cloudflare** / **WP Hide / Login Lockdown** if you expose webhooks publicly.
 
 ## Where to go next

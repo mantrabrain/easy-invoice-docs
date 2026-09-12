@@ -72,16 +72,17 @@ add_action( 'easy_invoice_quote_accepted', function ( $quote_id ) {
 
 | Hook | Type | Use |
 | --- | --- | --- |
-| `easy_invoice_payment_completed` | action | Fired after a payment is marked completed. |
+| `easy_invoice_payment_completed` | action | Fired when a payment settles the invoice. Args: `$invoice_id`, `$invoice`, `$payment` (`payment_method`, `gateway_name`, `transaction_id`, `amount`, `date`). |
+| `easy_invoice_payment_received` | action | Fired when a payment is recorded that still leaves a balance owing (partial payment). Same arguments. |
 | `easy_invoice_before_process_payment` | action | Before gateway processes (good for validation). |
 | `easy_invoice_should_update_invoice_status` | filter | Decide whether the parent invoice status should change. |
 | `easy_invoice_pro_recurring_generated` | action | Fires after a recurring invoice is generated (Pro). |
 | `easy_invoice_pro_receipt_generated` | action | Fires after a receipt is generated (Pro). |
 
 ```php
-add_action( 'easy_invoice_payment_completed', function ( $payment_id ) {
-    // Notify external CRM that we got paid.
-} );
+add_action( 'easy_invoice_payment_completed', function ( $invoice_id, $invoice, $payment ) {
+    // Notify external CRM that we got paid: $payment['amount'] via $payment['gateway_name'].
+}, 10, 3 );
 ```
 
 ## Emails
@@ -215,5 +216,5 @@ This logs every Easy Invoice hook that fires during a request.
 ## Where to go next
 
 - ⚙️ [Shortcodes](/shortcodes) — frontend embeds.
-- 🔌 [AJAX & webhooks](/api-reference) — REST-equivalents for integrations.
+- 🔌 [REST API, AJAX & webhooks](/api-reference) — the HTTP surface for integrations.
 - 💎 [Pro features](/features) — what each module exposes.

@@ -104,6 +104,7 @@ Every delivery is a `POST` with a JSON body shaped like:
     "status":          "paid",
     "total":           1250.00,
     "subtotal":        1250.00,
+    "amount_due":      0,
     "currency":        "USD",
     "client_id":       42,
     "customer_name":   "Acme Corp",
@@ -115,7 +116,7 @@ Every delivery is a `POST` with a JSON body shaped like:
 }
 ```
 
-Quote payloads have the same shape with `quote_id`, `quote_number`, `quote_status` etc. Payment events extend the invoice payload with `amount`, `payment_method`, `gateway_name`, `transaction_id`.
+Quote payloads have the same shape with `quote_id`, `quote_number`, `quote_status` etc. Payment events extend the invoice payload with `amount`, `payment_method`, `gateway_name`, `transaction_id`. `payment.recorded` fires for every payment, partial or full — `amount_due` tells you what is still owed — and `invoice.paid` follows only when the invoice is settled.
 
 ## Headers we send
 
