@@ -68,6 +68,14 @@ Each step has a **Subject** and a **Body** with smart-tag interpolation. Availab
 
 Add as many steps as you want with **Add step**, reorder by changing offset values (rows are sorted on save). Each step fires **exactly once per invoice** — the addon records the last-sent step in `_easy_invoice_dunning_last_step` so a step is never re-sent.
 
+Only the **latest step that is due** goes out on any run. An invoice that is already three weeks overdue when you switch reminders on gets the final notice — not the "due in 3 days", "now overdue", "second notice" and "final notice" emails all at once; the earlier steps are recorded as skipped. The same applies when cron has been down for a few days.
+
+`{{total_amount}}` is the invoice total formatted in its currency, and `{{invoice_url}}` is the link the invoice email itself uses — the secure link when that addon is on, carrying the access token so the client needs no login.
+
+### Which invoices are chased
+
+Reminders go to invoices in the statuses ticked under **For which invoice statuses?** — by default **Available**, **Partially paid**, **Unpaid** and **Overdue**. "Available" is the status every sent invoice has until it is paid, so leave it ticked; paid, cancelled and refunded invoices are never chased whatever is selected.
+
 ### Late Fee
 
 Auto-apply a fee after N days overdue:
@@ -82,11 +90,11 @@ Auto-apply a fee after N days overdue:
 The calculated fee is stored in invoice meta `_easy_invoice_late_fee_amount` and `_easy_invoice_late_fee_applied_at`. To surface it on the rendered invoice, the addon hooks two filters automatically:
 
 ```
-easy_invoice_calculate_total     ⟶ adds fee to total
-easy_invoice_extra_line_items    ⟶ appends fee as a line item
+easy_invoice_invoice_total                   ⟶ adds the fee to the total
+easy_invoice_invoice_totals_after_discount   ⟶ prints a "Late fee" row above the total
 ```
 
-That means **the late fee shows up automatically on the invoice** — no extra wiring needed.
+That means **the late fee shows up automatically on the invoice** — page, PDF and email — no extra wiring needed.
 
 ### Early-Payment Discount
 
